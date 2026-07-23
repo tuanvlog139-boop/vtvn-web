@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VT-VN-WEB.COM - Bốc Túi Mù</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .header {
+            background: #0f0f23;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #ff6b6b;
+        }
+
+        .rainbow-line {
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            background-size: 200% 100%;
+            animation: rainbowMove 3s linear infinite;
+        }
+
+        @keyframes rainbowMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .main-content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .box-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .mystery-box {
+            aspect-ratio: 1;
+            background: linear-gradient(145deg, #2a2a4a, #3a3a5a);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mystery-box:hover:not(.revealed):not(.greyed) {
+            transform: scale(1.05);
+            border-color: #ff6b6b;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .mystery-box .box-icon {
+            font-size: 40px;
+            color: #ff6b6b;
+        }
+
+        .mystery-box.revealed {
+            background: linear-gradient(145deg, #1e3a1e, #2a5a2a);
+            border-color: #00ff00;
+            cursor: default;
+        }
+
+        .mystery-box.greyed {
+            background: linear-gradient(145deg, #2a2a2a, #3a3a3a);
+            border-color: #666;
+            cursor: default;
+            opacity: 0.6;
+        }
+
+        .mystery-box .prize-img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .mystery-box .prize-name {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 10px;
+            color: #fff;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 5px;
+        }
+
+        .play-again-btn {
+            display: block;
+            width: 200px;
+            height: 50px;
+            margin: 30px auto;
+            line-height: 50px;
+            padding: 0;
+            clip-path: polygon(15px 0px, calc(100% - 15px) 0px, 100% 50%, calc(100% - 15px) 100%, 15px 100%, 0px 50%);
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 100%;
+            background-position: 0% 50%;
+            color: #1a1a2e;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            filter: drop-shadow(0 5px 15px rgba(255, 107, 107, 0.4));
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .play-again-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background: #0f0f23;
+            padding: 30px 40px;
+            margin-top: 50px;
+        }
+
+        .footer-rainbow {
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            margin-bottom: 30px;
+            background-size: 200% 100%;
+            animation: rainbowMove 3s linear infinite;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: right;
+        }
+
+        .footer-section h3 {
+            color: #ddd;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .footer-section p {
+            color: #999;
+            line-height: 1.6;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .footer-copyright {
+            color: #aaa;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .footer-developed-by {
+            color: #888;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .nav {
+                gap: 15px;
+            }
+
+            .box-grid {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 10px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">VT-VN-WEB.COM</div>
+        <nav class="nav">
+            <a href="index.html">TRANG CHỦ</a>
+            <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
+            <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
+            <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+        </nav>
+    </header>
+    <div class="rainbow-line"></div>
+
+    <main class="main-content">
+        <h1 class="main-title">BỐC TÚI MÙ - MAY MẮN</h1>
+        <div class="box-grid" id="boxGrid"></div>
+        <button class="play-again-btn" id="playAgain" style="display: none;">CHƠI LẠI</button>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-rainbow"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-logo"><img src="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png" alt="Logo"></div>
+            </div>
+            
+            <div class="footer-right">
+                <div class="footer-section">
+                    <h3>VỀ CHÚNG TÔI</h3>
+                    <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>LIÊN HỆ HỖ TRỢ</h3>
+                    <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2026 VT-VN-WEB.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-developed-by">Phát triển bởi VT-VN-WEB.com • v2.5.28</p>
+        </div>
+    </footer>
+
+    <script>
+        const prizes = [
+            { name: "50 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
+            { name: "90 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
+            { name: "150 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
+            { name: "899 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+            { name: "15 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
+            { name: "TEK GEN", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
+            { name: "35 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
+            { name: "TRỤ TEK", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
+            { name: "100 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
+            { name: "200 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
+            { name: "300 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
+            { name: "500 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+            { name: "25 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
+            { name: "TEK CLON", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
+            { name: "45 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
+            { name: "MÁY ẤP", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
+            { name: "75 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
+            { name: "120 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
+            { name: "180 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
+            { name: "250 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+            { name: "10 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
+            { name: "20 ĐIỂM", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
+            { name: "30 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
+            { name: "40 ĐIỂM", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
+            { name: "60 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
+            { name: "80 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" }
+        ];
+
+        let shuffledPrizes = [];
+        let gameEnded = false;
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function initGame() {
+            shuffledPrizes = shuffleArray(prizes);
+            gameEnded = false;
+            const grid = document.getElementById('boxGrid');
+            grid.innerHTML = '';
+            
+            shuffledPrizes.forEach((prize, index) => {
+                const box = document.createElement('div');
+                box.className = 'mystery-box';
+                box.dataset.index = index;
+                box.innerHTML = '<div class="box-icon">📦</div>';
+                box.addEventListener('click', () => revealBox(box, index));
+                grid.appendChild(box);
+            });
+
+            document.getElementById('playAgain').style.display = 'none';
+        }
+
+        function revealBox(selectedBox, selectedIndex) {
+            if (gameEnded) return;
+            gameEnded = true;
+
+            const allBoxes = document.querySelectorAll('.mystery-box');
+            
+            allBoxes.forEach((box, index) => {
+                const prize = shuffledPrizes[index];
+                box.innerHTML = `
+                    <img src="${prize.img}" class="prize-img" alt="${prize.name}">
+                    <div class="prize-name">${prize.name}</div>
+                `;
+                
+                if (index === selectedIndex) {
+                    box.classList.add('revealed');
+                } else {
+                    box.classList.add('greyed');
+                }
+            });
+
+            document.getElementById('playAgain').style.display = 'block';
+        }
+
+        document.getElementById('playAgain').addEventListener('click', initGame);
+
+        initGame();
+
+        let position = 0;
+        let direction = 1;
+        
+        setInterval(() => {
+            position += 0.8 * direction; 
+            
+            if (position >= 100) { direction = -1; }
+            if (position <= 0) { direction = 1; }
+            
+            const buttons = document.querySelectorAll('.play-again-btn');
+            buttons.forEach(btn => {
+                btn.style.setProperty('background-position', `${position}% 50%`, 'important');
+            });
+        }, 20);
+    </script>
+</body>
+</html>
