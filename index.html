@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VT-VN-WEB.COM - Gói Ủng Hộ Máy Chủ</title>
+    <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
     <style>
         * {
             margin: 0;
@@ -34,6 +35,731 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            max-width: 150px;
+            max-height: 50px;
+            object-fit: contain;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #ff6b6b;
+        }
+
+        .rainbow-line {
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            background-size: 200% 100%;
+            animation: rainbowMove 3s linear infinite;
+        }
+
+        @keyframes rainbowMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* 1. KHUNG CHỨA TỔNG CHIA ĐỀU CỘT NGANG */
+        #productGrid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+            gap: 20px !important;
+            padding: 15px !important;
+            font-family: Arial, sans-serif !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* ANIMATION QUAY TRÒN 360 ĐỘ CỦA VIỀN NGOÀI */
+        @keyframes rainbowRotate {
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* 2. KHUNG VIỀN NGOÀI 7 SẮC XOAY TRÒN PHÁT SÁNG NEON */
+        .rainbow-card {
+            position: relative !important;
+            background: linear-gradient(145deg, #1e1e3f, #252550) !important;
+            border-radius: 12px !important;
+            padding: 12px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            box-sizing: border-box !important;
+            height: auto !important;
+            text-align: center !important;
+            overflow: hidden !important;
+            z-index: 1 !important;
+            filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.4)) !important;
+        }
+
+        .rainbow-card::before {
+            content: "" !important;
+            position: absolute !important;
+            top: 50% !important; left: 50% !important;
+            width: 150% !important; height: 150% !important;
+            background: conic-gradient(#ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000) !important;
+            animation: rainbowRotate 4s linear infinite !important;
+            transform: translate(-50%, -50%) rotate(0deg);
+            z-index: -2 !important;
+        }
+
+        .rainbow-card::after {
+            content: "" !important;
+            position: absolute !important;
+            top: 3px !important; left: 3px !important; right: 3px !important; bottom: 3px !important;
+            background: linear-gradient(145deg, #1e1e3f, #252550) !important;
+            border-radius: 10px !important;
+            z-index: -1 !important;
+        }
+
+        .card-body {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: auto !important;
+        }
+
+        /* 3. KHUNG CHỨA ẢNH CHỐNG TRÀN VÀ TỰ CO GIÃN */
+        .img-container {
+            width: 100% !important;
+            height: auto !important;
+            margin: 0 0 12px 0 !important;
+            padding: 0 !important;
+            display: block !important;
+            overflow: hidden !important;
+        }
+
+        .img-container img {
+            width: 100% !important;
+            height: auto !important;
+            max-height: 160px !important;
+            object-fit: contain !important;
+            display: block !important;
+            margin: 0 auto !important;
+        }
+
+        /* 4. CHỮ TIÊU ĐỀ SẢN PHẨM */
+        .content-container {
+            width: 100% !important;
+            margin-top: auto !important;
+            padding: 0 !important;
+        }
+
+        .content-container .title {
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: #fff !important;
+            margin: 0 0 12px 0 !important;
+            line-height: 1.4 !important;
+            display: block !important;
+        }
+
+        /* 5. NÚT BẤM MŨI TÊN NHỌN - ĐÃ ĐƯỢC CHUẨN HÓA ĐỂ SẴN SÀNG CHẠY MÀU BẰNG JS */
+        .btn-fire-blue {
+            display: block !important;
+            width: 100% !important;
+            height: 42px !important;
+            line-height: 42px !important;
+            padding: 0 !important;
+            
+            /* Cắt góc nhọn 15px hai đầu đối xứng chuẩn mẫu */
+            clip-path: polygon(15px 0px, calc(100% - 15px) 0px, 100% 50%, calc(100% - 15px) 100%, 15px 100%, 0px 50%) !important;
+            
+            /* Dải màu chuẩn siêu đẹp phối cầu vồng */
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3) !important;
+            background-size: 400% 100% !important;
+            background-position: 0% 50%;
+            
+            color: #1a1a2e !important;
+            font-weight: bold !important;
+            text-decoration: none !important;
+            font-size: 13px !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+            box-sizing: border-box !important;
+            text-align: center;
+            
+            /* Đổ bóng */
+            filter: drop-shadow(0 5px 15px rgba(255, 107, 107, 0.4)) !important;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f0f23;
+            padding: 30px 40px;
+            margin-top: 50px;
+        }
+
+        .footer-rainbow {
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            margin-bottom: 30px;
+            background-size: 200% 100%;
+            animation: rainbowMove 3s linear infinite;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ccc;
+            padding: 10px 20px;
+            border: 2px dashed #666;
+            border-radius: 10px;
+        }
+
+        .footer-logo img {
+            max-width: 150px;
+            max-height: 50px;
+            object-fit: contain;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            color: #ddd;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .footer-section p {
+            color: #999;
+            line-height: 1.6;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: right;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .footer-copyright {
+            color: #aaa;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .footer-developed-by {
+            color: #888;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .nav {
+                gap: 15px;
+            }
+
+            .main-title {
+                font-size: 22px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png" alt="Logo">
+            VT-VN-WEB.COM
+        </div>
+        <nav class="nav">
+            <a href="index.html">TRANG CHỦ</a>
+            <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
+            <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
+            <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+        </nav>
+    </header>
+    <div class="rainbow-line"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="main-title">GÓI ỦNG HỖ MÁY CHỦ - ĐÓNG QUỸ NHẬN ĐIỂM</h1>
+        <div id="productGrid"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-rainbow"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-logo"><img src="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png" alt="Logo"></div>
+            </div>
+            
+            <div class="footer-right">
+                <div class="footer-section">
+                    <h3>VỀ CHÚNG TÔI</h3>
+                    <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>LIÊN HỆ HỖ TRỢ</h3>
+                    <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2026 VT-VN-WEB.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-developed-by">Phát triển bởi VT-VN-WEB.com • v2.5.28</p>
+        </div>
+    </footer>
+
+    <!-- ⚙️ KHU VỰC QUẢN LÝ DANH SÁCH SẢN PHẨM -->
+    <script>
+        const products = [
+            {
+                img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png", 
+                title: "COMBO KHỞI ĐẦU", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png", 
+                title: "COMBO KHỞI ĐẦU", 
+                points: "90 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=90000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png", 
+                title: "COMBO KHỞI ĐẦU ", 
+                points: "150 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png", 
+                title: "COMBO PVP ", 
+                points: "899 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=899000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png", 
+                title: "TEK GEN + 100 ELE", 
+                points: "15 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=15000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png", 
+                title: "máy ấp ", 
+                points: "15 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=15000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png", 
+                title: "TEK CLON+1000ELE ", 
+                points: "35 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png", 
+                title: "TRỤ TEK+1000ELE ", 
+                points: "35 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/bMvtmPCW/image.png", 
+                title: "MAX LV 105", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/mCTwCh7Q/image.png", 
+                title: "10 BỘ GIÁP ", 
+                points: "60 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=60000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/bjT3RNx1/image.png", 
+                title: "3 BỘ GIÁP TEK", 
+                points: "100 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/4ZD2ns4y/image.png", 
+                title: "MÀU THÚ 10/1con ", 
+                points: "10 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/FkB1N6r8/image.png", 
+                title: "LÒ NUNG 2/CÁI", 
+                points: "20 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=20000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/GQ9wS59q/image.png", 
+                title: "NỒI NẤU 10 CÁI", 
+                points: "30 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=30000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/HpPPK6tY/image.png", 
+                title: "SÀN TREO NÚI 5 CÁI", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/s9MJY1Js/image.png", 
+                title: "MEK 5 CON ", 
+                points: "299 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=299000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/27gNHvtw/image.png", 
+                title: "FOX 5 ", 
+                points: "299 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=299000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/0Rtz8GS8/image.png", 
+                title: "MẮC MA 5 CON", 
+                points: "299 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=299000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/vxmRcTC4/image.png", 
+                title: "NGƯỜI ĐÁ GEN 1 5 CON", 
+                points: "299 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=299000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/ymztnWcK/image.png", 
+                title: "CHUỒN CHUỒN 5 CON ", 
+                points: "299 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=299000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/Xfnc8fM1/image.png", 
+                title: "500 kibble ", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/8g7Rk2Vm/image.png", 
+                title: "GIFFIN", 
+                points: "100 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/mFc9f6Th/image.png", 
+                title: "ROCDAKE 1 CẶP", 
+                points: "199 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=199000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/8g2LLq8G/image.png", 
+                title: "Ổ ONG 3 CÁI ", 
+                points: "20 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=20000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/pvYCyS3n/image.png", 
+                title: "COMBO PVP ", 
+                points: "350 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=350000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/yB8482kn/image.png", 
+                title: "UNLOCK FULL TEK BOSS", 
+                points: "300 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=300000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/ycZPTpKW/image.png", 
+                title: "CẦU 120 QUẢ", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/5XmZmmDF/image.png", 
+                title: "TRỤ CẦU", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/zTTMRGMN/image.png", 
+                title: "KEY QUỸ  ", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/zTTMRGMN/image.png", 
+                title: "KEY QUỸ", 
+                points: "100 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/zTTMRGMN/image.png", 
+                title: "KEY QUỸ", 
+                points: "200 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=200000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/DHkhtcmp/image.png", 
+                title: "CÚ ", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/zTZYC78H/image.png", 
+                title: "NOGLIN ", 
+                points: "150 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/PG3zvZZV/image.png", 
+                title: "HIÊU TEK", 
+                points: "100 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/7t412yfb/image.png", 
+                title: "RỒNG TEK", 
+                points: "50 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/JW7L8PgC/image.png", 
+                title: "CARCHA LV450 ", 
+                points: "150 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/q37fn8gz/image.png", 
+                title: "RỒNG CRY NƯỚC ", 
+                points: "150 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/H6WmNsF/image.png", 
+                title: "RỒNG CRY MÁU", 
+                points: "150 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/23Gtzh8p/image.png", 
+                title: "RỒNG CRY LỬA", 
+                points: "150 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/Y78dgr0V/image.png", 
+                title: "REX TEK BOSS 1 CẶP", 
+                points: "299 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=299000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/9kTNC4FX/image.png", 
+                title: "REAPER", 
+                points: "149 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/G42BcBLg/image.png", 
+                title: "THÚ MỎ VỊT", 
+                points: "25 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=25000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/cSWhqZ68/image.png", 
+                title: "R_GIGAN", 
+                points: "99 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/pvXzLNRh/image.png", 
+                title: "VELOM", 
+                points: "35 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/277Vdpp8/image.png", 
+                title: "SADOWMAN", 
+                points: "149 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/gL6FTqtC/image.png", 
+                title: "CÁ VOI ", 
+                points: "99 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=99000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/3mf7VCcd/image.png", 
+                title: "CÁ HEO ", 
+                points: "149 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=149000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/RGV9H2gb/image.png", 
+                title: "THYLA", 
+                points: "35 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/1JPqYq0n/image.png", 
+                title: "TEK QZ", 
+                points: "149 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/cXr0g7Fg/image.png", 
+                title: "THERI", 
+                points: "149 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=149000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/vCZMpd6y/image.png", 
+                title: "TEK STEGO ", 
+                points: "100 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/Z1kbBWfw/image.png", 
+                title: "PTE ", 
+                points: "10 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/b5qmGQg3/image.png>", 
+                title: "MANAGA", 
+                points: "100 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/Z6j8Sw4b/image.png>", 
+                title: "CÚP DÌU ", 
+                points: "10 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/x86ZW3wr/image.png", 
+                title: "NỎ 600% DAME ", 
+                points: "10 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            },
+            {
+                img: "https://i.ibb.co/qFRgvRKK/image.png", 
+                title: "CUNG 2 DÂY  ", 
+                points: "10 ĐIỂM", 
+                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save"
+            }
+         ];
+
+        // LOGIC TỰ ĐỘNG DỰNG KHUNG GIAO DIỆN
+        const grid = document.getElementById('productGrid');
+        if(grid) {
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'rainbow-card';
+                card.innerHTML = `
+                    <div class="card-body">
+                        <div class="img-container">
+                            <img src="${p.img}" alt="${p.title}">
+                        </div>
+                        <div class="content-container">
+                            <div class="title">${p.title}</div>
+                            <a href="${p.link}" target="_blank" class="btn-fire-blue">ĐÓNG QUỸ -> ${p.points}</a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 🌟 CODE JAVASCRIPT ĐẶC TRỊ - ÉP DẢI MÀU NÚT BẤM PHẢI CHẠY ĐI CHẠY LẠI
+        let position = 0;
+        let direction = 1; // 1 là chạy tới, -1 là giật lùi tạo hiệu ứng bập bùng
+        
+        setInterval(() => {
+            // Thay đổi tốc độ bằng cách tăng/giảm số 0.8 (số càng to chạy càng nhanh)
+            position += 0.8 * direction; 
+            
+            if (position >= 100) { direction = -1; }
+            if (position <= 0) { direction = 1; }
+            
+            // Tìm tất cả các nút bấm trên giao diện và ép dịch chuyển tọa độ dải màu nền
+            const buttons = document.querySelectorAll('.btn-fire-blue');
+            buttons.forEach(btn => {
+                btn.style.setProperty('background-position', `${position}% 50%`, 'important');
+            });
+        }, 20); // Chạy mượt mà ở tần suất 20 mili-giây một lần
+    </script>
+</body>
+</html>
             gap: 15px;
         }
 
