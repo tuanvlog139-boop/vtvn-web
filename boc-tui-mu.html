@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VT-VN-WEB.COM - Bốc Túi Mù</title>
+    <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
     <style>
         * {
             margin: 0;
@@ -54,6 +55,8 @@
             background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
             background-size: 200% 100%;
             animation: rainbowMove 3s linear infinite;
+            will-change: background-position;
+            transform: translateZ(0);
         }
 
         @keyframes rainbowMove {
@@ -94,14 +97,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid rgba(255, 107, 107, 0.3);
             position: relative;
             overflow: hidden;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .mystery-box:hover:not(.revealed):not(.greyed) {
-            transform: scale(1.05);
+            transform: scale(1.05) translateZ(0);
             border-color: #ff6b6b;
             box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
         }
@@ -142,6 +147,183 @@
             padding: 2px 5px;
         }
 
+        .mystery-box .rarity-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 8px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .rarity-common {
+            background: #888;
+            color: #fff;
+        }
+
+        .rarity-uncommon {
+            background: #4CAF50;
+            color: #fff;
+        }
+
+        .rarity-rare {
+            background: #2196F3;
+            color: #fff;
+        }
+
+        .rarity-epic {
+            background: #9C27B0;
+            color: #fff;
+        }
+
+        .rarity-legendary {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+        }
+
+        .progress-container {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .progress-label {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 10px;
+            will-change: width;
+            transform: translateZ(0);
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #ddd;
+            font-weight: bold;
+        }
+
+        .lucky-bonus {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 11px;
+            color: #ff6b6b;
+        }
+
+        .auth-container {
+            margin: 20px auto;
+            max-width: 400px;
+            background: linear-gradient(145deg, #2a2a4a, #3a3a5a);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .auth-container h2 {
+            text-align: center;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .auth-input {
+            padding: 12px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 8px;
+            background: #1a1a2e;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        .auth-btn {
+            padding: 12px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+            border: none;
+            border-radius: 8px;
+            color: #1a1a2e;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #ddd;
+        }
+
+        .auth-switch a {
+            color: #ff6b6b;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(145deg, #2a2a4a, #3a3a5a);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .user-name {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            padding: 8px 15px;
+            background: #666;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .logout-btn:hover {
+            background: #ff6b6b;
+        }
+
         .play-again-btn {
             display: block;
             width: 200px;
@@ -162,11 +344,13 @@
             filter: drop-shadow(0 5px 15px rgba(255, 107, 107, 0.4));
             cursor: pointer;
             border: none;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease;
+            will-change: transform, background-position;
+            transform: translateZ(0);
         }
 
         .play-again-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateZ(0);
         }
 
         .footer {
@@ -260,6 +444,15 @@
             .footer-content {
                 flex-direction: column;
             }
+
+            .progress-container {
+                max-width: 100%;
+            }
+
+            .auth-container {
+                max-width: 100%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -277,6 +470,40 @@
 
     <main class="main-content">
         <h1 class="main-title">BỐC TÚI MÙ - MAY MẮN</h1>
+        
+        <!-- User Info (hiện khi đã đăng nhập) -->
+        <div class="user-info" id="userInfo" style="display: none;">
+            <div>
+                <span style="color: #aaa; font-size: 12px;">Người chơi:</span>
+                <span class="user-name" id="userName"></span>
+            </div>
+            <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+        </div>
+        
+        <!-- Auth Form (hiện khi chưa đăng nhập) -->
+        <div class="auth-container" id="authContainer">
+            <h2 id="authTitle">ĐĂNG NHẬP</h2>
+            <form class="auth-form" id="authForm" onsubmit="handleAuth(event)">
+                <input type="text" class="auth-input" id="username" placeholder="Tên đăng nhập" required>
+                <input type="password" class="auth-input" id="password" placeholder="Mật khẩu" required>
+                <button type="submit" class="auth-btn" id="authBtn">ĐĂNG NHẬP</button>
+            </form>
+            <div class="auth-switch">
+                <span id="authSwitchText">Chưa có tài khoản? </span>
+                <a onclick="toggleAuthMode()" id="authSwitchLink">Đăng ký ngay</a>
+            </div>
+        </div>
+        
+        <!-- Lucky Meter (chỉ hiện khi đã đăng nhập) -->
+        <div class="progress-container" id="luckyMeterContainer" style="display: none;">
+            <div class="progress-label">🍀 MAY MẮN CỦA BẠN</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="luckyFill"></div>
+            </div>
+            <div class="progress-text" id="luckyText">0% - Cơ hội đồ xịn: 0%</div>
+            <div class="lucky-bonus" id="luckyBonus"></div>
+        </div>
+        
         <div class="box-grid" id="boxGrid"></div>
         <button class="play-again-btn" id="playAgain" style="display: none;">CHƠI LẠI</button>
     </main>
@@ -307,106 +534,416 @@
     </footer>
 
     <script>
-        const prizes = [
-            { name: "50 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "90 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
-            { name: "150 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
-            { name: "899 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
-            { name: "15 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
-            { name: "TEK GEN", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
-            { name: "35 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
-            { name: "TRỤ TEK", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
-            { name: "100 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "200 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
-            { name: "300 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
-            { name: "500 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
-            { name: "25 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
-            { name: "TEK CLON", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
-            { name: "45 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
-            { name: "MÁY ẤP", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
-            { name: "75 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "120 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
-            { name: "180 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
-            { name: "250 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
-            { name: "10 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
-            { name: "20 ĐIỂM", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
-            { name: "30 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
-            { name: "40 ĐIỂM", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
-            { name: "60 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "80 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" }
-        ];
+        // ============================================
+        // CONFIG ĐỘ HIẾM CỦA QUÀ - CHỈNH SỬA Ở ĐÂY
+        // ============================================
+        const RARITY_CONFIG = {
+            // Common: Quà thường - Dễ bốc nhất
+            common: {
+                weight: 50, // Tỷ lệ 50%
+                items: [
+                    { name: "10 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
+                    { name: "15 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
+                    { name: "20 ĐIỂM", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
+                    { name: "25 ĐIỂM", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
+                    { name: "30 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
+                    { name: "35 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
+                    { name: "40 ĐIỂM", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
+                    { name: "45 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
+                    { name: "50 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
+                    { name: "60 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" }
+                ]
+            },
+            // Uncommon: Quà hiếm vừa
+            uncommon: {
+                weight: 25, // Tỷ lệ 25%
+                items: [
+                    { name: "75 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
+                    { name: "80 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
+                    { name: "90 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
+                    { name: "100 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
+                    { name: "120 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
+                    { name: "150 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
+                    { name: "180 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
+                    { name: "200 ĐIỂM", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" }
+                ]
+            },
+            // Rare: Quà hiếm
+            rare: {
+                weight: 15, // Tỷ lệ 15%
+                items: [
+                    { name: "250 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+                    { name: "300 ĐIỂM", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
+                    { name: "400 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+                    { name: "500 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+                    { name: "600 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" }
+                ]
+            },
+            // Epic: Quà xịn
+            epic: {
+                weight: 7, // Tỷ lệ 7%
+                items: [
+                    { name: "700 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+                    { name: "800 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+                    { name: "899 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
+                    { name: "MÁY ẤP", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
+                    { name: "TRỤ TEK", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" }
+                ]
+            },
+            // Legendary: Quà cực hiếm - Khó bốc nhất
+            legendary: {
+                weight: 3, // Tỷ lệ 3%
+                items: [
+                    { name: "TEK GEN", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
+                    { name: "TEK CLON", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
+                    { name: "1000 ĐIỂM", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" }
+                ]
+            }
+        };
 
-        let shuffledPrizes = [];
+        // Số hộp hiển thị
+        const BOX_COUNT = 20;
+        // Tổng số quà trong pool
+        const TOTAL_PRIZE_POOL_SIZE = 100;
+        // Lucky meter tăng mỗi lần chơi (0-100%)
+        const LUCKY_INCREMENT = 5; // Tăng 5% mỗi lần chơi
+
+        // ============================================
+        // HỆ THỐNG AUTH & DỮ LIỆU NGƯỜI CHƠI
+        // ============================================
+        
+        let currentUser = null;
+        let isRegisterMode = false;
+        let prizePool = [];
+        let displayedPrizes = [];
         let gameEnded = false;
 
-        function shuffleArray(array) {
-            const newArray = [...array];
-            for (let i = newArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        // Cache DOM elements
+        const DOM = {
+            authContainer: document.getElementById('authContainer'),
+            userInfo: document.getElementById('userInfo'),
+            userName: document.getElementById('userName'),
+            luckyMeterContainer: document.getElementById('luckyMeterContainer'),
+            luckyFill: document.getElementById('luckyFill'),
+            luckyText: document.getElementById('luckyText'),
+            luckyBonus: document.getElementById('luckyBonus'),
+            boxGrid: document.getElementById('boxGrid'),
+            playAgain: document.getElementById('playAgain'),
+            authTitle: document.getElementById('authTitle'),
+            authBtn: document.getElementById('authBtn'),
+            authSwitchText: document.getElementById('authSwitchText'),
+            authSwitchLink: document.getElementById('authSwitchLink'),
+            username: document.getElementById('username'),
+            password: document.getElementById('password')
+        };
+
+        // Kiểm tra đăng nhập khi load trang
+        function checkAuth() {
+            const savedUser = localStorage.getItem('bocTuiMuUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showLoggedInState();
             }
-            return newArray;
+        }
+
+        function showLoggedInState() {
+            DOM.authContainer.style.display = 'none';
+            DOM.userInfo.style.display = 'flex';
+            DOM.userName.textContent = currentUser.username;
+            DOM.luckyMeterContainer.style.display = 'block';
+            updateLuckyMeter();
+            initGame();
+        }
+
+        function showLoggedOutState() {
+            DOM.authContainer.style.display = 'block';
+            DOM.userInfo.style.display = 'none';
+            DOM.luckyMeterContainer.style.display = 'none';
+            DOM.boxGrid.innerHTML = '';
+            DOM.playAgain.style.display = 'none';
+        }
+
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
+            DOM.authTitle.textContent = isRegisterMode ? 'ĐĂNG KÝ' : 'ĐĂNG NHẬP';
+            DOM.authBtn.textContent = isRegisterMode ? 'ĐĂNG KÝ' : 'ĐĂNG NHẬP';
+            DOM.authSwitchText.textContent = isRegisterMode ? 'Đã có tài khoản? ' : 'Chưa có tài khoản? ';
+            DOM.authSwitchLink.textContent = isRegisterMode ? 'Đăng nhập ngay' : 'Đăng ký ngay';
+        }
+
+        function handleAuth(event) {
+            event.preventDefault();
+            const username = DOM.username.value;
+            const password = DOM.password.value;
+
+            if (isRegisterMode) {
+                register(username, password);
+            } else {
+                login(username, password);
+            }
+        }
+
+        function register(username, password) {
+            const users = JSON.parse(localStorage.getItem('bocTuiMuUsers') || '{}');
+            
+            if (users[username]) {
+                alert('Tên đăng nhập đã tồn tại!');
+                return;
+            }
+
+            users[username] = {
+                password: password,
+                luckyMeter: 0,
+                totalPlays: 0
+            };
+
+            localStorage.setItem('bocTuiMuUsers', JSON.stringify(users));
+            alert('Đăng ký thành công! Hãy đăng nhập.');
+            toggleAuthMode();
+        }
+
+        function login(username, password) {
+            const users = JSON.parse(localStorage.getItem('bocTuiMuUsers') || '{}');
+            
+            if (!users[username] || users[username].password !== password) {
+                alert('Tên đăng nhập hoặc mật khẩu sai!');
+                return;
+            }
+
+            currentUser = {
+                username: username,
+                luckyMeter: users[username].luckyMeter,
+                totalPlays: users[username].totalPlays
+            };
+
+            localStorage.setItem('bocTuiMuUser', JSON.stringify(currentUser));
+            showLoggedInState();
+        }
+
+        function logout() {
+            localStorage.removeItem('bocTuiMuUser');
+            currentUser = null;
+            showLoggedOutState();
+            DOM.username.value = '';
+            DOM.password.value = '';
+        }
+
+        function saveUserData() {
+            if (!currentUser) return;
+            
+            const users = JSON.parse(localStorage.getItem('bocTuiMuUsers') || '{}');
+            users[currentUser.username] = {
+                password: users[currentUser.username].password,
+                luckyMeter: currentUser.luckyMeter,
+                totalPlays: currentUser.totalPlays
+            };
+            
+            localStorage.setItem('bocTuiMuUsers', JSON.stringify(users));
+            localStorage.setItem('bocTuiMuUser', JSON.stringify(currentUser));
+        }
+
+        function updateLuckyMeter() {
+            if (!currentUser) return;
+            
+            const luckyPercent = Math.min(currentUser.luckyMeter, 100);
+            DOM.luckyFill.style.width = luckyPercent + '%';
+            
+            // Tính bonus từ lucky meter
+            const epicBonus = Math.floor(luckyPercent / 10); // 10% lucky = +1% epic
+            const legendaryBonus = Math.floor(luckyPercent / 20); // 20% lucky = +1% legendary
+            
+            const epicChance = RARITY_CONFIG.epic.weight + epicBonus;
+            const legendaryChance = RARITY_CONFIG.legendary.weight + legendaryBonus;
+            const totalRareChance = epicChance + legendaryBonus;
+            
+            DOM.luckyText.textContent = 
+                `${luckyPercent}% - Cơ hội đồ xịn: +${totalRareChance}%`;
+            
+            if (luckyPercent >= 50) {
+                DOM.luckyBonus.textContent = '🔥 MAY MẮN CAO!';
+            } else if (luckyPercent >= 25) {
+                DOM.luckyBonus.textContent = '✨ MAY MẮN TĂNG!';
+            } else {
+                DOM.luckyBonus.textContent = '';
+            }
+        }
+
+        // ============================================
+        // HỆ THỐNG GAME
+        // ============================================
+
+        // Tạo pool quà theo độ hiếm (có bonus từ lucky meter)
+        function generatePrizePool() {
+            prizePool = [];
+            
+            // Tính adjusted weights dựa trên lucky meter
+            const luckyPercent = currentUser ? Math.min(currentUser.luckyMeter, 100) : 0;
+            const epicBonus = Math.floor(luckyPercent / 10);
+            const legendaryBonus = Math.floor(luckyPercent / 20);
+            
+            const adjustedConfig = {
+                common: { ...RARITY_CONFIG.common, weight: RARITY_CONFIG.common.weight - epicBonus - legendaryBonus },
+                uncommon: { ...RARITY_CONFIG.uncommon },
+                rare: { ...RARITY_CONFIG.rare },
+                epic: { ...RARITY_CONFIG.epic, weight: RARITY_CONFIG.epic.weight + epicBonus },
+                legendary: { ...RARITY_CONFIG.legendary, weight: RARITY_CONFIG.legendary.weight + legendaryBonus }
+            };
+            
+            // Optimized pool generation with pre-allocation
+            const estimatedSize = TOTAL_PRIZE_POOL_SIZE;
+            prizePool = new Array(estimatedSize);
+            let poolIndex = 0;
+            
+            for (const [rarity, config] of Object.entries(adjustedConfig)) {
+                const count = Math.round(TOTAL_PRIZE_POOL_SIZE * (config.weight / 100));
+                const itemsLength = config.items.length;
+                
+                for (let i = 0; i < count && poolIndex < estimatedSize; i++) {
+                    const randomIndex = Math.floor(Math.random() * itemsLength);
+                    prizePool[poolIndex++] = {
+                        ...config.items[randomIndex],
+                        rarity: rarity
+                    };
+                }
+            }
+            
+            // Trim to actual size and fill remaining with common items
+            prizePool.length = poolIndex;
+            while (prizePool.length < TOTAL_PRIZE_POOL_SIZE) {
+                const commonItems = RARITY_CONFIG.common.items;
+                const randomIndex = Math.floor(Math.random() * commonItems.length);
+                prizePool.push({
+                    ...commonItems[randomIndex],
+                    rarity: 'common'
+                });
+            }
+            
+            // Optimized Fisher-Yates shuffle (in-place)
+            for (let i = prizePool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [prizePool[i], prizePool[j]] = [prizePool[j], prizePool[i]];
+            }
+        }
+
+        function shuffleArray(array) {
+            // Optimized Fisher-Yates shuffle (in-place)
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function getRarityLabel(rarity) {
+            const labels = {
+                common: 'THƯỜNG',
+                uncommon: 'HIẾM',
+                rare: 'QUÝ',
+                epic: 'XỊN',
+                legendary: 'HUYỀN THOẠI'
+            };
+            return labels[rarity] || rarity.toUpperCase();
         }
 
         function initGame() {
-            shuffledPrizes = shuffleArray(prizes);
-            gameEnded = false;
-            const grid = document.getElementById('boxGrid');
-            grid.innerHTML = '';
+            if (!currentUser) return;
             
-            shuffledPrizes.forEach((prize, index) => {
+            // Cleanup previous game state
+            if (DOM.boxGrid) {
+                DOM.boxGrid.innerHTML = '';
+            }
+            
+            generatePrizePool();
+            gameEnded = false;
+            
+            // Chọn ngẫu nhiên 20 quà từ pool để hiển thị
+            displayedPrizes = shuffleArray(prizePool).slice(0, BOX_COUNT);
+            
+            // Use document fragment for better performance
+            const fragment = document.createDocumentFragment();
+            
+            displayedPrizes.forEach((prize, index) => {
                 const box = document.createElement('div');
                 box.className = 'mystery-box';
                 box.dataset.index = index;
                 box.innerHTML = '<div class="box-icon">📦</div>';
                 box.addEventListener('click', () => revealBox(box, index));
-                grid.appendChild(box);
+                fragment.appendChild(box);
             });
+            
+            DOM.boxGrid.appendChild(fragment);
 
-            document.getElementById('playAgain').style.display = 'none';
+            DOM.playAgain.style.display = 'none';
         }
 
         function revealBox(selectedBox, selectedIndex) {
-            if (gameEnded) return;
+            if (gameEnded || !currentUser) return;
             gameEnded = true;
 
             const allBoxes = document.querySelectorAll('.mystery-box');
             
             allBoxes.forEach((box, index) => {
-                const prize = shuffledPrizes[index];
+                const prize = displayedPrizes[index];
+                const rarityClass = `rarity-${prize.rarity}`;
+                const rarityLabel = getRarityLabel(prize.rarity);
+                
                 box.innerHTML = `
-                    <img src="${prize.img}" class="prize-img" alt="${prize.name}">
+                    <div class="rarity-badge ${rarityClass}">${rarityLabel}</div>
+                    <img src="${prize.img}" class="prize-img" alt="${prize.name}" loading="lazy">
                     <div class="prize-name">${prize.name}</div>
                 `;
                 
                 if (index === selectedIndex) {
                     box.classList.add('revealed');
+                    
+                    // Tăng lucky meter sau khi chơi
+                    currentUser.luckyMeter = Math.min(currentUser.luckyMeter + LUCKY_INCREMENT, 100);
+                    currentUser.totalPlays++;
+                    saveUserData();
+                    updateLuckyMeter();
                 } else {
                     box.classList.add('greyed');
                 }
             });
 
-            document.getElementById('playAgain').style.display = 'block';
+            DOM.playAgain.style.display = 'block';
+            
+            // Cleanup references to help garbage collection
+            displayedPrizes = null;
         }
 
-        document.getElementById('playAgain').addEventListener('click', initGame);
+        DOM.playAgain.addEventListener('click', initGame);
 
-        initGame();
+        // Khởi động
+        checkAuth();
 
+        // Optimized animation using requestAnimationFrame
         let position = 0;
         let direction = 1;
+        let lastTime = 0;
         
-        setInterval(() => {
-            position += 0.8 * direction; 
+        function animateButtonBackground(currentTime) {
+            if (!lastTime) lastTime = currentTime;
+            const deltaTime = currentTime - lastTime;
             
-            if (position >= 100) { direction = -1; }
-            if (position <= 0) { direction = 1; }
+            if (deltaTime >= 16) { // ~60fps
+                position += 0.8 * direction;
+                
+                if (position >= 100) { direction = -1; }
+                if (position <= 0) { direction = 1; }
+                
+                const buttons = document.querySelectorAll('.play-again-btn');
+                buttons.forEach(btn => {
+                    btn.style.setProperty('background-position', `${position}% 50%`, 'important');
+                });
+                
+                lastTime = currentTime;
+            }
             
-            const buttons = document.querySelectorAll('.play-again-btn');
-            buttons.forEach(btn => {
-                btn.style.setProperty('background-position', `${position}% 50%`, 'important');
-            });
-        }, 20);
+            requestAnimationFrame(animateButtonBackground);
+        }
+        
+        requestAnimationFrame(animateButtonBackground);
     </script>
 </body>
 </html>
