@@ -378,11 +378,57 @@
         .payment-btn:hover {
             transform: scale(1.05);
         }
+
+        .luck-progress {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .luck-label {
+            color: #ff6b6b;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .luck-bar-container {
+            width: 100%;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .luck-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 100%;
+            background-position: 0% 50%;
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            animation: rainbowMove 3s linear infinite;
+        }
+
+        .luck-percentage {
+            color: #ff6b6b;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="logo">VT-VN-WEB.COM</div>
+        <div class="logo">
+            <img src="https://i.ibb.co/vCq8XRz9/logo-r-ng-vt.png" alt="Logo">
+            VT-VN-WEB.COM
+        </div>
         <nav class="nav">
             <a href="index.html">TRANG CHỦ</a>
             <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
@@ -394,6 +440,13 @@
 
     <main class="main-content">
         <h1 class="main-title">BỐC TÚI MÙ - MAY MẮN</h1>
+        <div class="luck-progress">
+            <div class="luck-label">MAY MẮN CỦA BẠN</div>
+            <div class="luck-bar-container">
+                <div class="luck-bar" id="luckBar"></div>
+            </div>
+            <div class="luck-percentage" id="luckPercentage">0%</div>
+        </div>
         <div class="box-grid" id="boxGrid"></div>
         <button class="play-again-btn" id="playAgain" style="display: none;">CHƠI LẠI</button>
     </main>
@@ -426,7 +479,7 @@
         <div class="footer-rainbow"></div>
         <div class="footer-content">
             <div class="footer-left">
-                <div class="footer-logo"><img src="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png" alt="Logo"></div>
+                <div class="footer-logo"><img src="https://i.ibb.co/vCq8XRz9/logo-r-ng-vt.png" alt="Logo"></div>
             </div>
             
             <div class="footer-right">
@@ -495,6 +548,15 @@
             return Math.min(Math.max(0, (playCount - 1) * 10), 100);
         }
 
+        function updateLuckBar() {
+            const luckRate = getLuckRate();
+            const luckBar = document.getElementById('luckBar');
+            const luckPercentage = document.getElementById('luckPercentage');
+            
+            luckBar.style.width = luckRate + '%';
+            luckPercentage.textContent = luckRate + '%';
+        }
+
         function shuffleArray(array) {
             const newArray = [...array];
             for (let i = newArray.length - 1; i > 0; i--) {
@@ -547,6 +609,7 @@
             });
 
             document.getElementById('playAgain').style.display = 'none';
+            updateLuckBar(); // Cập nhật thanh tiến độ may mắn
         }
 
         function revealBox(selectedBox, selectedIndex) {
@@ -579,6 +642,7 @@
             isFirstGame = false;
             playCount++; // Tăng số lần chơi sau mỗi lần reveal
             hasPaid = false; // Reset thanh toán sau khi chơi xong
+            updateLuckBar(); // Cập nhật thanh tiến độ sau khi chơi
         }
 
         // Xử lý modal thanh toán
@@ -602,6 +666,7 @@
 
         document.getElementById('playAgain').addEventListener('click', initGame);
 
+        updateLuckBar(); // Khởi tạo thanh tiến độ khi load trang
         initGame();
 
         let position = 0;
