@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VT-VN-WEB.COM - Admin Panel</title>
+    <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .header {
+            background: #0f0f23;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            max-width: 150px;
+            max-height: 50px;
+            object-fit: contain;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #ff6b6b;
+        }
+
+        .rainbow-line {
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            background-size: 200% 100%;
+            animation: rainbowMove 3s linear infinite;
+        }
+
+        @keyframes rainbowMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .main-content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-panel {
+            background: linear-gradient(145deg, #1e1e3f, #252550);
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .transactions-section {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            color: #ff6b6b;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .transaction-table th,
+        .transaction-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .transaction-table th {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .transaction-table tr:hover {
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .status-pending {
+            color: #feca57;
+            font-weight: bold;
+        }
+
+        .status-confirmed {
+            color: #48dbfb;
+            font-weight: bold;
+        }
+
+        .status-rejected {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(90deg, #48dbfb, #0abde3);
+            color: #1a1a2e;
+        }
+
+        .btn-reject {
+            background: linear-gradient(90deg, #ff6b6b, #ee5a24);
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .no-transactions {
+            text-align: center;
+            color: #888;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+            color: #1a1a2e;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background: #0f0f23;
+            padding: 30px 40px;
+            margin-top: 50px;
+        }
+
+        .footer-rainbow {
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            margin-bottom: 30px;
+            background-size: 200% 100%;
+            animation: rainbowMove 3s linear infinite;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: right;
+        }
+
+        .footer-section h3 {
+            color: #ddd;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .footer-section p {
+            color: #999;
+            line-height: 1.6;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .footer-copyright {
+            color: #aaa;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .footer-developed-by {
+            color: #888;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .nav {
+                gap: 15px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .transaction-table {
+                font-size: 12px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo">
+            VT-VN-WEB.COM
+        </div>
+        <nav class="nav">
+            <a href="index.html">TRANG CHỦ</a>
+            <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
+            <a href="dong-quy.html">ĐÓNG QUỲ SV VT</a>
+            <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+            <a href="profile.html" id="profileLink" style="display: none;">THÔNG TIN</a>
+            <a href="login.html" id="loginLink">ĐĂNG NHẬP</a>
+            <a href="register.html" id="registerLink">ĐĂNG KÝ</a>
+            <span id="userInfo" style="display: none;"></span>
+        </nav>
+    </header>
+    <div class="rainbow-line"></div>
+
+    <main class="main-content">
+        <h1 class="main-title">🔐 QUẢN LÝ ADMIN</h1>
+        
+        <div class="admin-panel">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTransactions">0</div>
+                    <div class="stat-label">Tổng giao dịch</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingTransactions">0</div>
+                    <div class="stat-label">Chờ xác nhận</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="confirmedTransactions">0</div>
+                    <div class="stat-label">Đã xác nhận</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="rejectedTransactions">0</div>
+                    <div class="stat-label">Đã từ chối</div>
+                </div>
+            </div>
+
+            <button class="refresh-btn" onclick="loadTransactions()">🔄 LÀM MỚI DANH SÁCH</button>
+
+            <div class="transactions-section">
+                <h2 class="section-title">DANH SÁCH GIAO DỊCH CHỜ XÁC NHẬN</h2>
+                <div id="pendingTransactionsList">
+                    <div class="no-transactions">Không có giao dịch nào chờ xác nhận</div>
+                </div>
+            </div>
+
+            <div class="transactions-section">
+                <h2 class="section-title">LỊCH SỬ GIAO DỊCH</h2>
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>Mã giao dịch</th>
+                            <th>Thời gian</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allTransactionsList">
+                        <tr>
+                            <td colspan="4" class="no-transactions">Không có giao dịch nào</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-rainbow"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-logo"><img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo"></div>
+            </div>
+            
+            <div class="footer-right">
+                <div class="footer-section">
+                    <h3>VỀ CHÚNG TÔI</h3>
+                    <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>LIÊN HỆ HỖ TRỢ</h3>
+                    <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2026 VT-VN-WEB.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-developed-by">Phát triển bởi VT-VN-WEB.com • v2.5.28</p>
+        </div>
+    </footer>
+
+    <script>
+        // Lấy danh sách giao dịch từ localStorage
+        function getTransactions() {
+            const transactions = localStorage.getItem('paymentTransactions');
+            return transactions ? JSON.parse(transactions) : [];
+        }
+
+        // Lưu danh sách giao dịch vào localStorage
+        function saveTransactions(transactions) {
+            localStorage.setItem('paymentTransactions', JSON.stringify(transactions));
+        }
+
+        // Cập nhật thống kê
+        function updateStats(transactions) {
+            const total = transactions.length;
+            const pending = transactions.filter(t => t.status === 'pending').length;
+            const confirmed = transactions.filter(t => t.status === 'confirmed').length;
+            const rejected = transactions.filter(t => t.status === 'rejected').length;
+
+            document.getElementById('totalTransactions').textContent = total;
+            document.getElementById('pendingTransactions').textContent = pending;
+            document.getElementById('confirmedTransactions').textContent = confirmed;
+            document.getElementById('rejectedTransactions').textContent = rejected;
+        }
+
+        // Hiển thị danh sách giao dịch chờ xác nhận
+        function displayPendingTransactions(transactions) {
+            const pendingList = document.getElementById('pendingTransactionsList');
+            const pendingTransactions = transactions.filter(t => t.status === 'pending');
+
+            if (pendingTransactions.length === 0) {
+                pendingList.innerHTML = '<div class="no-transactions">Không có giao dịch nào chờ xác nhận</div>';
+                return;
+            }
+
+            let html = '<table class="transaction-table"><thead><tr><th>Mã giao dịch</th><th>Thời gian</th><th>Hành động</th></tr></thead><tbody>';
+            
+            pendingTransactions.forEach(transaction => {
+                const date = new Date(transaction.timestamp).toLocaleString('vi-VN');
+                html += `
+                    <tr>
+                        <td><strong>${transaction.code}</strong></td>
+                        <td>${date}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-confirm" onclick="confirmTransaction('${transaction.code}')">✓ Xác nhận</button>
+                                <button class="btn btn-reject" onclick="rejectTransaction('${transaction.code}')">✗ Từ chối</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            pendingList.innerHTML = html;
+        }
+
+        // Hiển thị tất cả giao dịch
+        function displayAllTransactions(transactions) {
+            const allList = document.getElementById('allTransactionsList');
+
+            if (transactions.length === 0) {
+                allList.innerHTML = '<tr><td colspan="4" class="no-transactions">Không có giao dịch nào</td></tr>';
+                return;
+            }
+
+            // Sắp xếp theo thời gian giảm dần
+            const sortedTransactions = [...transactions].sort((a, b) => b.timestamp - a.timestamp);
+
+            let html = '';
+            
+            sortedTransactions.forEach(transaction => {
+                const date = new Date(transaction.timestamp).toLocaleString('vi-VN');
+                let statusClass = '';
+                let statusText = '';
+
+                switch(transaction.status) {
+                    case 'pending':
+                        statusClass = 'status-pending';
+                        statusText = 'Chờ xác nhận';
+                        break;
+                    case 'confirmed':
+                        statusClass = 'status-confirmed';
+                        statusText = 'Đã xác nhận';
+                        break;
+                    case 'rejected':
+                        statusClass = 'status-rejected';
+                        statusText = 'Đã từ chối';
+                        break;
+                }
+
+                html += `
+                    <tr>
+                        <td><strong>${transaction.code}</strong></td>
+                        <td>${date}</td>
+                        <td class="${statusClass}">${statusText}</td>
+                        <td>
+                            ${transaction.status === 'pending' ? `
+                                <div class="action-buttons">
+                                    <button class="btn btn-confirm" onclick="confirmTransaction('${transaction.code}')">✓ Xác nhận</button>
+                                    <button class="btn btn-reject" onclick="rejectTransaction('${transaction.code}')">✗ Từ chối</button>
+                                </div>
+                            ` : '-'}
+                        </td>
+                    </tr>
+                `;
+            });
+
+            allList.innerHTML = html;
+        }
+
+        // Xác nhận giao dịch
+        function confirmTransaction(code) {
+            if (!confirm(`Bạn có chắc muốn xác nhận giao dịch ${code}?`)) return;
+
+            const transactions = getTransactions();
+            const transaction = transactions.find(t => t.code === code);
+            
+            if (transaction) {
+                transaction.status = 'confirmed';
+                transaction.confirmedAt = Date.now();
+                saveTransactions(transactions);
+                loadTransactions();
+                alert(`Đã xác nhận giao dịch ${code}!`);
+            }
+        }
+
+        // Từ chối giao dịch
+        function rejectTransaction(code) {
+            if (!confirm(`Bạn có chắc muốn từ chối giao dịch ${code}?`)) return;
+
+            const transactions = getTransactions();
+            const transaction = transactions.find(t => t.code === code);
+            
+            if (transaction) {
+                transaction.status = 'rejected';
+                transaction.rejectedAt = Date.now();
+                saveTransactions(transactions);
+                loadTransactions();
+                alert(`Đã từ chối giao dịch ${code}!`);
+            }
+        }
+
+        // Tải danh sách giao dịch
+        function loadTransactions() {
+            const transactions = getTransactions();
+            updateStats(transactions);
+            displayPendingTransactions(transactions);
+            displayAllTransactions(transactions);
+        }
+
+        // Auto refresh mỗi 30 giây
+        setInterval(loadTransactions, 30000);
+
+        // Tải khi trang được mở
+        loadTransactions();
+    </script>
+    <script src="auth.js"></script>
+</body>
+</html>
