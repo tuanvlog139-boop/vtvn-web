@@ -665,6 +665,7 @@
             });
 
             document.getElementById('playAgain').style.display = 'block';
+            gameEnded = false; // Reset gameEnded để có thể chơi lại
             isFirstGame = false;
             playCount++; // Tăng số lần chơi sau mỗi lần reveal
             hasPaid = false; // Reset thanh toán sau khi chơi xong
@@ -835,7 +836,10 @@
             }
         });
 
-        document.getElementById('playAgain').addEventListener('click', initGame);
+        document.getElementById('playAgain').addEventListener('click', () => {
+            gameEnded = false; // Reset gameEnded trước khi chơi lại
+            initGame();
+        });
 
         updateNavigation(); // Cập nhật navigation
         updateLuckBar(); // Khởi tạo thanh tiến độ khi load trang
