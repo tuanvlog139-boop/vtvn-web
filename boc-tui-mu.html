@@ -426,7 +426,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <img src="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png" alt="Logo">
+            <img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo">
             VT-VN-WEB.COM
         </div>
         <nav class="nav">
@@ -434,6 +434,10 @@
             <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
             <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
             <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+            <a href="admin.html" style="color: #ff6b6b;">ADMIN</a>
+            <a href="profile.html" id="profileLink" style="display: none;">THÔNG TIN</a>
+            <a href="login.html" id="loginLink">ĐĂNG NHẬP</a>
+            <a href="register.html" id="registerLink">ĐĂNG KÝ</a>
         </nav>
     </header>
     <div class="rainbow-line"></div>
@@ -454,8 +458,8 @@
     <!-- Modal Thanh Toán -->
     <div class="payment-modal" id="paymentModal">
         <div class="payment-content">
-            <h2>💰 THANH TOÁN ĐỂ CHƠI</h2>
-            <p>Quét mã QR để chuyển 25.000đ</p>
+            <h2 id="modalTitle">💰 NẠP LƯỢT CHƠI</h2>
+            <p id="modalMessage">Quét mã QR để nạp 25.000đ = 1 lượt chơi</p>
             <div class="qr-code">
                 <img src="https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=25000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save" alt="QR Code">
             </div>
@@ -463,14 +467,16 @@
                 <p><strong>Ngân hàng:</strong> Vietcombank</p>
                 <p><strong>Số tài khoản:</strong> 1051357963</p>
                 <p><strong>Chủ tài khoản:</strong> Quy Gia Han Save</p>
-                <p><strong>Số tiền:</strong> 25.000đ</p>
+                <p><strong>Số tiền:</strong> 25.000đ = 1 lượt chơi</p>
                 <p><strong>Nội dung:</strong> Quy/Gia/Han/May/Chu/Tu/Nguyen</p>
             </div>
-            <p>Nhập mã giao dịch sau khi chuyển tiền:</p>
-            <input type="text" class="transaction-input" id="transactionCode" placeholder="Nhập mã giao dịch...">
+            <div id="userInfo" style="display: none; margin-top: 15px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 8px;">
+                <p><strong>Lượt chơi hiện tại:</strong> <span id="currentTickets">0</span></p>
+                <p><strong>Số dư:</strong> <span id="currentBalance">0</span>đ</p>
+            </div>
             <div class="payment-buttons">
-                <button class="payment-btn cancel" id="cancelPayment">HỦY</button>
-                <button class="payment-btn confirm" id="confirmPayment">XÁC NHẬN</button>
+                <button class="payment-btn cancel" id="cancelPayment">ĐÓNG</button>
+                <button class="payment-btn confirm" id="confirmPayment">NẠP NGAY (25.000đ)</button>
             </div>
         </div>
     </div>
@@ -479,7 +485,7 @@
         <div class="footer-rainbow"></div>
         <div class="footer-content">
             <div class="footer-left">
-                <div class="footer-logo"><img src="https://i.ibb.co/vCq8XRz9/logo-r-ng-vt.png" alt="Logo"></div>
+                <div class="footer-logo"><img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo"></div>
             </div>
             
             <div class="footer-right">
@@ -567,10 +573,30 @@
         }
 
         function initGame() {
-            // Kiểm tra đã thanh toán chưa
-            if (!hasPaid) {
+            const currentUser = getCurrentUser();
+            
+            // Kiểm tra đăng nhập
+            if (!currentUser) {
                 document.getElementById('paymentModal').classList.add('active');
                 return;
+            }
+
+            // Kiểm tra lượt chơi
+            if (currentUser.tickets <= 0) {
+                alert('Bạn không còn lượt chơi. Vui lòng nạp thêm!');
+                document.getElementById('paymentModal').classList.add('active');
+                return;
+            }
+
+            // Trừ 1 lượt chơi
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                users[userIndex].tickets -= 1;
+                addDepositHistory(currentUser.id, 0, 'debit', 'Chơi Bốc Túi Mù');
+                saveUsers(users);
+                setCurrentUser(users[userIndex]);
             }
 
             const luckRate = getLuckRate();
@@ -650,22 +676,168 @@
             document.getElementById('paymentModal').classList.remove('active');
         });
 
+        // Cập nhật modal khi mở
+        function updatePaymentModal() {
+            const currentUser = getCurrentUser();
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const userInfo = document.getElementById('userInfo');
+            const confirmBtn = document.getElementById('confirmPayment');
+
+            if (currentUser) {
+                modalTitle.textContent = '💰 NẠP LƯỢT CHƠI';
+                modalMessage.textContent = 'Quét mã QR để nạp 25.000đ = 1 lượt chơi';
+                userInfo.style.display = 'block';
+                document.getElementById('currentTickets').textContent = currentUser.tickets;
+                document.getElementById('currentBalance').textContent = currentUser.balance.toLocaleString('vi-VN');
+                confirmBtn.textContent = 'NẠP NGAY (25.000đ)';
+                confirmBtn.style.display = 'block';
+            } else {
+                modalTitle.textContent = '🔐 ĐĂNG NHẬP ĐỂ CHƠI';
+                modalMessage.textContent = 'Bạn cần đăng nhập tài khoản để chơi Bốc Túi Mù';
+                userInfo.style.display = 'none';
+                confirmBtn.textContent = 'ĐĂNG NHẬP NGAY';
+            }
+        }
+
+        // Override initGame để cập nhật modal
+        const originalInitGame = initGame;
+        initGame = function() {
+            updatePaymentModal();
+            originalInitGame();
+        };
+
+        // ==================== HỆ THỐNG ĐĂNG NHẬP ====================
+        
+        // Lấy user đang đăng nhập
+        function getCurrentUser() {
+            const user = localStorage.getItem('currentUser');
+            return user ? JSON.parse(user) : null;
+        }
+
+        // Lưu user đang đăng nhập
+        function setCurrentUser(user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+
+        // Lấy danh sách users từ localStorage
+        function getUsers() {
+            const users = localStorage.getItem('users');
+            return users ? JSON.parse(users) : [];
+        }
+
+        // Lưu danh sách users vào localStorage
+        function saveUsers(users) {
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // Cập nhật navigation dựa trên trạng thái đăng nhập
+        function updateNavigation() {
+            const currentUser = getCurrentUser();
+            const profileLink = document.getElementById('profileLink');
+            const loginLink = document.getElementById('loginLink');
+            const registerLink = document.getElementById('registerLink');
+
+            if (currentUser) {
+                profileLink.style.display = 'inline';
+                loginLink.style.display = 'none';
+                registerLink.style.display = 'none';
+            } else {
+                profileLink.style.display = 'none';
+                loginLink.style.display = 'inline';
+                registerLink.style.display = 'inline';
+            }
+        }
+
+        // ==================== HỆ THỐNG NẠP TIỀN TỰ ĐỘNG ====================
+
+        // Thêm lịch sử giao dịch cho user
+        function addDepositHistory(userId, amount, type, description) {
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === userId);
+            
+            if (userIndex !== -1) {
+                if (!users[userIndex].depositHistory) {
+                    users[userIndex].depositHistory = [];
+                }
+                
+                users[userIndex].depositHistory.push({
+                    timestamp: Date.now(),
+                    amount: amount,
+                    type: type,
+                    description: description
+                });
+                
+                saveUsers(users);
+                
+                // Cập nhật current user
+                const currentUser = getCurrentUser();
+                if (currentUser && currentUser.id === userId) {
+                    setCurrentUser(users[userIndex]);
+                }
+            }
+        }
+
+        // Nạp tiền tự động (không cần admin)
+        function autoDeposit(amount, description) {
+            const currentUser = getCurrentUser();
+            
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập để nạp tiền!');
+                window.location.href = 'login.html';
+                return false;
+            }
+
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                // Cộng tiền vào tài khoản
+                users[userIndex].balance += amount;
+                
+                // Cộng lượt chơi (mỗi 25.000đ = 1 lượt)
+                const ticketsToAdd = Math.floor(amount / 25000);
+                users[userIndex].tickets += ticketsToAdd;
+                
+                // Lưu lịch sử giao dịch
+                addDepositHistory(currentUser.id, amount, 'credit', description);
+                
+                saveUsers(users);
+                setCurrentUser(users[userIndex]);
+                
+                return true;
+            }
+            
+            return false;
+        }
+
+        // Xử lý nạp tiền
         document.getElementById('confirmPayment').addEventListener('click', () => {
-            const transactionCode = document.getElementById('transactionCode').value.trim();
-            if (transactionCode.length > 0) {
-                // Ở đây có thể thêm logic kiểm tra mã giao dịch với server
-                // Hiện tại chỉ cần nhập mã là cho phép chơi
-                hasPaid = true;
+            const currentUser = getCurrentUser();
+            
+            if (!currentUser) {
+                // Chuyển đến trang đăng nhập
                 document.getElementById('paymentModal').classList.remove('active');
-                document.getElementById('transactionCode').value = '';
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Nạp tự động 25.000đ = 1 lượt chơi
+            const success = autoDeposit(25000, 'Nạp tiền chơi Bốc Túi Mù');
+            
+            if (success) {
+                alert('✅ Nạp thành công! Bạn đã nhận được 1 lượt chơi.');
+                document.getElementById('paymentModal').classList.remove('active');
+                updatePaymentModal(); // Cập nhật lại modal
                 initGame();
             } else {
-                alert('Vui lòng nhập mã giao dịch!');
+                alert('❌ Có lỗi xảy ra khi nạp tiền!');
             }
         });
 
         document.getElementById('playAgain').addEventListener('click', initGame);
 
+        updateNavigation(); // Cập nhật navigation
         updateLuckBar(); // Khởi tạo thanh tiến độ khi load trang
         initGame();
 
@@ -684,5 +856,6 @@
             });
         }, 20);
     </script>
+    <script src="auth.js"></script>
 </body>
 </html>
