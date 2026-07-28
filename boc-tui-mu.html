@@ -573,6 +573,8 @@
         }
 
         function initGame() {
+            gameEnded = false; // Reset gameEnded khi bắt đầu game mới
+            
             const currentUser = getCurrentUser();
             
             // Kiểm tra đăng nhập
@@ -665,7 +667,6 @@
             });
 
             document.getElementById('playAgain').style.display = 'block';
-            gameEnded = false; // Reset gameEnded để có thể chơi lại
             isFirstGame = false;
             playCount++; // Tăng số lần chơi sau mỗi lần reveal
             hasPaid = false; // Reset thanh toán sau khi chơi xong
@@ -830,6 +831,8 @@
                 alert('✅ Nạp thành công! Bạn đã nhận được 1 lượt chơi.');
                 document.getElementById('paymentModal').classList.remove('active');
                 updatePaymentModal(); // Cập nhật lại modal
+                // Reset game state và bắt đầu game mới
+                gameEnded = false;
                 initGame();
             } else {
                 alert('❌ Có lỗi xảy ra khi nạp tiền!');
