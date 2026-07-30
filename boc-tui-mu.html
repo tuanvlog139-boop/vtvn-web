@@ -511,8 +511,9 @@
             </div>
             <div class="payment-buttons">
                 <button class="payment-btn cancel" id="cancelPayment">ĐÓNG</button>
-                <button class="payment-btn confirm" id="confirmPayment">NẠP NGAY (25.000đ)</button>
+                <button class="payment-btn confirm" id="confirmPayment" style="background: linear-gradient(90deg, #00ff00, #00cc00); color: #1a1a2e; font-size: 16px; padding: 15px;">✅ NẠP NGAY (25.000đ)</button>
             </div>
+            <p style="color: #ff6b6b; margin-top: 15px; font-size: 13px; text-align: center;">⚠️ Bấm nút NẠP NGAY để tự động cộng lượt chơi</p>
         </div>
     </div>
 
@@ -612,27 +613,32 @@
 
             const currentUser = getCurrentUser();
 
-            // Kiểm tra đăng nhập
+            // Nếu chưa đăng nhập, cho chơi thử miễn phí lần đầu
             if (!currentUser) {
-                document.getElementById('paymentModal').classList.add('active');
-                return;
-            }
+                if (!isFirstGame) {
+                    document.getElementById('paymentModal').classList.add('active');
+                    return;
+                }
+                // Lần đầu chơi không cần đăng nhập
+            } else {
+                // Kiểm tra lượt chơi nếu đã đăng nhập
+                if (currentUser.tickets <= 0 && !isFirstGame) {
+                    document.getElementById('paymentModal').classList.add('active');
+                    return;
+                }
 
-            // Kiểm tra lượt chơi
-            if (currentUser.tickets <= 0) {
-                document.getElementById('paymentModal').classList.add('active');
-                return;
-            }
+                // Trừ 1 lượt chơi (nếu có lượt)
+                if (currentUser.tickets > 0) {
+                    const users = getUsers();
+                    const userIndex = users.findIndex(u => u.id === currentUser.id);
 
-            // Trừ 1 lượt chơi
-            const users = getUsers();
-            const userIndex = users.findIndex(u => u.id === currentUser.id);
-
-            if (userIndex !== -1) {
-                users[userIndex].tickets -= 1;
-                addDepositHistory(currentUser.id, 0, 'debit', 'Chơi Bốc Túi Mù');
-                saveUsers(users);
-                setCurrentUser(users[userIndex]);
+                    if (userIndex !== -1) {
+                        users[userIndex].tickets -= 1;
+                        addDepositHistory(currentUser.id, 0, 'debit', 'Chơi Bốc Túi Mù');
+                        saveUsers(users);
+                        setCurrentUser(users[userIndex]);
+                    }
+                }
             }
 
             const luckRate = getLuckRate();
@@ -1010,3 +1016,4 @@
     <script src="auth.js"></script>
 </body>
 </html>
+
