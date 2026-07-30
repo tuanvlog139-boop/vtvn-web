@@ -375,6 +375,22 @@
             color: #fff;
         }
 
+        .payment-btn.ticket-option {
+            background: rgba(255, 107, 107, 0.2);
+            color: #fff;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .payment-btn.ticket-option:hover {
+            background: rgba(255, 107, 107, 0.4);
+        }
+
+        .payment-btn.ticket-option.selected {
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+            color: #1a1a2e;
+            border-color: #feca57;
+        }
+
         .payment-btn:hover {
             transform: scale(1.05);
         }
@@ -474,6 +490,24 @@
             <div id="userInfo" style="display: none; margin-top: 15px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 8px;">
                 <p><strong>Lượt chơi hiện tại:</strong> <span id="currentTickets">0</span></p>
                 <p><strong>Số dư:</strong> <span id="currentBalance">0</span>đ</p>
+            </div>
+            <div id="ticketOptions" style="display: none; margin-top: 15px;">
+                <p style="color: #ddd; margin-bottom: 10px; font-size: 14px;">Chọn số lượt muốn nạp:</p>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
+                    <button class="payment-btn ticket-option" data-tickets="1" data-amount="25000">1 Lượt (25.000đ)</button>
+                    <button class="payment-btn ticket-option" data-tickets="5" data-amount="125000">5 Lượt (125.000đ)</button>
+                    <button class="payment-btn ticket-option" data-tickets="10" data-amount="250000">10 Lượt (250.000đ)</button>
+                    <button class="payment-btn ticket-option" data-tickets="20" data-amount="500000">20 Lượt (500.000đ)</button>
+                </div>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 8px;">
+                    <p style="color: #ddd; margin-bottom: 10px; font-size: 14px;">Hoặc nhập số lượt tùy chỉnh:</p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <button class="payment-btn ticket-option" id="decreaseTickets" style="flex: 0 0 40px; padding: 10px;">-</button>
+                        <input type="number" id="customTickets" value="1" min="1" max="100" style="flex: 1; padding: 10px; border: 2px solid rgba(255, 107, 107, 0.3); border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: #fff; text-align: center; font-size: 16px; font-weight: bold;">
+                        <button class="payment-btn ticket-option" id="increaseTickets" style="flex: 0 0 40px; padding: 10px;">+</button>
+                    </div>
+                    <p id="customAmount" style="color: #ff6b6b; margin-top: 10px; font-size: 14px; font-weight: bold; text-align: center;">25.000đ</p>
+                </div>
             </div>
             <div class="payment-buttons">
                 <button class="payment-btn cancel" id="cancelPayment">ĐÓNG</button>
@@ -713,23 +747,104 @@
             const modalTitle = document.getElementById('modalTitle');
             const modalMessage = document.getElementById('modalMessage');
             const userInfo = document.getElementById('userInfo');
+            const ticketOptions = document.getElementById('ticketOptions');
             const confirmBtn = document.getElementById('confirmPayment');
 
             if (currentUser) {
                 modalTitle.textContent = '💰 NẠP LƯỢT CHƠI';
                 modalMessage.textContent = 'Quét mã QR để nạp 25.000đ = 1 lượt chơi';
                 userInfo.style.display = 'block';
+                ticketOptions.style.display = 'block';
                 document.getElementById('currentTickets').textContent = currentUser.tickets;
                 document.getElementById('currentBalance').textContent = currentUser.balance.toLocaleString('vi-VN');
                 confirmBtn.textContent = 'NẠP NGAY (25.000đ)';
                 confirmBtn.style.display = 'block';
+                // Reset selection
+                document.querySelectorAll('.ticket-option:not(#decreaseTickets):not(#increaseTickets)').forEach(btn => btn.classList.remove('selected'));
+                document.querySelector('.ticket-option[data-tickets="1"]').classList.add('selected');
+                // Reset custom input
+                document.getElementById('customTickets').value = 1;
+                document.getElementById('customAmount').textContent = '25.000đ';
+                selectedTickets = 1;
+                selectedAmount = 25000;
             } else {
                 modalTitle.textContent = '🔐 ĐĂNG NHẬP ĐỂ CHƠI';
                 modalMessage.textContent = 'Bạn cần đăng nhập tài khoản để chơi Bốc Túi Mù';
                 userInfo.style.display = 'none';
+                ticketOptions.style.display = 'none';
                 confirmBtn.textContent = 'ĐĂNG NHẬP NGAY';
             }
         }
+
+        // Biến lưu số lượt và số tiền đang chọn
+        let selectedTickets = 1;
+        let selectedAmount = 25000;
+
+        // Hàm cập nhật theo số lượt tùy chỉnh
+        function updateCustomTickets(tickets) {
+            if (tickets < 1) tickets = 1;
+            if (tickets > 100) tickets = 100;
+
+            selectedTickets = tickets;
+            selectedAmount = tickets * 25000;
+
+            document.getElementById('customTickets').value = tickets;
+            document.getElementById('customAmount').textContent = selectedAmount.toLocaleString('vi-VN') + 'đ';
+
+            // Cập nhật QR code và thông tin
+            const qrImg = document.querySelector('.qr-code img');
+            qrImg.src = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${selectedAmount}&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save`;
+
+            // Cập nhật thông tin thanh toán
+            document.querySelector('.payment-info p:nth-child(4)').innerHTML = `<strong>Số tiền:</strong> ${selectedAmount.toLocaleString('vi-VN')}đ = ${selectedTickets} lượt chơi`;
+
+            // Cập nhật nút nạp
+            document.getElementById('confirmPayment').textContent = `NẠP NGAY (${selectedAmount.toLocaleString('vi-VN')}đ)`;
+
+            // Bỏ chọn các nút preset
+            document.querySelectorAll('.ticket-option:not(#decreaseTickets):not(#increaseTickets)').forEach(b => b.classList.remove('selected'));
+        }
+
+        // Xử lý nút giảm lượt
+        document.getElementById('decreaseTickets').addEventListener('click', () => {
+            const current = parseInt(document.getElementById('customTickets').value);
+            updateCustomTickets(current - 1);
+        });
+
+        // Xử lý nút tăng lượt
+        document.getElementById('increaseTickets').addEventListener('click', () => {
+            const current = parseInt(document.getElementById('customTickets').value);
+            updateCustomTickets(current + 1);
+        });
+
+        // Xử lý input thay đổi
+        document.getElementById('customTickets').addEventListener('change', (e) => {
+            updateCustomTickets(parseInt(e.target.value));
+        });
+
+        // Xử lý chọn số lượt preset
+        document.querySelectorAll('.ticket-option:not(#decreaseTickets):not(#increaseTickets)').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.ticket-option:not(#decreaseTickets):not(#increaseTickets)').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedTickets = parseInt(btn.dataset.tickets);
+                selectedAmount = parseInt(btn.dataset.amount);
+
+                // Cập nhật input tùy chỉnh
+                document.getElementById('customTickets').value = selectedTickets;
+                document.getElementById('customAmount').textContent = selectedAmount.toLocaleString('vi-VN') + 'đ';
+
+                // Cập nhật QR code và thông tin
+                const qrImg = document.querySelector('.qr-code img');
+                qrImg.src = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${selectedAmount}&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save`;
+
+                // Cập nhật thông tin thanh toán
+                document.querySelector('.payment-info p:nth-child(4)').innerHTML = `<strong>Số tiền:</strong> ${selectedAmount.toLocaleString('vi-VN')}đ = ${selectedTickets} lượt chơi`;
+
+                // Cập nhật nút nạp
+                document.getElementById('confirmPayment').textContent = `NẠP NGAY (${selectedAmount.toLocaleString('vi-VN')}đ)`;
+            });
+        });
 
         // Override initGame để cập nhật modal
         const originalInitGame = initGame;
@@ -853,11 +968,11 @@
                 return;
             }
 
-            // Nạp tự động 25.000đ = 1 lượt chơi
-            const success = autoDeposit(25000, 'Nạp tiền chơi Bốc Túi Mù');
+            // Nạp tự động theo số lượt đã chọn
+            const success = autoDeposit(selectedAmount, `Nạp ${selectedTickets} lượt chơi Bốc Túi Mù`);
 
             if (success) {
-                alert('✅ Nạp thành công! Bạn đã nhận được 1 lượt chơi.');
+                alert(`✅ Nạp thành công! Bạn đã nhận được ${selectedTickets} lượt chơi.`);
                 document.getElementById('paymentModal').classList.remove('active');
                 updatePaymentModal(); // Cập nhật lại modal
                 // Hiển thị nút BẮT ĐẦU CHƠI
@@ -874,7 +989,6 @@
 
             // Kiểm tra lượt chơi trước khi chơi lại
             if (!currentUser || currentUser.tickets <= 0) {
-                alert('Bạn không còn lượt chơi. Vui lòng nạp thêm!');
                 document.getElementById('paymentModal').classList.add('active');
                 updatePaymentModal();
                 return;
