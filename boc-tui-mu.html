@@ -620,7 +620,6 @@
 
             // Kiểm tra lượt chơi
             if (currentUser.tickets <= 0) {
-                alert('Bạn không còn lượt chơi. Vui lòng nạp thêm!');
                 document.getElementById('paymentModal').classList.add('active');
                 return;
             }
@@ -846,12 +845,6 @@
             });
         });
 
-        // Override initGame để cập nhật modal
-        const originalInitGame = initGame;
-        initGame = function() {
-            updatePaymentModal();
-            originalInitGame();
-        };
 
         // ==================== HỆ THỐNG ĐĂNG NHẬP ====================
         
@@ -1008,7 +1001,7 @@
             if (position >= 100) { direction = -1; }
             if (position <= 0) { direction = 1; }
             
-            const buttons = document.querySelectorAll('.play-again-btn');
+            const buttons = document.querySelectorAll('.play-again-btn, .start-game-btn');
             buttons.forEach(btn => {
                 btn.style.setProperty('background-position', `${position}% 50%`, 'important');
             });
