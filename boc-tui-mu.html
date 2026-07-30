@@ -142,7 +142,7 @@
             padding: 2px 5px;
         }
 
-        .play-again-btn {
+        .play-again-btn, .start-game-btn {
             display: block;
             width: 200px;
             height: 50px;
@@ -165,7 +165,7 @@
             transition: all 0.3s ease;
         }
 
-        .play-again-btn:hover {
+        .play-again-btn:hover, .start-game-btn:hover {
             transform: scale(1.05);
         }
 
@@ -452,6 +452,7 @@
             <div class="luck-percentage" id="luckPercentage">0%</div>
         </div>
         <div class="box-grid" id="boxGrid"></div>
+        <button class="start-game-btn" id="startGame">BẮT ĐẦU CHƠI</button>
         <button class="play-again-btn" id="playAgain" style="display: none;">CHƠI LẠI</button>
     </main>
 
@@ -574,9 +575,9 @@
 
         function initGame() {
             gameEnded = false; // Reset gameEnded khi bắt đầu game mới
-            
+
             const currentUser = getCurrentUser();
-            
+
             // Kiểm tra đăng nhập
             if (!currentUser) {
                 document.getElementById('paymentModal').classList.add('active');
@@ -593,7 +594,7 @@
             // Trừ 1 lượt chơi
             const users = getUsers();
             const userIndex = users.findIndex(u => u.id === currentUser.id);
-            
+
             if (userIndex !== -1) {
                 users[userIndex].tickets -= 1;
                 addDepositHistory(currentUser.id, 0, 'debit', 'Chơi Bốc Túi Mù');
@@ -602,7 +603,7 @@
             }
 
             const luckRate = getLuckRate();
-            
+
             if (isFirstGame) {
                 // Lần đầu chơi: đảm bảo 100 KIBBLE ở vị trí đầu tiên
                 shuffledPrizes = shuffleArray(prizes);
@@ -613,7 +614,7 @@
             } else {
                 // Các lần sau: áp dụng tỷ lệ may mắn
                 shuffledPrizes = shuffleArray(prizes);
-                
+
                 // Nếu tỷ lệ may mắn > 0, có cơ hội đưa 100 KIBBLE lên vị trí đầu
                 if (luckRate > 0 && Math.random() * 100 < luckRate) {
                     const index100Kibble = shuffledPrizes.findIndex(p => p.name === "100 KIBBLE");
@@ -622,11 +623,11 @@
                     }
                 }
             }
-            
+
             gameEnded = false;
             const grid = document.getElementById('boxGrid');
             grid.innerHTML = '';
-            
+
             shuffledPrizes.forEach((prize, index) => {
                 const box = document.createElement('div');
                 box.className = 'mystery-box';
@@ -636,8 +637,23 @@
                 grid.appendChild(box);
             });
 
+            document.getElementById('startGame').style.display = 'none';
             document.getElementById('playAgain').style.display = 'none';
             updateLuckBar(); // Cập nhật thanh tiến độ may mắn
+        }
+
+        function initPage() {
+            // Khởi tạo trang nhưng không tự động bắt đầu game
+            updateLuckBar();
+            updateNavigation();
+            updatePaymentModal();
+
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                document.getElementById('startGame').style.display = 'block';
+            } else {
+                document.getElementById('startGame').style.display = 'none';
+            }
         }
 
         function revealBox(selectedBox, selectedIndex) {
@@ -667,15 +683,28 @@
             });
 
             document.getElementById('playAgain').style.display = 'block';
+            document.getElementById('startGame').style.display = 'none';
             isFirstGame = false;
             playCount++; // Tăng số lần chơi sau mỗi lần reveal
             hasPaid = false; // Reset thanh toán sau khi chơi xong
             updateLuckBar(); // Cập nhật thanh tiến độ sau khi chơi
         }
 
+        // Xử lý nút BẮT ĐẦU CHƠI
+        document.getElementById('startGame').addEventListener('click', () => {
+            initGame();
+        });
+
         // Xử lý modal thanh toán
         document.getElementById('cancelPayment').addEventListener('click', () => {
             document.getElementById('paymentModal').classList.remove('active');
+            // Cập nhật giao diện sau khi đóng modal (trường hợp user vừa đăng nhập)
+            updateNavigation();
+            updatePaymentModal();
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                document.getElementById('startGame').style.display = 'block';
+            }
         });
 
         // Cập nhật modal khi mở
@@ -816,7 +845,7 @@
         // Xử lý nạp tiền
         document.getElementById('confirmPayment').addEventListener('click', () => {
             const currentUser = getCurrentUser();
-            
+
             if (!currentUser) {
                 // Chuyển đến trang đăng nhập
                 document.getElementById('paymentModal').classList.remove('active');
@@ -826,14 +855,14 @@
 
             // Nạp tự động 25.000đ = 1 lượt chơi
             const success = autoDeposit(25000, 'Nạp tiền chơi Bốc Túi Mù');
-            
+
             if (success) {
                 alert('✅ Nạp thành công! Bạn đã nhận được 1 lượt chơi.');
                 document.getElementById('paymentModal').classList.remove('active');
                 updatePaymentModal(); // Cập nhật lại modal
-                // Reset game state và bắt đầu game mới
-                gameEnded = false;
-                initGame();
+                // Hiển thị nút BẮT ĐẦU CHƠI
+                document.getElementById('startGame').style.display = 'block';
+                document.getElementById('playAgain').style.display = 'none';
             } else {
                 alert('❌ Có lỗi xảy ra khi nạp tiền!');
             }
@@ -841,12 +870,20 @@
 
         document.getElementById('playAgain').addEventListener('click', () => {
             gameEnded = false; // Reset gameEnded trước khi chơi lại
+            const currentUser = getCurrentUser();
+
+            // Kiểm tra lượt chơi trước khi chơi lại
+            if (!currentUser || currentUser.tickets <= 0) {
+                alert('Bạn không còn lượt chơi. Vui lòng nạp thêm!');
+                document.getElementById('paymentModal').classList.add('active');
+                updatePaymentModal();
+                return;
+            }
+
             initGame();
         });
 
-        updateNavigation(); // Cập nhật navigation
-        updateLuckBar(); // Khởi tạo thanh tiến độ khi load trang
-        initGame();
+        initPage(); // Khởi tạo trang khi load
 
         let position = 0;
         let direction = 1;
