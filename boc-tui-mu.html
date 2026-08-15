@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VT-VN-WEB.COM - Bốc Túi Mù</title>
+    <title>SV VT VN.COM - Bốc Túi Mù</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -20,17 +21,75 @@
 
         .header {
             background: #0f0f23;
-            padding: 20px 40px;
+            padding: 30px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .logo img {
+            max-width: 105px;
+            max-height: 35px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 13px;
             font-weight: bold;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
+            color: #ffffff;
+            background: linear-gradient(90deg, #00ff88, #00d4ff, #a855f7, #ec4899, #00ff88);
+            background-size: 300% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 
+                0 0 10px rgba(0, 255, 136, 0.8),
+                0 0 20px rgba(0, 212, 255, 0.6),
+                0 0 30px rgba(168, 85, 247, 0.5),
+                0 0 40px rgba(236, 72, 153, 0.4);
+            letter-spacing: 3px;
+            animation: neonGlow 3s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.5));
+        }
+
+        @keyframes neonGlow {
+            0% {
+                background-position: 0% 50%;
+                text-shadow: 
+                    0 0 10px rgba(0, 255, 136, 0.8),
+                    0 0 20px rgba(0, 212, 255, 0.6),
+                    0 0 30px rgba(168, 85, 247, 0.5);
+                filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.5));
+            }
+            50% {
+                background-position: 100% 50%;
+                text-shadow: 
+                    0 0 15px rgba(0, 212, 255, 0.9),
+                    0 0 25px rgba(168, 85, 247, 0.7),
+                    0 0 35px rgba(236, 72, 153, 0.6),
+                    0 0 45px rgba(0, 255, 136, 0.5);
+                filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6));
+            }
+            100% {
+                background-position: 200% 50%;
+                text-shadow: 
+                    0 0 10px rgba(168, 85, 247, 0.8),
+                    0 0 20px rgba(236, 72, 153, 0.6),
+                    0 0 30px rgba(0, 255, 136, 0.5),
+                    0 0 40px rgba(0, 212, 255, 0.4);
+                filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.5));
+            }
         }
 
         .nav {
@@ -171,7 +230,7 @@
 
         .footer {
             background: #0f0f23;
-            padding: 30px 40px;
+            padding: 40px 60px;
             margin-top: 50px;
         }
 
@@ -196,6 +255,12 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+        }
+
+        .footer-logo img {
+            max-width: 105px;
+            max-height: 35px;
+            object-fit: contain;
         }
 
         .footer-right {
@@ -442,8 +507,8 @@
 <body>
     <header class="header">
         <div class="logo">
-            <img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo">
-            VT-VN-WEB.COM
+            <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
+            <div class="logo-text">SV VT VN.COM</div>
         </div>
         <nav class="nav">
             <a href="index.html">TRANG CHỦ</a>
@@ -521,7 +586,7 @@
         <div class="footer-rainbow"></div>
         <div class="footer-content">
             <div class="footer-left">
-                <div class="footer-logo"><img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo"></div>
+                <div class="footer-logo"><img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo"></div>
             </div>
             
             <div class="footer-right">
@@ -537,8 +602,8 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 VT-VN-WEB.com. Tất cả quyền được bảo lưu.</p>
-            <p class="footer-developed-by">Phát triển bởi VT-VN-WEB.com • v2.5.28</p>
+            <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-developed-by">Phát triển bởi SV VT VN.com • v2.5.28</p>
         </div>
     </footer>
 
@@ -1016,4 +1081,3 @@
     <script src="auth.js"></script>
 </body>
 </html>
-
