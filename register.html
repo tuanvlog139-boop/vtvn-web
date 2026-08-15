@@ -3,480 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VT-VN-WEB.COM - Đăng Ký</title>
+    <title>SV VT VN.COM - Đăng Ký</title>
     <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
+    <link rel="stylesheet" href="gaming-theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        .auth-container {
             min-height: 100vh;
-            color: #fff;
-        }
-
-        .header {
-            background: #0f0f23;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-navy) 100%);
         }
 
-        .logo img {
-            max-width: 150px;
-            max-height: 50px;
-            object-fit: contain;
+        .auth-box {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        .nav a:hover {
-            color: #ff6b6b;
-        }
-
-        .rainbow-line {
-            height: 4px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+        .auth-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-purple), var(--primary-neon-blue));
             background-size: 200% 100%;
-            animation: rainbowMove 3s linear infinite;
+            animation: gradientMove 3s linear infinite;
         }
 
-        @keyframes rainbowMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        .main-content {
-            padding: 40px 20px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .main-title {
+        .auth-header {
             text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 30px;
         }
 
-        .auth-form {
-            background: linear-gradient(145deg, #1e1e3f, #252550);
-            border-radius: 15px;
-            padding: 30px;
-            border: 2px solid rgba(255, 107, 107, 0.3);
+        .auth-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 23, 68, 0.5);
+        }
+
+        .auth-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
         }
 
         .form-group {
             margin-bottom: 20px;
         }
 
-        .form-group label {
+        .form-label {
             display: block;
-            margin-bottom: 8px;
-            color: #ff6b6b;
+            margin-bottom: 10px;
+            color: var(--primary-neon-red);
             font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .form-group input {
+        .form-input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid rgba(255, 107, 107, 0.3);
+            padding: 15px;
+            background: var(--bg-navy);
+            border: 2px solid rgba(255, 23, 68, 0.3);
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 14px;
+            color: var(--text-primary);
+            font-size: 15px;
+            transition: all 0.3s ease;
             box-sizing: border-box;
         }
 
-        .form-group input::placeholder {
-            color: #aaa;
+        .form-input::placeholder {
+            color: var(--text-secondary);
         }
 
-        .form-group input:focus {
+        .form-input:focus {
             outline: none;
-            border-color: #ff6b6b;
+            border-color: var(--primary-neon-red);
+            box-shadow: 0 0 15px rgba(255, 23, 68, 0.3);
         }
 
         .submit-btn {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(90deg, #ff6b6b, #feca57);
-            color: #1a1a2e;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-neon-red), var(--primary-neon-purple));
+            color: var(--text-primary);
             border: none;
             border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 23, 68, 0.3);
         }
 
         .submit-btn:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 23, 68, 0.5);
         }
 
         .form-footer {
             text-align: center;
-            margin-top: 20px;
-            color: #ccc;
+            margin-top: 25px;
+            color: var(--text-secondary);
+            font-size: 14px;
         }
 
         .form-footer a {
-            color: #ff6b6b;
+            color: var(--primary-neon-blue);
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s ease;
         }
 
         .form-footer a:hover {
-            text-decoration: underline;
+            color: var(--primary-neon-red);
         }
 
         .error-message {
-            color: #ff6b6b;
-            font-size: 14px;
-            margin-top: 5px;
+            color: var(--primary-neon-red);
+            font-size: 13px;
+            margin-top: 8px;
             display: none;
+            font-weight: 600;
         }
 
         .success-message {
-            color: #48dbfb;
-            font-size: 14px;
-            margin-top: 5px;
+            color: #00e676;
+            font-size: 13px;
+            margin-top: 8px;
             display: none;
+            font-weight: 600;
         }
 
-        .footer {
-            background: #0f0f23;
-            padding: 30px 40px;
-            margin-top: 50px;
-        }
-
-        .footer-rainbow {
-            height: 4px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            margin-bottom: 30px;
-            background-size: 200% 100%;
-            animation: rainbowMove 3s linear infinite;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .footer-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            text-align: right;
-        }
-
-        .footer-section h3 {
-            color: #ddd;
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: right;
-        }
-
-        .footer-section p {
-            color: #999;
-            line-height: 1.6;
-            font-size: 14px;
-            text-align: right;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .footer-copyright {
-            color: #aaa;
-            font-size: 12px;
-            text-align: left;
-        }
-
-        .footer-developed-by {
-            color: #888;
-            font-size: 12px;
-            text-align: right;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px 20px;
+        @media (max-width: 480px) {
+            .auth-box {
+                padding: 30px 20px;
             }
 
-            .nav {
-                gap: 15px;
-            }
-
-            .main-content {
-                padding: 20px 15px;
-            }
-
-            .footer-content {
-                flex-direction: column;
+            .auth-title {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo">
-            VT-VN-WEB.COM
-        </div>
-        <nav class="nav">
-            <a href="index.html">TRANG CHỦ</a>
-            <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
-            <a href="dong-quy.html">ĐÓNG QUỲ SV VT</a>
-            <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
-        </nav>
-    </header>
-    <div class="rainbow-line"></div>
-
-    <main class="main-content">
-        <h1 class="main-title">📝 ĐĂNG KÝ TÀI KHOẢN</h1>
-        
-        <div class="auth-form">
-            <div class="form-group">
-                <label for="username">Tên đăng nhập</label>
-                <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
-                <div class="error-message" id="usernameError"></div>
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h1 class="auth-title">📝 ĐĂNG KÝ</h1>
+                <p class="auth-subtitle">Tạo tài khoản mới tại VT-VN Shop</p>
             </div>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" class="form-input" placeholder="Nhập tên đăng nhập" required>
+                    <div class="error-message" id="usernameError"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Nhập email" required>
-                <div class="error-message" id="emailError"></div>
-            </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Nhập email" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="password">Mật khẩu</label>
-                <input type="password" id="password" placeholder="Nhập mật khẩu (tối thiểu 6 ký tự)" required>
-                <div class="error-message" id="passwordError"></div>
-            </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Mật khẩu</label>
+                    <input type="password" id="password" class="form-input" placeholder="Nhập mật khẩu" required>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="confirmPassword">Xác nhận mật khẩu</label>
-                <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required>
-                <div class="error-message" id="confirmPasswordError"></div>
-            </div>
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Xác nhận mật khẩu</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="Nhập lại mật khẩu" required>
+                    <div class="error-message" id="confirmPasswordError"></div>
+                </div>
 
-            <button class="submit-btn" onclick="register()">ĐĂNG KÝ</button>
-            <div class="success-message" id="successMessage"></div>
+                <button type="submit" class="submit-btn">ĐĂNG KÝ</button>
+            </form>
 
             <div class="form-footer">
                 Đã có tài khoản? <a href="login.html">Đăng nhập ngay</a>
             </div>
         </div>
-    </main>
+    </div>
 
-    <footer class="footer">
-        <div class="footer-rainbow"></div>
-        <div class="footer-content">
-            <div class="footer-left">
-                <div class="footer-logo"><img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo"></div>
-            </div>
-            
-            <div class="footer-right">
-                <div class="footer-section">
-                    <h3>VỀ CHÚNG TÔI</h3>
-                    <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>LIÊN HỆ HỖ TRỢ</h3>
-                    <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 VT-VN-WEB.com. Tất cả quyền được bảo lưu.</p>
-            <p class="footer-developed-by">Phát triển bởi VT-VN-WEB.com • v2.5.28</p>
-        </div>
-    </footer>
-
+    <script src="auth.js"></script>
     <script>
-        // Lấy danh sách users từ localStorage
-        function getUsers() {
-            const users = localStorage.getItem('users');
-            return users ? JSON.parse(users) : [];
-        }
-
-        // Lưu danh sách users vào localStorage
-        function saveUsers(users) {
-            localStorage.setItem('users', JSON.stringify(users));
-        }
-
-        // Hiển thị lỗi
-        function showError(elementId, message) {
-            const element = document.getElementById(elementId);
-            element.textContent = message;
-            element.style.display = 'block';
-        }
-
-        // Xóa lỗi
-        function clearError(elementId) {
-            const element = document.getElementById(elementId);
-            element.textContent = '';
-            element.style.display = 'none';
-        }
-
-        // Xóa tất cả lỗi
-        function clearAllErrors() {
-            clearError('usernameError');
-            clearError('emailError');
-            clearError('passwordError');
-            clearError('confirmPasswordError');
-            document.getElementById('successMessage').style.display = 'none';
-        }
-
-        // Đăng ký
-        function register() {
-            clearAllErrors();
-
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-
+            
+            const usernameError = document.getElementById('usernameError');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            
+            // Reset errors
+            usernameError.style.display = 'none';
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            confirmPasswordError.style.display = 'none';
+            
             let hasError = false;
-
+            
             // Validate username
-            if (!username) {
-                showError('usernameError', 'Vui lòng nhập tên đăng nhập');
-                hasError = true;
-            } else if (username.length < 3) {
-                showError('usernameError', 'Tên đăng nhập phải có ít nhất 3 ký tự');
+            if (username.length < 3) {
+                usernameError.textContent = 'Tên đăng nhập phải có ít nhất 3 ký tự';
+                usernameError.style.display = 'block';
                 hasError = true;
             }
-
+            
             // Validate email
-            if (!email) {
-                showError('emailError', 'Vui lòng nhập email');
-                hasError = true;
-            } else if (!email.includes('@')) {
-                showError('emailError', 'Email không hợp lệ');
+            if (!email.includes('@')) {
+                emailError.textContent = 'Email không hợp lệ';
+                emailError.style.display = 'block';
                 hasError = true;
             }
-
+            
             // Validate password
-            if (!password) {
-                showError('passwordError', 'Vui lòng nhập mật khẩu');
-                hasError = true;
-            } else if (password.length < 6) {
-                showError('passwordError', 'Mật khẩu phải có ít nhất 6 ký tự');
+            if (password.length < 6) {
+                passwordError.textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
+                passwordError.style.display = 'block';
                 hasError = true;
             }
-
+            
             // Validate confirm password
-            if (!confirmPassword) {
-                showError('confirmPasswordError', 'Vui lòng xác nhận mật khẩu');
-                hasError = true;
-            } else if (password !== confirmPassword) {
-                showError('confirmPasswordError', 'Mật khẩu xác nhận không khớp');
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Mật khẩu xác nhận không khớp';
+                confirmPasswordError.style.display = 'block';
                 hasError = true;
             }
-
+            
             if (hasError) return;
-
-            // Kiểm tra username đã tồn tại chưa
+            
+            // Check if username already exists
             const users = getUsers();
-            const existingUser = users.find(u => u.username === username);
-            
-            if (existingUser) {
-                showError('usernameError', 'Tên đăng nhập đã tồn tại');
+            if (users.find(u => u.username === username)) {
+                usernameError.textContent = 'Tên đăng nhập đã tồn tại';
+                usernameError.style.display = 'block';
                 return;
             }
-
-            // Kiểm tra email đã tồn tại chưa
-            const existingEmail = users.find(u => u.email === email);
             
-            if (existingEmail) {
-                showError('emailError', 'Email đã được sử dụng');
-                return;
-            }
-
-            // Tạo user mới
+            // Create new user
             const newUser = {
-                id: Date.now(),
                 username: username,
                 email: email,
-                password: password, // Trong thực tế nên hash password
-                createdAt: new Date().toISOString(),
+                password: password,
                 balance: 0,
-                tickets: 0,
-                depositHistory: []
+                createdAt: new Date().toISOString()
             };
-
+            
             users.push(newUser);
             saveUsers(users);
-
-            // Hiển thị thông báo thành công
-            document.getElementById('successMessage').textContent = '✅ Đăng ký thành công! Đang chuyển đến trang đăng nhập...';
-            document.getElementById('successMessage').style.display = 'block';
-
-            // Chuyển đến trang đăng nhập sau 2 giây
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 2000);
-        }
-
-        // Xử lý Enter key
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                register();
-            }
+            
+            alert('Đăng ký thành công! Vui lòng đăng nhập.');
+            window.location.href = 'login.html';
         });
     </script>
-    <script src="auth.js"></script>
 </body>
 </html>
