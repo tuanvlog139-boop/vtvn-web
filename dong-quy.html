@@ -3,260 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VT-VN-WEB.COM - Đóng Quỹ</title>
+    <title>SV VT VN.COM - Đóng Quỹ</title>
     <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png?v=2">
+    <link rel="stylesheet" href="gaming-theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            color: #fff;
-        }
-
-        .header {
-            background: #0f0f23;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo img {
-            max-width: 150px;
-            max-height: 50px;
-            object-fit: contain;
-        }
-
-        .nav {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        .nav a:hover {
-            color: #ff6b6b;
-        }
-
-        .rainbow-line {
-            height: 4px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            background-size: 200% 100%;
-            animation: rainbowMove 3s linear infinite;
-        }
-
-        @keyframes rainbowMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        .main-content {
+        .deposit-section {
             padding: 40px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .main-title {
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .content-box {
-            background: linear-gradient(145deg, #1e1e3f, #252550);
-            border-radius: 12px;
+        .info-card {
+            background: var(--bg-card);
+            border-radius: 16px;
             padding: 30px;
-            margin-bottom: 20px;
-            border: 2px solid rgba(255, 107, 107, 0.3);
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .content-box h2 {
-            color: #ff6b6b;
-            margin-bottom: 15px;
-        }
-
-        .content-box p {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        .footer {
-            background: #0f0f23;
-            padding: 30px 40px;
-            margin-top: 50px;
-        }
-
-        .footer-rainbow {
-            height: 4px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            margin-bottom: 30px;
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-purple), var(--primary-neon-blue));
             background-size: 200% 100%;
-            animation: rainbowMove 3s linear infinite;
+            animation: gradientMove 3s linear infinite;
         }
 
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .footer-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            text-align: right;
-        }
-
-        .footer-section h3 {
-            color: #ddd;
-            margin-bottom: 15px;
-            font-size: 18px;
+        .info-card h3 {
+            color: var(--primary-neon-red);
+            font-size: 22px;
             font-weight: bold;
-            text-align: right;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .footer-section p {
-            color: #999;
-            line-height: 1.6;
-            font-size: 14px;
-            text-align: right;
+        .info-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 15px;
         }
 
-        .footer-bottom {
+        .info-card .highlight {
+            color: var(--primary-neon-blue);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .info-card .warning {
+            color: var(--primary-neon-red);
+            font-weight: bold;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            color: var(--text-secondary);
+            line-height: 2;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .info-card li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--primary-neon-red);
+        }
+
+        .qr-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 40px;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-purple), var(--primary-neon-blue));
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        .qr-section h3 {
+            color: var(--primary-neon-red);
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .qr-placeholder {
+            width: 250px;
+            height: 250px;
+            background: var(--bg-navy);
+            border: 2px dashed rgba(255, 23, 68, 0.3);
+            border-radius: 12px;
+            margin: 0 auto 30px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .footer-copyright {
-            color: #aaa;
-            font-size: 12px;
-            text-align: left;
-        }
-
-        .footer-developed-by {
-            color: #888;
-            font-size: 12px;
-            text-align: right;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 14px;
         }
 
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px 20px;
+            .info-grid {
+                grid-template-columns: 1fr;
             }
 
-            .nav {
-                gap: 15px;
-            }
-
-            .footer-content {
-                flex-direction: column;
+            .qr-placeholder {
+                width: 200px;
+                height: 200px;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo">
-            VT-VN-WEB.COM
+    <!-- GAMING HEADER -->
+    <header class="gaming-header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
+                <span class="main-name">SV VT VN.COM</span>
+                <span class="sub-name">ARK SURVIVAL SHOP</span>
+            </div>
         </div>
-        <nav class="nav">
+        
+        <nav class="header-center">
             <a href="index.html">TRANG CHỦ</a>
+            <a href="thu.html">THÚ</a>
+            <a href="dung-cu.html">DỤNG CỤ</a>
+            <a href="cac-goi.html">CÁC GÓI</a>
             <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
             <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
             <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
-            <a href="profile.html" id="profileLink" style="display: none;">THÔNG TIN</a>
-            <a href="login.html" id="loginLink">ĐĂNG NHẬP</a>
-            <a href="register.html" id="registerLink">ĐĂNG KÝ</a>
-            <span id="userInfo" style="display: none;"></span>
         </nav>
-    </header>
-    <div class="rainbow-line"></div>
-
-    <main class="main-content">
-        <h1 class="main-title">ĐÓNG QUỸ - HƯỚNG DẪN</h1>
         
-        <div class="content-box">
-            <h2>Thông tin tài khoản</h2>
-            <p>Ngân hàng: Vietcombank</p>
-            <p>Số tài khoản: 1051357963</p>
-            <p>Chủ tài khoản: Quy Gia Han Save</p>
+        <div class="header-right">
+            <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
+            <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
+            <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
+            <button class="auth-btn" id="logoutBtn" style="display: none;" onclick="logout()">ĐĂNG XUẤT</button>
+            <div class="user-info-panel" id="userInfoPanel" style="display: none;">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">Username</span>
+                    <span class="user-balance" id="userBalance">0 VNĐ</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="index.html" class="breadcrumb-item">TRANG CHỦ</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-item active">ĐÓNG QUỸ SV VT</span>
+    </nav>
+
+    <!-- DEPOSIT SECTION -->
+    <section class="deposit-section">
+        <div class="section-header">
+            <h2 class="section-title">ĐÓNG QUÝ - HƯỚNG DẪN</h2>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>📱 THÔNG TIN TÀI KHOẢN</h3>
+                <p><span class="highlight">Ngân hàng:</span> Vietcombank</p>
+                <p><span class="highlight">Số tài khoản:</span> 1051357963</p>
+                <p><span class="highlight">Chủ tài khoản:</span> VY VĂN TUẤN</p>
+                <p style="margin-top: 20px;">Quét mã QR để chuyển khoản nhanh chóng</p>
+            </div>
+
+            <div class="info-card">
+                <h3>⚠️ LƯU Ý QUAN TRỌNG</h3>
+                <ul>
+                    <li>Vui lòng ghi rõ nội dung chuyển khoản theo đúng định dạng</li>
+                    <li>Sau khi chuyển khoản, vui lòng chờ hệ thống xử lý trong 5-10 phút</li>
+                    <li>Nếu có vấn đề gì, vui lòng liên hệ hỗ trợ ngay</li>
+                    <li><span class="warning">Không nhận tiền từ nguồn không rõ ràng</span></li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>🎁 QUYỀN LỢI ĐÓNG QUÝ</h3>
+                <ul>
+                    <li>Đống quý vào tài khoản để đổi vật phẩm</li>
+                    <li>Nhận ưu đãi đặc biệt cho thành viên VIP</li>
+                    <li>Hỗ trợ xử lý giao dịch 24/7</li>
+                    <li>Bảo mật thông tin tuyệt đối</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="content-box">
-            <h2>Lưu ý khi đóng quỹ</h2>
-            <p>- Vui lòng ghi rõ nội dung chuyển khoản theo đúng định dạng</p>
-            <p>- Sau khi chuyển khoản, vui lòng chờ hệ thống xử lý trong 5-10 phút</p>
-            <p>- Nếu có vấn đề gì, vui lòng liên hệ hỗ trợ</p>
+        <div class="qr-section">
+            <h3>📱 MÃ QR CHUYỂN KHOẢN</h3>
+            <div class="qr-placeholder">
+                <img src="https://i.ibb.co/rKKyZwZJ/image.png" alt="QR Code Chuyển Khoản" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+            </div>
+            <p style="color: var(--text-secondary);">Sử dụng ứng dụng ngân hàng để quét mã QR và chuyển khoản</p>
         </div>
-    </main>
+    </section>
 
-    <footer class="footer">
-        <div class="footer-rainbow"></div>
+    <!-- GAMING FOOTER -->
+    <footer class="gaming-footer">
         <div class="footer-content">
-            <div class="footer-left">
-                <div class="footer-logo"><img src="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png" alt="Logo"></div>
+            <div class="footer-section">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
             </div>
             
-            <div class="footer-right">
-                <div class="footer-section">
-                    <h3>VỀ CHÚNG TÔI</h3>
-                    <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>LIÊN HỆ HỖ TRỢ</h3>
-                    <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
-                </div>
+            <div class="footer-section">
+                <h3>LIÊN HỆ HỖ TRỢ</h3>
+                <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>THANH TOÁN</h3>
+                <p>Ngân hàng: Vietcombank</p>
+                <p>Số tài khoản: 1051357963</p>
+                <p>Chủ tài khoản: VY VĂN TUẤN</p>
             </div>
         </div>
+        
         <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 VT-VN-WEB.com. Tất cả quyền được bảo lưu.</p>
-            <p class="footer-developed-by">Phát triển bởi VT-VN-WEB.com • v2.5.28</p>
+            <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-version">Phát triển bởi SV VT VN.com • v2.5.28</p>
         </div>
     </footer>
+
     <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavigation();
+        });
+    </script>
 </body>
 </html>
