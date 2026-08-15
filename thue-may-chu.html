@@ -3,403 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VT-VN-WEB.COM - Thuê Máy Chủ</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            color: #fff;
-        }
-
-        .header {
-            background: #0f0f23;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .nav {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        .nav a:hover {
-            color: #ff6b6b;
-        }
-
-        .rainbow-line {
-            height: 4px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            background-size: 200% 100%;
-            animation: rainbowMove 3s linear infinite;
-        }
-
-        @keyframes rainbowMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        .main-content {
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .main-title {
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        #productGrid {
-            display: grid !important;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-            gap: 20px !important;
-            padding: 15px !important;
-            font-family: Arial, sans-serif !important;
-            width: 100% !important;
-            box-sizing: border-box !important;
-        }
-
-        @keyframes rainbowRotate {
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        .rainbow-card {
-            position: relative !important;
-            background: linear-gradient(145deg, #1e1e3f, #252550) !important;
-            border-radius: 12px !important;
-            padding: 12px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            box-sizing: border-box !important;
-            height: auto !important;
-            text-align: center !important;
-            overflow: hidden !important;
-            z-index: 1 !important;
-            filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.4)) !important;
-        }
-
-        .rainbow-card::before {
-            content: "" !important;
-            position: absolute !important;
-            top: 50% !important; left: 50% !important;
-            width: 150% !important; height: 150% !important;
-            background: conic-gradient(#ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000) !important;
-            animation: rainbowRotate 4s linear infinite !important;
-            transform: translate(-50%, -50%) rotate(0deg);
-            z-index: -2 !important;
-        }
-
-        .rainbow-card::after {
-            content: "" !important;
-            position: absolute !important;
-            top: 3px !important; left: 3px !important; right: 3px !important; bottom: 3px !important;
-            background: linear-gradient(145deg, #1e1e3f, #252550) !important;
-            border-radius: 10px !important;
-            z-index: -1 !important;
-        }
-
-        .card-body {
-            width: 100% !important;
-            display: flex !important;
-            flex-direction: column !important;
-            height: auto !important;
-        }
-
-        .img-container {
-            width: 100% !important;
-            height: auto !important;
-            margin: 0 0 12px 0 !important;
-            padding: 0 !important;
-            display: block !important;
-            overflow: hidden !important;
-        }
-
-        .img-container img {
-            width: 100% !important;
-            height: auto !important;
-            max-height: 160px !important;
-            object-fit: contain !important;
-            display: block !important;
-            margin: 0 auto !important;
-        }
-
-        .content-container {
-            width: 100% !important;
-            margin-top: auto !important;
-            padding: 0 !important;
-        }
-
-        .content-container .title {
-            font-size: 18px !important;
-            font-weight: bold !important;
-            color: #fff !important;
-            margin: 0 0 12px 0 !important;
-            line-height: 1.4 !important;
-            display: block !important;
-        }
-
-        .content-container .price {
-            font-size: 16px !important;
-            color: #ff6b6b !important;
-            font-weight: bold !important;
-            margin: 0 0 12px 0 !important;
-            display: block !important;
-        }
-
-        .btn-fire-blue {
-            display: block !important;
-            width: 100% !important;
-            height: 42px !important;
-            line-height: 42px !important;
-            padding: 0 !important;
-            clip-path: polygon(15px 0px, calc(100% - 15px) 0px, 100% 50%, calc(100% - 15px) 100%, 15px 100%, 0px 50%) !important;
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3) !important;
-            background-size: 400% 100% !important;
-            background-position: 0% 50%;
-            color: #1a1a2e !important;
-            font-weight: bold !important;
-            text-decoration: none !important;
-            font-size: 13px !important;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
-            box-sizing: border-box !important;
-            text-align: center;
-            filter: drop-shadow(0 5px 15px rgba(255, 107, 107, 0.4)) !important;
-        }
-
-        .footer {
-            background: #0f0f23;
-            padding: 30px 40px;
-            margin-top: 50px;
-        }
-
-        .footer-rainbow {
-            height: 4px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            margin-bottom: 30px;
-            background-size: 200% 100%;
-            animation: rainbowMove 3s linear infinite;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .footer-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            text-align: right;
-        }
-
-        .footer-section h3 {
-            color: #ddd;
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: right;
-        }
-
-        .footer-section p {
-            color: #999;
-            line-height: 1.6;
-            font-size: 14px;
-            text-align: right;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .footer-copyright {
-            color: #aaa;
-            font-size: 12px;
-            text-align: left;
-        }
-
-        .footer-developed-by {
-            color: #888;
-            font-size: 12px;
-            text-align: right;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px 20px;
-            }
-
-            .nav {
-                gap: 15px;
-            }
-
-            .footer-content {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <title>SV VT VN.COM - Thuê Máy Chủ</title>
+    <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
+    <link rel="stylesheet" href="gaming-theme.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo">
-            VT-VN-WEB.COM
+    <!-- GAMING HEADER -->
+    <header class="gaming-header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
+                <span class="main-name">SV VT VN.COM</span>
+                <span class="sub-name">ARK SURVIVAL SHOP</span>
+            </div>
         </div>
-        <nav class="nav">
+        
+        <nav class="header-center">
             <a href="index.html">TRANG CHỦ</a>
+            <a href="thu.html">THÚ</a>
+            <a href="dung-cu.html">DỤNG CỤ</a>
+            <a href="cac-goi.html">CÁC GÓI</a>
             <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
             <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
             <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
-            <a href="profile.html" id="profileLink" style="display: none;">THÔNG TIN</a>
-            <a href="login.html" id="loginLink">ĐĂNG NHẬP</a>
-            <a href="register.html" id="registerLink">ĐĂNG KÝ</a>
-            <span id="userInfo" style="display: none;"></span>
         </nav>
-    </header>
-    <div class="rainbow-line"></div>
-
-    <main class="main-content">
-        <h1 class="main-title">BẢNG GIÁ THUÊ MÁY CHỦ</h1>
-        <div id="productGrid"></div>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-rainbow"></div>
-        <div class="footer-content">
-            <div class="footer-left">
-                <div class="footer-logo"><img src="https://i.ibb.co/4RKdwvmh/logo-r-ng-vt.png" alt="Logo"></div>
-            </div>
-            
-            <div class="footer-right">
-                <div class="footer-section">
-                    <h3>VỀ CHÚNG TÔI</h3>
-                    <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>LIÊN HỆ HỖ TRỢ</h3>
-                    <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật full day)</p>
+        
+        <div class="header-right">
+            <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
+            <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
+            <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
+            <button class="auth-btn" id="logoutBtn" style="display: none;" onclick="logout()">ĐĂNG XUẤT</button>
+            <div class="user-info-panel" id="userInfoPanel" style="display: none;">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">Username</span>
+                    <span class="user-balance" id="userBalance">0 VNĐ</span>
                 </div>
             </div>
         </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="index.html" class="breadcrumb-item">TRANG CHỦ</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-item active">THUÊ MÁY CHỦ</span>
+    </nav>
+
+    <!-- SERVER RENTAL SECTION -->
+    <section class="products-section">
+        <div class="section-header">
+            <h2 class="section-title">GÓI THUÊ MÁY CHỦ</h2>
+        </div>
+        
+        <div class="package-grid" id="serverPackages">
+            <!-- Server packages will be loaded here -->
+        </div>
+    </section>
+
+    <!-- GAMING FOOTER -->
+    <footer class="gaming-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>LIÊN HỆ HỖ TRỢ</h3>
+                <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>THANH TOÁN</h3>
+                <p>Ngân hàng: Vietcombank</p>
+                <p>Số tài khoản: 1051357963</p>
+                <p>Chủ tài khoản: Quy Gia Han Save</p>
+            </div>
+        </div>
+        
         <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 VT-VN-WEB.com. Tất cả quyền được bảo lưu.</p>
-            <p class="footer-developed-by">Phát triển bởi VT-VN-WEB.com • v1.9.28.7</p>
+            <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-version">Phát triển bởi SV VT VN.com • v2.5.28</p>
         </div>
     </footer>
 
+    <script src="auth.js"></script>
     <script>
-        const products = [
-            {
-                img: "https://i.ibb.co/mrXnSrHz/image.png", 
-                title: "MÁY CHỦ CƠ BẢN->RAM 8GB", 
-                price: "1M4/tháng 34 SLOT",
-                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=1400000&addInfo=THUE/MAY/CHU%&accountName=THUE%20MAY%20CHU%20Save"
-            },
-            {
-                img: "https://i.ibb.co/mrXnSrHz/image.png", 
-                title: "MÁY CHỦ TIÊN CHIẾN->RAM 16GB", 
-                price: "1M6/tháng 35 SLOT",
-                link: "https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=00000&addInfo=THUE/MAY/CHU%&accountName=THUE%20MAY%20CHU%20Save"
-            },
-            {
-                img: "https://i.ibb.co/mrXnSrHz/image.png", 
-                title: "MÁY CHỦ VIP->CÓ PC RIÊNG", 
-                price: "2$/1SLOT/tháng",
-                link: "https://www.facebook.com/hay.vivan.1?mibextid=wwXIfr&rdid=tfhhbztZxtqaNVRr&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17QHYd7ku2%2F"
-            },
-            {
-                img: "https://i.ibb.co/mrXnSrHz/image.png", 
-                title: "MÁY CHỦ PRO->CÓ PC RIÊNG", 
-                price: "35$/tháng Đầu+100Slot",
-                link: "https://www.facebook.com/hay.vivan.1?mibextid=wwXIfr&rdid=tfhhbztZxtqaNVRr&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17QHYd7ku2%2F"
-            }
-         ];
+        // Load server packages
+        function loadServerPackages() {
+            const serverPackages = document.getElementById('serverPackages');
+            
+            // Dữ liệu mẫu cho gói thuê máy chủ
+            const packages = [
+                {
+                    name: 'MÁY CHỦ CƠ ',
+                    description: 'Phù hợp cho nhóm nhỏ bắt đầu chơi',
+                    price: '1.400.000',
+                    originalPrice: '1.600.000',
+                    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80',
+                    badge: 'KHỞI ĐẦU',
+                    featured: false,
+                    items: [
+                        '34 người chơi tối đa',
+                        '10GB dung lượng',
+                        'CPU 2 cores',
+                        'RAM 8GB',
+                        'Hỗ trợ 24/7'
+                    ]
+                },
+                {
+                    name: 'MÁY CHỦ SIÊU CHIẾN',
+                    description: 'Lý tưởng cho nhóm bạn thân thiết',
+                    price: '1.600.000',
+                    originalPrice: '2.000.000',
+                    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80',
+                    badge: 'PHỔ BIẾN',
+                    featured: true,
+                    items: [
+                        '35 người chơi tối đa',
+                        '50GB dung lượng',
+                        'CPU 4 cores',
+                        'RAM 16GB',
+                        'Hỗ trợ ưu tiên',
+                        'Backup hàng ngày'
+                    ]
+                },
+                {
+                    name: 'MÁY CHỦ PRO',
+                    description: 'Dành cho PC RIÊNG BIỆT',
+                    price: '1 SLOT 2$',
+                    originalPrice: '90$',
+                    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80',
+                    badge: 'VIP',
+                    featured: false,
+                    items: [
+                        '100 người chơi tối đa',
+                        'MÁY CHỦ PC ',
+                        'CPU 8 cores',
+                        'RAM 16GB',
+                        'Hỗ trợ VIP 24/7',
+                        'Backup real-time',
+                        'Custom mod support'
+                    ]
+                },
+                {
+                    name: 'GÓI ULTIMATE',
+                    description: 'Sức mạnh không giới hạn',
+                    price: 'THÁNG ĐẦU 35$-> THỨ 2 70$',
+                    originalPrice: '90$',
+                    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80',
+                    badge: 'MAX',
+                    featured: false,
+                    items: [
+                        '100 người chơi tối đa',
+                        '100GB dung lượng',
+                        'CPU 16 cores',
+                        'RAM 32GB',
+                        'Hỗ trợ chuyên gia',
+                        'Backup đa điểm',
+                        'Full mod support',
+                        'Domain riêng'
+                    ]
+                }
+            ];
 
-        const grid = document.getElementById('productGrid');
-        if(grid) {
-            products.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'rainbow-card';
-                card.innerHTML = `
-                    <div class="card-body">
-                        <div class="img-container">
-                            <img src="${p.img}" alt="${p.title}">
+            packages.forEach(pkg => {
+                const packageCard = document.createElement('div');
+                packageCard.className = `package-card ${pkg.featured ? 'featured' : ''}`;
+                packageCard.innerHTML = `
+                    <span class="package-badge">${pkg.badge}</span>
+                    <img src="${pkg.image}" alt="${pkg.name}" class="package-image">
+                    <div class="package-content">
+                        <h3 class="package-name">${pkg.name}</h3>
+                        <p class="package-description">${pkg.description}</p>
+                        <p class="package-price">${pkg.price}.000 VNĐ/tháng</p>
+                        <p class="package-original-price">${pkg.originalPrice}.000 VNĐ</p>
+                        <div class="package-items">
+                            ${pkg.items.map(item => `<div class="package-item">${item}</div>`).join('')}
                         </div>
-                        <div class="content-container"s
-                            <div class="title">${p.title}</div>
-                            <div class="price">${p.price}</div>
-                            <a href="${p.link}" class="btn-fire-blue">ĐẶT NGAY</a>
-                        </div>
+                        <button class="package-btn" onclick="rentServer('${pkg.name}', ${pkg.price})">THUÊ NGAY</button>
                     </div>
                 `;
-                grid.appendChild(card);
+                serverPackages.appendChild(packageCard);
             });
         }
 
-        let position = 0;
-        let direction = 1;
-        
-        setInterval(() => {
-            position += 0.8 * direction; 
-            
-            if (position >= 100) { direction = -1; }
-            if (position <= 0) { direction = 1; }
-            
-            const buttons = document.querySelectorAll('.btn-fire-blue');
-            buttons.forEach(btn => {
-                btn.style.setProperty('background-position', `${position}% 50%`, 'important');
-            });
-        }, 20);
+        // Rent server function
+        function rentServer(packageName, price) {
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập để thuê máy chủ!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (confirm(`Bạn có chắc muốn thuê gói ${packageName} với giá ${price}.000 VNĐ/tháng?`)) {
+                // Add transaction logic here
+                alert(`Đã đặt thuê gói ${packageName} thành công! Chúng tôi sẽ liên hệ với bạn sớm.`);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServerPackages();
+            updateNavigation();
+        });
     </script>
-    <script src="auth.js"></script>
 </body>
 </html>
