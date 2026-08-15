@@ -29,9 +29,17 @@ function updateNavigation() {
     const loginLink = document.getElementById('loginLink');
     const registerLink = document.getElementById('registerLink');
     const logoutLink = document.getElementById('logoutLink');
+    const logoutBtn = document.getElementById('logoutBtn');
     const userInfo = document.getElementById('userInfo');
+    
+    // Gaming header elements
+    const userInfoPanel = document.getElementById('userInfoPanel');
+    const userAvatar = document.getElementById('userAvatar');
+    const userName = document.getElementById('userName');
+    const userBalance = document.getElementById('userBalance');
 
     if (currentUser) {
+        // Old navigation
         if (profileLink) profileLink.style.display = 'inline';
         if (loginLink) loginLink.style.display = 'none';
         if (registerLink) registerLink.style.display = 'none';
@@ -40,12 +48,33 @@ function updateNavigation() {
             userInfo.style.display = 'inline';
             userInfo.innerHTML = `👤 ${currentUser.username}`;
         }
+        
+        // New gaming header
+        if (userInfoPanel) {
+            userInfoPanel.style.display = 'flex';
+            if (userAvatar) userAvatar.textContent = currentUser.username.charAt(0).toUpperCase();
+            if (userName) userName.textContent = currentUser.username;
+            if (userBalance) userBalance.textContent = `${currentUser.balance || 0} VNĐ`;
+        }
+        
+        if (loginLink) loginLink.style.display = 'none';
+        if (registerLink) registerLink.style.display = 'none';
+        if (profileLink) profileLink.style.display = 'inline-block';
+        if (logoutBtn) logoutBtn.style.display = 'inline-block';
     } else {
+        // Old navigation
         if (profileLink) profileLink.style.display = 'none';
         if (loginLink) loginLink.style.display = 'inline';
         if (registerLink) registerLink.style.display = 'inline';
         if (logoutLink) logoutLink.style.display = 'none';
         if (userInfo) userInfo.style.display = 'none';
+        
+        // New gaming header
+        if (userInfoPanel) userInfoPanel.style.display = 'none';
+        if (loginLink) loginLink.style.display = 'inline-block';
+        if (registerLink) registerLink.style.display = 'inline-block';
+        if (profileLink) profileLink.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
     }
 }
 
