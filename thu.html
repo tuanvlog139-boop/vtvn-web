@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SV VT VN.COM - Thú</title>
+    <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
+    <link rel="stylesheet" href="gaming-theme.css">
+</head>
+<body>
+    <!-- GAMING HEADER -->
+    <header class="gaming-header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
+                <span class="main-name">SV VT VN.COM</span>
+                <span class="sub-name">ARK SURVIVAL SHOP</span>
+            </div>
+        </div>
+        
+        <nav class="header-center">
+            <a href="index.html">TRANG CHỦ</a>
+            <a href="thu.html">THÚ</a>
+            <a href="dung-cu.html">DỤNG CỤ</a>
+            <a href="cac-goi.html">CÁC GÓI</a>
+            <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
+            <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
+            <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+        </nav>
+        
+        <div class="header-right">
+            <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
+            <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
+            <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
+            <button class="auth-btn" id="logoutBtn" style="display: none;" onclick="logout()">ĐĂNG XUẤT</button>
+            <div class="user-info-panel" id="userInfoPanel" style="display: none;">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">Username</span>
+                    <span class="user-balance" id="userBalance">0 VNĐ</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="index.html" class="breadcrumb-item">TRANG CHỦ</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-item active">THÚ</span>
+    </nav>
+
+    <!-- ANIMALS SECTION -->
+    <section class="products-section">
+        <div class="section-header">
+            <h2 class="section-title">🦖 CÁC LOẠI THÚ ARK</h2>
+        </div>
+        
+        <div class="product-grid" id="animalsGrid">
+            <!-- Animals will be loaded here -->
+        </div>
+    </section>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div class="product-detail-modal" id="productDetailModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductDetail()">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="Product Image">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalName">Product Name</h2>
+                    <p id="modalLevel" class="modal-level">Level</p>
+                    <p id="modalDescription" class="modal-description">Description</p>
+                    <p id="modalPrice" class="modal-price">Price</p>
+                    <div class="modal-stats" id="modalStats"></div>
+                    <button class="modal-buy-btn" id="modalBuyBtn">MUA NGAY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAMING FOOTER -->
+    <footer class="gaming-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>LIÊN HỆ HỖ TRỢ</h3>
+                <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>THANH TOÁN</h3>
+                <p>Ngân hàng: Vietcombank</p>
+                <p>Số tài khoản: 1051357963</p>
+                <p>Chủ tài khoản: Quy Gia Han Save</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-version">Phát triển bởi SV VT VN.com • v2.5.28</p>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script>
+        // Load animals với ảnh gốc
+        function loadAnimals() {
+            const animalsGrid = document.getElementById('animalsGrid');
+            
+            // Dữ liệu thú gốc từ GitHub
+            const animals = [
+                {
+                    name: 'MÀU THÚ 10/1CON',
+                    level: '10 ĐIỂM',
+                    description: 'Màu thú 10 màu cho 1 con',
+                    price: '10.000 VNĐ',
+                    image: 'https://i.ibb.co/TMJhxkQ9/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '500',
+                        'Dame': '100',
+                        'Speed': '50',
+                        'Tốc độ': 'Trung bình'
+                    }
+                },
+                {
+                    name: 'giffin',
+                    level: '100 ĐIỂM',
+                    description: 'giffin với tốc độ cực đại',
+                    price: '100.000 VNĐ',
+                    image: 'https://i.ibb.co/PG2LC51t/image.png',
+                    badge: 'vip',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '1500',
+                        'Dame': '400',
+                        'Speed': '500',
+                        'Tốc độ': 'Cực đại'
+                    }
+                },
+                {
+                    name: 'ROCDAKE 1 CẶP',
+                    level: '199 ĐIỂM',
+                    description: 'ROCDAKE 1 CẶP với tốc độ đáng sợ',
+                    price: '199.000 VNĐ',
+                    image: 'https://i.ibb.co/6R37Gcd8/image.png',
+                    badge: 'new',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=199000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '3000',
+                        'Dame': '800',
+                        'Speed': '400',
+                        'Tốc độ': 'Đáng sợ'
+                    }
+                },
+                {
+                    name: 'con cú ',
+                    level: '35 ĐIỂM',
+                    description: 'tính năng bay nhanh hồi máu',
+                    price: '35.000 VNĐ',
+                    image: 'https://i.ibb.co/chDpDPLC/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '800',
+                        'Dame': '200',
+                        'Speed': '350',
+                        'Khả năng': 'Hồi máu'
+                    }
+                },
+                {
+                    name: 'Hiêu Tek',
+                    level: '100 ĐIỂM',
+                    description: 'hiêu tek ông hoàng fam ',
+                    price: '100.000 VNĐ',
+                    image: 'https://i.ibb.co/zVtm9BHz/image.png',
+                    badge: '',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '2000',
+                        'Dame': '600',
+                        'Speed': '300',
+                        'Loại': 'Tek'
+                    }
+                },
+                {
+                    name: 'CARCHA',
+                    level: '150 ĐIỂM',
+                    description: 'CARCHA quái vật mạnh nhất',
+                    price: '150.000 VNĐ',
+                    image: 'https://i.ibb.co/TxwwmDZD/image.png',
+                    badge: 'vip',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '5000',
+                        'Dame': '1000',
+                        'Speed': '200',
+                        'Đặc tính': 'Quái vật'
+                    }
+                },
+                {
+                    name: 'RỒNG CRY 1 CẶP',
+                    level: '150 ĐIỂM',
+                    description: 'RỒNG CRY 3 HỆ MÁU NƯỚC LỬA TỰ CHỌN',
+                    price: '150.000 VNĐ',
+                    image: 'https://i.ibb.co/99sPgF9n/image.png',
+                    badge: 'vip',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '4000',
+                        'Dame': '900',
+                        'Speed': '400',
+                        'Hệ': 'Nước/Lửa'
+                    }
+                },
+                {
+                    name: 'CON MỎ VỊT',
+                    level: '25 ĐIỂM',
+                    description: 'VUA NUÔI BABY ',
+                    price: '25.000 VNĐ',
+                    image: 'https://i.ibb.co/TMJDM9cZ/image.png',
+                    badge: 'HOT',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=25000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '300',
+                        'Dame': '50',
+                        'Speed': '100',
+                        'Khả năng': 'Nuôi baby'
+                    }
+                },
+                {
+                    name: 'R-VELOM',
+                    level: '35 ĐIỂM',
+                    description: 'ÔNG HOÀNG SÚNG MÁY  ',
+                    price: '35.000 VNĐ',
+                    image: 'https://i.ibb.co/7dRtrmSR/image.png',
+                    badge: '',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '1000',
+                        'Dame': '700',
+                        'Speed': '400',
+                        'Loại': 'Súng máy'
+                    }
+                },
+                {
+                    name: 'R-REPER',
+                    level: '149 ĐIỂM',
+                    description: 'ÔNG HOÀNG GIÁP TRÂU PVP',
+                    price: '149.000 VNĐ',
+                    image: 'https://i.ibb.co/d0jS7g80/image.png',
+                    badge: '',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=149000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '8000',
+                        'Dame': '1200',
+                        'Speed': '250',
+                        'Loại': 'Giáp trâu'
+                    }
+                },
+                {
+                    name: 'GIGAN TEK',
+                    level: '149 ĐIỂM',
+                    description: 'ÔNG HOÀNG TEK ',
+                    price: '149.000 VNĐ',
+                    image: 'https://i.ibb.co/gMqgyhgZ/image.png',
+                    badge: '',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=149000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '6000',
+                        'Dame': '1500',
+                        'Speed': '300',
+                        'Loại': 'Tek boss'
+                    }
+                },
+                {
+                    name: 'MANAGA',
+                    level: '100 ĐIỂM',
+                    description: 'ÔNG HOÀNG MANAGA BAY VÀ PHUN BĂNG ',
+                    price: '100.000 VNĐ',
+                    image: 'https://i.ibb.co/rRkZdfYP/image.png',
+                    badge: '',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'HP': '2500',
+                        'Dame': '800',
+                        'Speed': '500',
+                        'Khả năng': 'Phun băng'
+                    }
+                }
+            ];
+
+            animals.forEach(animal => {
+                const animalCard = document.createElement('div');
+                animalCard.className = 'product-card';
+                animalCard.innerHTML = `
+                    ${animal.badge ? `<span class="product-badge ${animal.badge}">${animal.badge.toUpperCase()}</span>` : ''}
+                    <img src="${animal.image}" alt="${animal.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${animal.name}</h3>
+                        <p class="product-level">${animal.level}</p>
+                        <p class="product-description">${animal.description}</p>
+                        <p class="product-price">${animal.price}</p>
+                        <div class="product-actions">
+                            <button class="product-btn primary" onclick="buyAnimal('${animal.name}', '${animal.price}', '${animal.link}')">GÓP QUỸ</button>
+                            <button class="product-btn secondary" onclick="viewAnimalDetail('${animal.name}')">CHI TIẾT</button>
+                        </div>
+                    </div>
+                `;
+                animalsGrid.appendChild(animalCard);
+            });
+        }
+
+        // Buy animal function với link QR
+        function buyAnimal(name, price, link) {
+            // Mở link QR code để thanh toán
+            window.open(link, '_blank');
+        }
+
+        // View animal detail with modal
+        function viewAnimalDetail(name) {
+            const animal = animals.find(a => a.name === name);
+            if (animal) {
+                const modal = document.getElementById('productDetailModal');
+                document.getElementById('modalImage').src = animal.image;
+                document.getElementById('modalName').textContent = animal.name;
+                document.getElementById('modalLevel').textContent = animal.level;
+                document.getElementById('modalDescription').textContent = animal.description;
+                document.getElementById('modalPrice').textContent = animal.price;
+                
+                // Stats
+                const statsDiv = document.getElementById('modalStats');
+                if (animal.stats) {
+                    statsDiv.innerHTML = Object.entries(animal.stats).map(([key, value]) => `
+                        <div class="modal-stat">
+                            <div class="modal-stat-label">${key}</div>
+                            <div class="modal-stat-value">${value}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    statsDiv.innerHTML = '';
+                }
+                
+                // Buy button
+                const buyBtn = document.getElementById('modalBuyBtn');
+                buyBtn.onclick = () => buyAnimal(animal.name, animal.price, animal.link);
+                
+                modal.classList.add('active');
+            }
+        }
+
+        // Close product detail modal
+        function closeProductDetail() {
+            document.getElementById('productDetailModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productDetailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductDetail();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAnimals();
+            updateNavigation();
+        });
+    </script>
+</body>
+</html>

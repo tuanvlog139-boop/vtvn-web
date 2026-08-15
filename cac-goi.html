@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SV VT VN.COM - Các Gói</title>
+    <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
+    <link rel="stylesheet" href="gaming-theme.css">
+    <style>
+        .package-detail-section {
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .package-detail-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .package-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .package-item-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .package-item-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-neon-red);
+            box-shadow: 0 10px 20px rgba(255, 23, 68, 0.3);
+        }
+
+        .package-item-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .package-item-card h4 {
+            color: var(--text-primary);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .package-item-card .item-level {
+            color: var(--primary-neon-blue);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .package-item-card .item-quantity {
+            color: var(--primary-neon-red);
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .package-info-panel {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .package-info-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-purple), var(--primary-neon-blue));
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        .package-info-panel h3 {
+            color: var(--primary-neon-red);
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .package-info-panel .package-price {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary-neon-red);
+            margin: 20px 0;
+        }
+
+        .package-info-panel .package-stats {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 23, 68, 0.1);
+            border-radius: 8px;
+        }
+
+        .package-info-panel .package-stats p {
+            color: var(--text-secondary);
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .package-info-panel .package-stats span {
+            color: var(--primary-neon-blue);
+            font-weight: bold;
+        }
+
+        .package-info-panel .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .package-info-panel .status.available {
+            background: rgba(0, 230, 118, 0.2);
+            color: #00e676;
+        }
+
+        .package-info-panel .status.sold-out {
+            background: rgba(255, 23, 68, 0.2);
+            color: var(--primary-neon-red);
+        }
+
+        @media (max-width: 1024px) {
+            .package-detail-container {
+                grid-template-columns: 1fr;
+            }
+
+            .package-info-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .package-items-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GAMING HEADER -->
+    <header class="gaming-header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
+                <span class="main-name">SV VT VN.COM</span>
+                <span class="sub-name">ARK SURVIVAL SHOP</span>
+            </div>
+        </div>
+        
+        <nav class="header-center">
+            <a href="index.html">TRANG CHỦ</a>
+            <a href="thu.html">THÚ</a>
+            <a href="dung-cu.html">DỤNG CỤ</a>
+            <a href="cac-goi.html">CÁC GÓI</a>
+            <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
+            <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
+            <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+        </nav>
+        
+        <div class="header-right">
+            <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
+            <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
+            <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
+            <button class="auth-btn" id="logoutBtn" style="display: none;" onclick="logout()">ĐĂNG XUẤT</button>
+            <div class="user-info-panel" id="userInfoPanel" style="display: none;">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">Username</span>
+                    <span class="user-balance" id="userBalance">0 VNĐ</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="index.html" class="breadcrumb-item">TRANG CHỦ</a>
+        <span class="breadcrumb-separator">></span>
+        <a href="cac-goi.html" class="breadcrumb-item">CÁC GÓI</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-item active" id="currentPackage">GÓI THÚ</span>
+    </nav>
+
+    <!-- PACKAGE DETAIL SECTION -->
+    <section class="package-detail-section" id="packageDetailView" style="display: none;">
+        <div class="section-header">
+            <button onclick="showPackageList()" style="background: transparent; border: 1px solid var(--primary-neon-red); color: var(--primary-neon-red); padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-bottom: 20px;">
+                ← QUAY LẠI DANH SÁCH GÓI
+            </button>
+            <h2 class="section-title" id="packageTitle">GÓI THÚ</h2>
+        </div>
+
+        <div class="package-detail-container">
+            <div class="package-items">
+                <h3 style="color: var(--primary-neon-red); font-size: 22px; margin-bottom: 20px; text-transform: uppercase;">THÚ CÓ TRONG GÓI</h3>
+                <div class="package-items-grid" id="packageItemsGrid">
+                    <!-- Package items will be loaded here -->
+                </div>
+            </div>
+
+            <div class="package-info-panel">
+                <h3 id="infoPanelTitle">GÓI THÚ</h3>
+                <div class="status available" id="packageStatus">CÒN HÀNG</div>
+                <div class="package-price" id="packagePrice">200.000 VNĐ</div>
+                
+                <div class="package-stats">
+                    <p>Số lượng thú: <span id="packageItemCount">6</span></p>
+                    <p>Tổng giá trị: <span id="packageTotalValue">1.500.000 VNĐ</span></p>
+                    <p>Tiết kiệm: <span id="packageSavings">1.300.000 VNĐ</span></p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">Nội dung gói:</h4>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;" id="packageDescription">
+                        Gói gồm các con thú mạnh nhất với level cao, giúp bạn thống trị server nhanh chóng.
+                    </p>
+                </div>
+
+                <button class="package-btn" id="buyPackageBtn" onclick="buyPackage()">MUA NGAY</button>
+                <button class="product-btn secondary" style="width: 100%; margin-top: 10px;" onclick="addToCart()">THÊM VÀO GIỎ</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES LIST SECTION -->
+    <section class="products-section" id="packageListView">
+        <div class="section-header">
+            <h2 class="section-title">🎁 CÁC GÓI ƯU ĐÃI</h2>
+        </div>
+        
+        <div class="package-grid" id="packagesGrid">
+            <!-- Packages will be loaded here -->
+        </div>
+    </section>
+
+    <!-- GAMING FOOTER -->
+    <footer class="gaming-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>LIÊN HỆ HỖ TRỢ</h3>
+                <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>THANH TOÁN</h3>
+                <p>Ngân hàng: Vietcombank</p>
+                <p>Số tài khoản: 1051357963</p>
+                <p>Chủ tài khoản: Quy Gia Han Save</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-version">Phát triển bởi SV VT VN.com • v2.5.28</p>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script>
+        let currentPackageData = null;
+
+        // Package data
+        const packages = [
+            {
+                id: 'animal',
+                name: 'GÓI THÚ',
+                description: 'Gói gồm các con thú mạnh nhất với level cao, giúp bạn thống trị server nhanh chóng.',
+                price: '200.000',
+                originalPrice: '1.500.000',
+                image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600&q=80',
+                badge: 'HOT',
+                featured: true,
+                items: [
+                    { name: 'Rex', level: 'Level 150', quantity: 1, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
+                    { name: 'Giga', level: 'Level 200', quantity: 1, image: 'https://images.unsplash.com/photo-1607623843868-819a115e88e8?w=400&q=80' },
+                    { name: 'Wyvern Poison', level: 'Level 180', quantity: 1, image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&q=80' },
+                    { name: 'Managarmr', level: 'Level 160', quantity: 1, image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80' },
+                    { name: 'Argentavis', level: 'Level 120', quantity: 2, image: 'https://images.unsplash.com/photo-1551085254-e96b210db58a?w=400&q=80' },
+                    { name: 'Spino', level: 'Level 140', quantity: 1, image: 'https://images.unsplash.com/photo-1598329292760-2c5cb0ca1e21?w=400&q=80' }
+                ]
+            },
+            {
+                id: 'tools',
+                name: 'GÓI DỤNG CỤ',
+                description: 'Bộ dụng cụ toàn diện cho mọi hoạt động từ khai thác đến chiến đấu.',
+                price: '150.000',
+                originalPrice: '800.000',
+                image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=600&q=80',
+                badge: 'VIP',
+                featured: false,
+                items: [
+                    { name: 'Cung Ascendant', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=400&q=80' },
+                    { name: 'Rìu Pickaxe', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80' },
+                    { name: 'Kiếm Sword', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=400&q=80' },
+                    { name: 'Giáp Flak', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=400&q=80' },
+                    { name: 'Balo Backpack', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80' }
+                ]
+            },
+            {
+                id: 'starter',
+                name: 'GÓI KHỞI ĐẦU',
+                description: 'Gói hoàn hảo cho người mới bắt đầu chơi ARK Survival.',
+                price: '100.000',
+                originalPrice: '400.000',
+                image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=600&q=80',
+                badge: 'NEW',
+                featured: false,
+                items: [
+                    { name: 'Rex', level: 'Level 50', quantity: 1, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
+                    { name: 'Cung Crossbow', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=400&q=80' },
+                    { name: 'Rìu Pickaxe', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80' },
+                    { name: 'Lều Tent', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80' }
+                ]
+            },
+            {
+                id: 'boss',
+                name: 'GÓI BOSS',
+                description: 'Gói chuyên săn boss với các thú và vũ khí tối thượng.',
+                price: '500.000',
+                originalPrice: '2.000.000',
+                image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&q=80',
+                badge: 'MAX',
+                featured: false,
+                items: [
+                    { name: 'Rex', level: 'Level 200', quantity: 2, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
+                    { name: 'Giga', level: 'Level 250', quantity: 1, image: 'https://images.unsplash.com/photo-1607623843868-819a115e88e8?w=400&q=80' },
+                    { name: 'Cung Ascendant', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=400&q=80' },
+                    { name: 'Giáp Flak', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=400&q=80' }
+                ]
+            }
+        ];
+
+        // Load packages list
+        function loadPackages() {
+            const packagesGrid = document.getElementById('packagesGrid');
+            packagesGrid.innerHTML = '';
+
+            packages.forEach(pkg => {
+                const packageCard = document.createElement('div');
+                packageCard.className = `package-card ${pkg.featured ? 'featured' : ''}`;
+                packageCard.innerHTML = `
+                    <span class="package-badge">${pkg.badge}</span>
+                    <img src="${pkg.image}" alt="${pkg.name}" class="package-image">
+                    <div class="package-content">
+                        <h3 class="package-name">${pkg.name}</h3>
+                        <p class="package-description">${pkg.description}</p>
+                        <p class="package-price">${pkg.price}.000 VNĐ</p>
+                        <p class="package-original-price">${pkg.originalPrice}.000 VNĐ</p>
+                        <div class="package-items">
+                            ${pkg.items.slice(0, 3).map(item => `<div class="package-item">${item.name} (${item.level})</div>`).join('')}
+                            ${pkg.items.length > 3 ? `<div class="package-item">+${pkg.items.length - 3} vật phẩm khác</div>` : ''}
+                        </div>
+                        <button class="package-btn" onclick="showPackageDetail('${pkg.id}')">XEM CHI TIẾT</button>
+                    </div>
+                `;
+                packagesGrid.appendChild(packageCard);
+            });
+        }
+
+        // Show package detail
+        function showPackageDetail(packageId) {
+            currentPackageData = packages.find(p => p.id === packageId);
+            if (!currentPackageData) return;
+
+            // Update breadcrumb
+            document.getElementById('currentPackage').textContent = currentPackageData.name;
+
+            // Update package detail view
+            document.getElementById('packageTitle').textContent = currentPackageData.name;
+            document.getElementById('infoPanelTitle').textContent = currentPackageData.name;
+            document.getElementById('packagePrice').textContent = `${currentPackageData.price}.000 VNĐ`;
+            document.getElementById('packageItemCount').textContent = currentPackageData.items.length;
+            document.getElementById('packageTotalValue').textContent = `${currentPackageData.originalPrice}.000 VNĐ`;
+            
+            const savings = parseInt(currentPackageData.originalPrice) - parseInt(currentPackageData.price);
+            document.getElementById('packageSavings').textContent = `${savings.toLocaleString()}.000 VNĐ`;
+            document.getElementById('packageDescription').textContent = currentPackageData.description;
+
+            // Load package items
+            const packageItemsGrid = document.getElementById('packageItemsGrid');
+            packageItemsGrid.innerHTML = '';
+            
+            currentPackageData.items.forEach(item => {
+                const itemCard = document.createElement('div');
+                itemCard.className = 'package-item-card';
+                itemCard.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h4>${item.name}</h4>
+                    <p class="item-level">${item.level}</p>
+                    <p class="item-quantity">Số lượng: ${item.quantity}</p>
+                `;
+                itemCard.onclick = () => viewItemDetail(item);
+                packageItemsGrid.appendChild(itemCard);
+            });
+
+            // Show detail view, hide list view
+            document.getElementById('packageListView').style.display = 'none';
+            document.getElementById('packageDetailView').style.display = 'block';
+        }
+
+        // Show package list
+        function showPackageList() {
+            document.getElementById('packageDetailView').style.display = 'none';
+            document.getElementById('packageListView').style.display = 'block';
+            currentPackageData = null;
+        }
+
+        // View item detail
+        function viewItemDetail(item) {
+            alert(`Chi tiết ${item.name} (${item.level}) - Tính năng đang được phát triển!`);
+        }
+
+        // Buy package
+        function buyPackage() {
+            if (!currentPackageData) return;
+
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập để mua gói!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const priceNum = parseInt(currentPackageData.price) * 1000;
+            if ((currentUser.balance || 0) < priceNum) {
+                alert('Bạn không đủ tiền! Vui lòng nạp thêm.');
+                return;
+            }
+
+            if (confirm(`Bạn có chắc muốn mua ${currentPackageData.name} với giá ${currentPackageData.price}.000 VNĐ?`)) {
+                currentUser.balance -= priceNum;
+                currentUser.orders = (currentUser.orders || 0) + 1;
+                
+                // Add transaction
+                if (!currentUser.transactions) currentUser.transactions = [];
+                currentUser.transactions.unshift({
+                    date: new Date().toISOString(),
+                    type: 'Mua gói',
+                    description: `Mua ${currentPackageData.name}`,
+                    amount: -priceNum
+                });
+                
+                setCurrentUser(currentUser);
+                updateNavigation();
+                alert(`Mua ${currentPackageData.name} thành công!`);
+            }
+        }
+
+        // Add to cart (placeholder)
+        function addToCart() {
+            alert('Tính năng giỏ hàng đang được phát triển!');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPackages();
+            updateNavigation();
+        });
+    </script>
+</body>
+</html>

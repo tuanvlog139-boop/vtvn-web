@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SV VT VN.COM - Dụng Cụ</title>
+    <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
+    <link rel="stylesheet" href="gaming-theme.css">
+</head>
+<body>
+    <!-- GAMING HEADER -->
+    <header class="gaming-header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
+                <span class="main-name">SV VT VN.COM</span>
+                <span class="sub-name">ARK SURVIVAL SHOP</span>
+            </div>
+        </div>
+        
+        <nav class="header-center">
+            <a href="index.html">TRANG CHỦ</a>
+            <a href="thu.html">THÚ</a>
+            <a href="dung-cu.html">DỤNG CỤ</a>
+            <a href="cac-goi.html">CÁC GÓI</a>
+            <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
+            <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
+            <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+        </nav>
+        
+        <div class="header-right">
+            <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
+            <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
+            <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
+            <button class="auth-btn" id="logoutBtn" style="display: none;" onclick="logout()">ĐĂNG XUẤT</button>
+            <div class="user-info-panel" id="userInfoPanel" style="display: none;">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">Username</span>
+                    <span class="user-balance" id="userBalance">0 VNĐ</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="index.html" class="breadcrumb-item">TRANG CHỦ</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-item active">DỤNG CỤ</span>
+    </nav>
+
+    <!-- TOOLS SECTION -->
+    <section class="products-section">
+        <div class="section-header">
+            <h2 class="section-title">⚔️ DỤNG CỤ VẬT PHẨM</h2>
+        </div>
+        
+        <div class="product-grid" id="toolsGrid">
+            <!-- Tools will be loaded here -->
+        </div>
+    </section>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div class="product-detail-modal" id="productDetailModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductDetail()">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="Product Image">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalName">Product Name</h2>
+                    <p id="modalLevel" class="modal-level">Type</p>
+                    <p id="modalDescription" class="modal-description">Description</p>
+                    <p id="modalPrice" class="modal-price">Price</p>
+                    <div class="modal-stats" id="modalStats"></div>
+                    <button class="modal-buy-btn" id="modalBuyBtn">MUA NGAY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAMING FOOTER -->
+    <footer class="gaming-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>LIÊN HỆ HỖ TRỢ</h3>
+                <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>THANH TOÁN</h3>
+                <p>Ngân hàng: Vietcombank</p>
+                <p>Số tài khoản: 1051357963</p>
+                <p>Chủ tài khoản: Quy Gia Han Save</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
+            <p class="footer-version">Phát triển bởi SV VT VN.com • v2.5.28</p>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script>
+        // Load tools
+        function loadTools() {
+            const toolsGrid = document.getElementById('toolsGrid');
+            
+            // Dữ liệu dụng cụ gốc từ GitHub
+            const tools = [
+                {
+                    name: 'TEK GEN + 100 ELE',
+                    type: 'Vật phẩm Tek',
+                    description: 'Tek gen với 100 element',
+                    price: '15.000 VNĐ',
+                    image: 'https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=15000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Element': '100',
+                        'Loại': 'Tek Gen',
+                        'Công dụng': 'Spawn',
+                        'Mức độ': 'Cơ bản'
+                    }
+                },
+                {
+                    name: 'MÁY ẤP',
+                    type: 'Vật phẩm hỗ trợ',
+                    description: 'Máy ấp trứng',
+                    price: '15.000 VNĐ',
+                    image: 'https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png',
+                    badge: '',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=15000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Công dụng': 'Ấp trứng',
+                        'Loại': 'Hỗ trợ',
+                        'Cấp độ': 'Cơ bản',
+                        'Hiệu quả': 'Nhanh'
+                    }
+                },
+                {
+                    name: 'TEK CLON+1000ELE',
+                    type: 'Vật phẩm Tek',
+                    description: 'Tek clon với 1000 element',
+                    price: '35.000 VNĐ',
+                    image: 'https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png',
+                    badge: 'vip',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Element': '1000',
+                        'Loại': 'Tek Clon',
+                        'Công dụng': 'Clone',
+                        'Mức độ': 'Cao cấp'
+                    }
+                },
+                {
+                    name: 'TRỤ TEK+1000ELE',
+                    type: 'Vật phẩm Tek',
+                    description: 'Trụ Tek với 1000 element',
+                    price: '35.000 VNĐ',
+                    image: 'https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png',
+                    badge: 'new',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Element': '1000',
+                        'Loại': 'Tek Trụ',
+                        'Công dụng': 'Tự động',
+                        'Mức độ': 'Cao cấp'
+                    }
+                },
+                {
+                    name: 'MAX LV 105',
+                    type: 'Vật phẩm hỗ trợ',
+                    description: 'Max level 105',
+                    price: '50.000 VNĐ',
+                    image: 'https://i.ibb.co/LXzv5HpG/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Level': '105',
+                        'Loại': 'Boost',
+                        'Công dụng': 'Max level',
+                        'Hiệu quả': 'Tuyệt đối'
+                    }
+                },
+                {
+                    name: '10 BỘ GIÁP',
+                    type: 'Giáp bảo vệ',
+                    description: '10 bộ giáp hoàn chỉnh',
+                    price: '60.000 VNĐ',
+                    image: 'https://i.ibb.co/xtxnnYDq/image.png',
+                    badge: '',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=60000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Số lượng': '10 bộ',
+                        'Loại': 'Giáp thường',
+                        'Chất lượng': 'Hoàn chỉnh',
+                        'Bảo vệ': 'Tốt'
+                    }
+                },
+                {
+                    name: '3 BỘ GIÁP TEK',
+                    type: 'Giáp Tek',
+                    description: '3 bộ giáp Tek',
+                    price: '100.000 VNĐ',
+                    image: 'https://i.ibb.co/VYZSZ5dc/image.png',
+                    badge: 'vip',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Số lượng': '3 bộ',
+                        'Loại': 'Giáp Tek',
+                        'Chất lượng': 'Cao cấp',
+                        'Bảo vệ': 'Tuyệt vời'
+                    }
+                },
+                {
+                    name: '500 KIBBLE',
+                    type: 'Thức ăn thú',
+                    description: '500 kibble cho thú',
+                    price: '50.000 VNĐ',
+                    image: 'https://i.ibb.co/Xfnc8fM1/image.png',
+                    badge: 'new',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Số lượng': '500',
+                        'Loại': 'Thức ăn',
+                        'Công dụng': 'Nuôi thú',
+                        'Hiệu quả': 'Nhanh'
+                    }
+                },
+                {
+                    name: 'CÚP DÌU',
+                    type: 'Vũ khí',
+                    description: 'Cúp dìu mạnh mẽ',
+                    price: '10.000 VNĐ',
+                    image: 'https://i.ibb.co/S4T8ZNcY/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Loại': 'Cận chiến',
+                        'Dame': 'Cao',
+                        'Sát thương': 'Vật lý',
+                        'Dùng': 'Chặt gỗ'
+                    }
+                },
+                {
+                    name: 'CUNG NỎ',
+                    type: 'Vũ khí',
+                    description: 'Cung nỏ lực bắn xa',
+                    price: '15.000 VNĐ',
+                    image: 'https://i.ibb.co/qzBWQ4z/image.png',
+                    badge: 'vip',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=15000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Loại': 'Tầm xa',
+                        'Dame': 'Trung bình',
+                        'Sát thương': 'Vật lý',
+                        'Tầm bắn': 'Xa'
+                    }
+                },
+                {
+                    name: 'CUNG 2 DÂY',
+                    type: 'Vũ khí',
+                    description: 'Cung 2 dây tốc độ cao',
+                    price: '15.000 VNĐ',
+                    image: 'https://i.ibb.co/cSTd6tLh/image.png',
+                    badge: 'new',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=15000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Loại': 'Tầm xa',
+                        'Dame': 'Cao',
+                        'Sát thương': 'Vật lý',
+                        'Tốc độ': 'Rất nhanh'
+                    }
+                },
+                {
+                    name: 'SIÊU SÚNG FAM',
+                    type: 'Vũ khí đặc biệt',
+                    description: 'Siêu súng fam 30 điểm',
+                    price: '30.000 VNĐ',
+                    image: 'https://i.ibb.co/gFh20h5N/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=30000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Loại': 'Súng máy',
+                        'Dame': 'Rất cao',
+                        'Sát thương': 'Đạn',
+                        'Điểm': '30'
+                    }
+                },
+                {
+                    name: 'GÓP QUỸ KEY',
+                    type: 'KEY XỊN PRO',
+                    description: '50 điểm 1000 KEY ',
+                    price: '50.000 VNĐ',
+                    image: 'https://i.ibb.co/h1L0Tdyv/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Điểm': '50',
+                        'KEY': '1000',
+                        'Loại': 'KEY PRO',
+                        'Công dụng': 'Góp quỹ'
+                    }
+                },
+                {
+                    name: 'GÓP QUỸ KEY',
+                    type: 'KEY XỊN PRO',
+                    description: '100 điểm 2000 KEY ',
+                    price: '100.000 VNĐ',
+                    image: 'https://i.ibb.co/h1L0Tdyv/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Điểm': '100',
+                        'KEY': '2000',
+                        'Loại': 'KEY PRO',
+                        'Công dụng': 'Góp quỹ'
+                    }
+                },
+                {
+                    name: 'GÓP QUỸ KEY',
+                    type: 'KEY XỊN PRO',
+                    description: '200 điểm 8000 KEY ',
+                    price: '200.000 VNĐ',
+                    image: 'https://i.ibb.co/h1L0Tdyv/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=200000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Điểm': '200',
+                        'KEY': '8000',
+                        'Loại': 'KEY PRO',
+                        'Công dụng': 'Góp quỹ'
+                    }
+                },
+                {
+                    name: 'GÓP QUỸ KEY',
+                    type: 'KEY XỊN PRO',
+                    description: '300 điểm 15000 KEY ',
+                    price: '300.000 VNĐ',
+                    image: 'https://i.ibb.co/h1L0Tdyv/image.png',
+                    badge: 'hot',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=300000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    stats: {
+                        'Điểm': '300',
+                        'KEY': '15000',
+                        'Loại': 'KEY PRO',
+                        'Công dụng': 'Góp quỹ'
+                    }
+                }
+            ];
+
+            tools.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'product-card';
+                toolCard.innerHTML = `
+                    ${tool.badge ? `<span class="product-badge ${tool.badge}">${tool.badge.toUpperCase()}</span>` : ''}
+                    <img src="${tool.image}" alt="${tool.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${tool.name}</h3>
+                        <p class="product-level">${tool.type}</p>
+                        <p class="product-description">${tool.description}</p>
+                        <p class="product-price">${tool.price}</p>
+                        <div class="product-actions">
+                            <button class="product-btn primary" onclick="buyTool('${tool.name}', '${tool.price}', '${tool.link}')">GÓP QUỸ</button>
+                            <button class="product-btn secondary" onclick="viewToolDetail('${tool.name}')">CHI TIẾT</button>
+                        </div>
+                    </div>
+                `;
+                toolsGrid.appendChild(toolCard);
+            });
+        }
+
+        // Buy tool function với link QR
+        function buyTool(name, price, link) {
+            // Mở link QR code để thanh toán
+            window.open(link, '_blank');
+        }
+
+        // View tool detail with modal
+        function viewToolDetail(name) {
+            const tool = tools.find(t => t.name === name);
+            if (tool) {
+                const modal = document.getElementById('productDetailModal');
+                document.getElementById('modalImage').src = tool.image;
+                document.getElementById('modalName').textContent = tool.name;
+                document.getElementById('modalLevel').textContent = tool.type;
+                document.getElementById('modalDescription').textContent = tool.description;
+                document.getElementById('modalPrice').textContent = tool.price;
+                
+                // Stats
+                const statsDiv = document.getElementById('modalStats');
+                if (tool.stats) {
+                    statsDiv.innerHTML = Object.entries(tool.stats).map(([key, value]) => `
+                        <div class="modal-stat">
+                            <div class="modal-stat-label">${key}</div>
+                            <div class="modal-stat-value">${value}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    statsDiv.innerHTML = '';
+                }
+                
+                // Buy button
+                const buyBtn = document.getElementById('modalBuyBtn');
+                buyBtn.onclick = () => buyTool(tool.name, tool.price, tool.link);
+                
+                modal.classList.add('active');
+            }
+        }
+
+        // Close product detail modal
+        function closeProductDetail() {
+            document.getElementById('productDetailModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productDetailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductDetail();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTools();
+            updateNavigation();
+        });
+    </script>
+</body>
+</html>
