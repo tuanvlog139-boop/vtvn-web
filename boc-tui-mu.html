@@ -3,1081 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SV VT VN.COM - Bốc Túi Mù</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>SV VT VN.COM - Các Gói</title>
+    <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
+    <link rel="stylesheet" href="gaming-theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            color: #fff;
-        }
-
-        .header {
-            background: #0f0f23;
-            padding: 30px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .logo img {
-            max-width: 105px;
-            max-height: 35px;
-            object-fit: contain;
-            display: block;
+        .package-detail-section {
+            padding: 40px 20px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .logo-text {
-            font-size: 13px;
-            font-weight: bold;
-            font-family: 'Orbitron', 'Segoe UI', sans-serif;
-            color: #ffffff;
-            background: linear-gradient(90deg, #00ff88, #00d4ff, #a855f7, #ec4899, #00ff88);
-            background-size: 300% 100%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 
-                0 0 10px rgba(0, 255, 136, 0.8),
-                0 0 20px rgba(0, 212, 255, 0.6),
-                0 0 30px rgba(168, 85, 247, 0.5),
-                0 0 40px rgba(236, 72, 153, 0.4);
-            letter-spacing: 3px;
-            animation: neonGlow 3s ease-in-out infinite alternate;
-            filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.5));
-        }
-
-        @keyframes neonGlow {
-            0% {
-                background-position: 0% 50%;
-                text-shadow: 
-                    0 0 10px rgba(0, 255, 136, 0.8),
-                    0 0 20px rgba(0, 212, 255, 0.6),
-                    0 0 30px rgba(168, 85, 247, 0.5);
-                filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.5));
-            }
-            50% {
-                background-position: 100% 50%;
-                text-shadow: 
-                    0 0 15px rgba(0, 212, 255, 0.9),
-                    0 0 25px rgba(168, 85, 247, 0.7),
-                    0 0 35px rgba(236, 72, 153, 0.6),
-                    0 0 45px rgba(0, 255, 136, 0.5);
-                filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6));
-            }
-            100% {
-                background-position: 200% 50%;
-                text-shadow: 
-                    0 0 10px rgba(168, 85, 247, 0.8),
-                    0 0 20px rgba(236, 72, 153, 0.6),
-                    0 0 30px rgba(0, 255, 136, 0.5),
-                    0 0 40px rgba(0, 212, 255, 0.4);
-                filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.5));
-            }
-        }
-
-        .nav {
-            display: flex;
+        .package-detail-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
             gap: 30px;
         }
 
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        .nav a:hover {
-            color: #ff6b6b;
-        }
-
-        .rainbow-line {
-            height: 4px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            background-size: 200% 100%;
-            animation: rainbowMove 3s linear infinite;
-        }
-
-        @keyframes rainbowMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        .main-content {
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .main-title {
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .box-grid {
+        .package-items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        .mystery-box {
-            aspect-ratio: 1;
-            background: linear-gradient(145deg, #2a2a4a, #3a3a5a);
+        .package-item-card {
+            background: var(--bg-card);
             border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 20px;
+            border: 2px solid rgba(255, 23, 68, 0.2);
             transition: all 0.3s ease;
-            border: 2px solid rgba(255, 107, 107, 0.3);
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
         }
 
-        .mystery-box:hover:not(.revealed):not(.greyed) {
-            transform: scale(1.05);
-            border-color: #ff6b6b;
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        .package-item-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-neon-red);
+            box-shadow: 0 10px 20px rgba(255, 23, 68, 0.3);
         }
 
-        .mystery-box .box-icon {
-            font-size: 40px;
-            color: #ff6b6b;
+        .package-item-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
 
-        .mystery-box.revealed {
-            background: linear-gradient(145deg, #1e3a1e, #2a5a2a);
-            border-color: #00ff00;
-            cursor: default;
+        .package-item-card h4 {
+            color: var(--text-primary);
+            font-size: 16px;
+            margin-bottom: 8px;
         }
 
-        .mystery-box.greyed {
-            background: linear-gradient(145deg, #2a2a2a, #3a3a3a);
-            border-color: #666;
-            cursor: default;
-            opacity: 0.6;
+        .package-item-card .item-level {
+            color: var(--primary-neon-blue);
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
-        .mystery-box .prize-img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
+        .package-item-card .item-quantity {
+            color: var(--primary-neon-red);
+            font-size: 14px;
+            font-weight: bold;
         }
 
-        .mystery-box .prize-name {
+        .package-info-panel {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .package-info-panel::before {
+            content: '';
             position: absolute;
-            bottom: 5px;
+            top: 0;
             left: 0;
             right: 0;
-            text-align: center;
-            font-size: 10px;
-            color: #fff;
-            background: rgba(0,0,0,0.7);
-            padding: 2px 5px;
-        }
-
-        .play-again-btn, .start-game-btn {
-            display: block;
-            width: 200px;
-            height: 50px;
-            margin: 30px auto;
-            line-height: 50px;
-            padding: 0;
-            clip-path: polygon(15px 0px, calc(100% - 15px) 0px, 100% 50%, calc(100% - 15px) 100%, 15px 100%, 0px 50%);
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            background-size: 400% 100%;
-            background-position: 0% 50%;
-            color: #1a1a2e;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 16px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            filter: drop-shadow(0 5px 15px rgba(255, 107, 107, 0.4));
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        .play-again-btn:hover, .start-game-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .footer {
-            background: #0f0f23;
-            padding: 40px 60px;
-            margin-top: 50px;
-        }
-
-        .footer-rainbow {
-            height: 4px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            margin-bottom: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-purple), var(--primary-neon-blue));
             background-size: 200% 100%;
-            animation: rainbowMove 3s linear infinite;
+            animation: gradientMove 3s linear infinite;
         }
 
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 40px;
-            flex-wrap: wrap;
+        .package-info-panel h3 {
+            color: var(--primary-neon-red);
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .package-info-panel .package-price {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary-neon-red);
+            margin: 20px 0;
+        }
+
+        .package-info-panel .package-stats {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 23, 68, 0.1);
+            border-radius: 8px;
+        }
+
+        .package-info-panel .package-stats p {
+            color: var(--text-secondary);
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .package-info-panel .package-stats span {
+            color: var(--primary-neon-blue);
+            font-weight: bold;
+        }
+
+        .package-info-panel .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
             margin-bottom: 20px;
         }
 
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .package-info-panel .status.available {
+            background: rgba(0, 230, 118, 0.2);
+            color: #00e676;
         }
 
-        .footer-logo img {
-            max-width: 105px;
-            max-height: 35px;
-            object-fit: contain;
+        .package-info-panel .status.sold-out {
+            background: rgba(255, 23, 68, 0.2);
+            color: var(--primary-neon-red);
         }
 
-        .footer-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            text-align: right;
-        }
+        @media (max-width: 1024px) {
+            .package-detail-container {
+                grid-template-columns: 1fr;
+            }
 
-        .footer-section h3 {
-            color: #ddd;
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: right;
-        }
-
-        .footer-section p {
-            color: #999;
-            line-height: 1.6;
-            font-size: 14px;
-            text-align: right;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .footer-copyright {
-            color: #aaa;
-            font-size: 12px;
-            text-align: left;
-        }
-
-        .footer-developed-by {
-            color: #888;
-            font-size: 12px;
-            text-align: right;
+            .package-info-panel {
+                position: static;
+            }
         }
 
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px 20px;
+            .package-items-grid {
+                grid-template-columns: 1fr;
             }
-
-            .nav {
-                gap: 15px;
-            }
-
-            .box-grid {
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-                gap: 10px;
-            }
-
-            .footer-content {
-                flex-direction: column;
-            }
-        }
-
-        .payment-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .payment-modal.active {
-            display: flex;
-        }
-
-        .payment-content {
-            background: linear-gradient(145deg, #1e1e3f, #252550);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            border: 2px solid rgba(255, 107, 107, 0.3);
-        }
-
-        .payment-content h2 {
-            color: #ff6b6b;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .payment-content p {
-            color: #ddd;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            margin: 20px auto;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .qr-code img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .payment-info {
-            background: rgba(255, 107, 107, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            text-align: left;
-        }
-
-        .payment-info p {
-            margin: 5px 0;
-            font-size: 13px;
-        }
-
-        .payment-info strong {
-            color: #ff6b6b;
-        }
-
-        .transaction-input {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border: 2px solid rgba(255, 107, 107, 0.3);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        .transaction-input::placeholder {
-            color: #aaa;
-        }
-
-        .payment-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .payment-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .payment-btn.confirm {
-            background: linear-gradient(90deg, #ff6b6b, #feca57);
-            color: #1a1a2e;
-        }
-
-        .payment-btn.cancel {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-
-        .payment-btn.ticket-option {
-            background: rgba(255, 107, 107, 0.2);
-            color: #fff;
-            border: 2px solid rgba(255, 107, 107, 0.3);
-        }
-
-        .payment-btn.ticket-option:hover {
-            background: rgba(255, 107, 107, 0.4);
-        }
-
-        .payment-btn.ticket-option.selected {
-            background: linear-gradient(90deg, #ff6b6b, #feca57);
-            color: #1a1a2e;
-            border-color: #feca57;
-        }
-
-        .payment-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .luck-progress {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 10px;
-            border: 2px solid rgba(255, 107, 107, 0.3);
-        }
-
-        .luck-label {
-            color: #ff6b6b;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .luck-bar-container {
-            width: 100%;
-            height: 30px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .luck-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            background-size: 400% 100%;
-            background-position: 0% 50%;
-            border-radius: 15px;
-            transition: width 0.5s ease;
-            animation: rainbowMove 3s linear infinite;
-        }
-
-        .luck-percentage {
-            color: #ff6b6b;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
-            <div class="logo-text">SV VT VN.COM</div>
+    <!-- GAMING HEADER -->
+    <header class="gaming-header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
+                <span class="main-name">SV VT VN.COM</span>
+                <span class="sub-name">ARK SURVIVAL SHOP</span>
+            </div>
         </div>
-        <nav class="nav">
+        
+        <nav class="header-center">
             <a href="index.html">TRANG CHỦ</a>
+            <a href="thu.html">THÚ</a>
+            <a href="dung-cu.html">DỤNG CỤ</a>
+            <a href="cac-goi.html">CÁC GÓI</a>
             <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
             <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
             <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
-            <a href="admin.html" style="color: #ff6b6b;">ADMIN</a>
-            <a href="profile.html" id="profileLink" style="display: none;">THÔNG TIN</a>
-            <a href="login.html" id="loginLink">ĐĂNG NHẬP</a>
-            <a href="register.html" id="registerLink">ĐĂNG KÝ</a>
         </nav>
+        
+        <div class="header-right">
+            <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
+            <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
+            <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
+            <button class="auth-btn" id="logoutBtn" style="display: none;" onclick="logout()">ĐĂNG XUẤT</button>
+            <div class="user-info-panel" id="userInfoPanel" style="display: none;">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">Username</span>
+                    <span class="user-balance" id="userBalance">0 VNĐ</span>
+                </div>
+            </div>
+        </div>
     </header>
-    <div class="rainbow-line"></div>
 
-    <main class="main-content">
-        <h1 class="main-title">BỐC TÚI MÙ - MAY MẮN</h1>
-        <div class="luck-progress">
-            <div class="luck-label">MAY MẮN CỦA BẠN</div>
-            <div class="luck-bar-container">
-                <div class="luck-bar" id="luckBar"></div>
-            </div>
-            <div class="luck-percentage" id="luckPercentage">0%</div>
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="index.html" class="breadcrumb-item">TRANG CHỦ</a>
+        <span class="breadcrumb-separator">></span>
+        <a href="cac-goi.html" class="breadcrumb-item">CÁC GÓI</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-item active" id="currentPackage">GÓI THÚ</span>
+    </nav>
+
+    <!-- PACKAGE DETAIL SECTION -->
+    <section class="package-detail-section" id="packageDetailView" style="display: none;">
+        <div class="section-header">
+            <button onclick="showPackageList()" style="background: transparent; border: 1px solid var(--primary-neon-red); color: var(--primary-neon-red); padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-bottom: 20px;">
+                ← QUAY LẠI DANH SÁCH GÓI
+            </button>
+            <h2 class="section-title" id="packageTitle">GÓI THÚ</h2>
         </div>
-        <div class="box-grid" id="boxGrid"></div>
-        <button class="start-game-btn" id="startGame">BẮT ĐẦU CHƠI</button>
-        <button class="play-again-btn" id="playAgain" style="display: none;">CHƠI LẠI</button>
-    </main>
 
-    <!-- Modal Thanh Toán -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-content">
-            <h2 id="modalTitle">💰 NẠP LƯỢT CHƠI</h2>
-            <p id="modalMessage">Quét mã QR để nạp 25.000đ = 1 lượt chơi</p>
-            <div class="qr-code">
-                <img src="https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=25000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save" alt="QR Code">
-            </div>
-            <div class="payment-info">
-                <p><strong>Ngân hàng:</strong> Vietcombank</p>
-                <p><strong>Số tài khoản:</strong> 1051357963</p>
-                <p><strong>Chủ tài khoản:</strong> Quy Gia Han Save</p>
-                <p><strong>Số tiền:</strong> 25.000đ = 1 lượt chơi</p>
-                <p><strong>Nội dung:</strong> Quy/Gia/Han/May/Chu/Tu/Nguyen</p>
-            </div>
-            <div id="userInfo" style="display: none; margin-top: 15px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 8px;">
-                <p><strong>Lượt chơi hiện tại:</strong> <span id="currentTickets">0</span></p>
-                <p><strong>Số dư:</strong> <span id="currentBalance">0</span>đ</p>
-            </div>
-            <div id="ticketOptions" style="display: none; margin-top: 15px;">
-                <p style="color: #ddd; margin-bottom: 10px; font-size: 14px;">Chọn số lượt muốn nạp:</p>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
-                    <button class="payment-btn ticket-option" data-tickets="1" data-amount="25000">1 Lượt (25.000đ)</button>
-                    <button class="payment-btn ticket-option" data-tickets="5" data-amount="125000">5 Lượt (125.000đ)</button>
-                    <button class="payment-btn ticket-option" data-tickets="10" data-amount="250000">10 Lượt (250.000đ)</button>
-                    <button class="payment-btn ticket-option" data-tickets="20" data-amount="500000">20 Lượt (500.000đ)</button>
-                </div>
-                <div style="margin-top: 15px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 8px;">
-                    <p style="color: #ddd; margin-bottom: 10px; font-size: 14px;">Hoặc nhập số lượt tùy chỉnh:</p>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <button class="payment-btn ticket-option" id="decreaseTickets" style="flex: 0 0 40px; padding: 10px;">-</button>
-                        <input type="number" id="customTickets" value="1" min="1" max="100" style="flex: 1; padding: 10px; border: 2px solid rgba(255, 107, 107, 0.3); border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: #fff; text-align: center; font-size: 16px; font-weight: bold;">
-                        <button class="payment-btn ticket-option" id="increaseTickets" style="flex: 0 0 40px; padding: 10px;">+</button>
-                    </div>
-                    <p id="customAmount" style="color: #ff6b6b; margin-top: 10px; font-size: 14px; font-weight: bold; text-align: center;">25.000đ</p>
+        <div class="package-detail-container">
+            <div class="package-items">
+                <h3 style="color: var(--primary-neon-red); font-size: 22px; margin-bottom: 20px; text-transform: uppercase;">THÚ CÓ TRONG GÓI</h3>
+                <div class="package-items-grid" id="packageItemsGrid">
+                    <!-- Package items will be loaded here -->
                 </div>
             </div>
-            <div class="payment-buttons">
-                <button class="payment-btn cancel" id="cancelPayment">ĐÓNG</button>
-                <button class="payment-btn confirm" id="confirmPayment" style="background: linear-gradient(90deg, #00ff00, #00cc00); color: #1a1a2e; font-size: 16px; padding: 15px;">✅ NẠP NGAY (25.000đ)</button>
-            </div>
-            <p style="color: #ff6b6b; margin-top: 15px; font-size: 13px; text-align: center;">⚠️ Bấm nút NẠP NGAY để tự động cộng lượt chơi</p>
-        </div>
-    </div>
 
-    <footer class="footer">
-        <div class="footer-rainbow"></div>
+            <div class="package-info-panel">
+                <h3 id="infoPanelTitle">GÓI THÚ</h3>
+                <div class="status available" id="packageStatus">CÒN HÀNG</div>
+                <div class="package-price" id="packagePrice">200.000 VNĐ</div>
+                
+                <div class="package-stats">
+                    <p>Số lượng thú: <span id="packageItemCount">6</span></p>
+                    <p>Tổng giá trị: <span id="packageTotalValue">1.500.000 VNĐ</span></p>
+                    <p>Tiết kiệm: <span id="packageSavings">1.300.000 VNĐ</span></p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">Nội dung gói:</h4>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;" id="packageDescription">
+                        Gói gồm các con thú mạnh nhất với level cao, giúp bạn thống trị server nhanh chóng.
+                    </p>
+                </div>
+
+                <button class="package-btn" id="buyPackageBtn" onclick="buyPackage()">MUA NGAY</button>
+                <button class="product-btn secondary" style="width: 100%; margin-top: 10px;" onclick="addToCart()">THÊM VÀO GIỎ</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES LIST SECTION -->
+    <section class="products-section" id="packageListView">
+        <div class="section-header">
+            <h2 class="section-title">🎁 CÁC GÓI ƯU ĐÃI</h2>
+        </div>
+        
+        <div class="package-grid" id="packagesGrid">
+            <!-- Packages will be loaded here -->
+        </div>
+    </section>
+
+    <!-- GAMING FOOTER -->
+    <footer class="gaming-footer">
         <div class="footer-content">
-            <div class="footer-left">
-                <div class="footer-logo"><img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo"></div>
+            <div class="footer-section">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
             </div>
             
-            <div class="footer-right">
-                <div class="footer-section">
-                    <h3>VỀ CHÚNG TÔI</h3>
-                    <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>LIÊN HỆ HỖ TRỢ</h3>
-                    <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
-                </div>
+            <div class="footer-section">
+                <h3>LIÊN HỆ HỖ TRỢ</h3>
+                <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>THANH TOÁN</h3>
+                <p>Ngân hàng: Vietcombank</p>
+                <p>Số tài khoản: 1051357963</p>
+                <p>Chủ tài khoản: Quy Gia Han Save</p>
             </div>
         </div>
+        
         <div class="footer-bottom">
             <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
-            <p class="footer-developed-by">Phát triển bởi SV VT VN.com • v2.5.28</p>
+            <p class="footer-version">Phát triển bởi SV VT VN.com • v2.5.28</p>
         </div>
     </footer>
 
+    <script src="auth.js"></script>
     <script>
-        const prizes = [
-            { name: "súng tỉa 3 cái", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "100 KIBBLE", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
-            { name: "500 KIBBLE", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
-            { name: "2 CON MEK", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
-            { name: "1000 KIBBLE", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
-            { name: "3 TEK GEN", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
-            { name: "35 ĐIỂM", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
-            { name: "5 TEK CLON", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
-            { name: "VÉ GIẢM GIÁ 10%", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "1 CON CÚ", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
-            { name: "1 CON MỎ VỊT", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
-            { name: "1 CON ARGEN", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
-            { name: "100 SỮA", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
-            { name: "2 TEK CLON", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
-            { name: "1 BV VÀNG", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
-            { name: "2 MÁY ẤP", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
-            { name: "2 BV VÀNG", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "50 TUR", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
-            { name: "100 TUR", img: "https://i.ibb.co/1G6KwfKm/nh-m-n-h-nh-2026-07-23-l-c-14-26-13.png" },
-            { name: "5 CUNG 2 DÂY ", img: "https://i.ibb.co/bMQ8t0G7/nh-m-n-h-nh-2026-07-23-l-c-14-38-57.png" },
-            { name: "1000 ELE", img: "https://i.ibb.co/DHwwS62W/nh-m-n-h-nh-2026-07-23-l-c-14-46-51.png" },
-            { name: "VÉ VÀO PHÒNG BOSS LAVA", img: "https://i.ibb.co/Rk8Qjqvw/nh-m-n-h-nh-2026-07-23-l-c-14-46-58.png" },
-            { name: "1 CON VELON", img: "https://i.ibb.co/3y89qWYs/nh-m-n-h-nh-2026-07-23-l-c-14-47-08.png" },
-            { name: "5 BỘ GIÁP SẮT", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
-            { name: "10 BỘ GIÁP SẮT", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "5 KHẨU SOT GUN", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" },
-            { name: "1 BỘ GIÁP TEK", img: "https://i.ibb.co/dwLsxNpW/nh-m-n-h-nh-2026-07-23-l-c-14-47-14.png" },
-            { name: "3 BỘ GIÁP TEK", img: "https://cdn.phototourl.com/free/2026-07-23-91dee476-4af6-4d34-a1f8-edbf0404cdd9.png" },
-            { name: "5 BỘ GIÁP TEK ", img: "https://cdn.phototourl.com/free/2026-07-23-9ab4ed41-9d06-421c-96e1-5f3530137c49.png" }
+        let currentPackageData = null;
+
+        // Package data
+        const packages = [
+            {
+                id: 'animal',
+                name: 'GÓI THÚ',
+                description: 'Gói gồm các con thú mạnh nhất với level cao, giúp bạn thống trị server nhanh chóng.',
+                price: '200.000',
+                originalPrice: '1.500.000',
+                image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600&q=80',
+                badge: 'HOT',
+                featured: true,
+                items: [
+                    { name: 'Rex', level: 'Level 150', quantity: 1, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
+                    { name: 'Giga', level: 'Level 200', quantity: 1, image: 'https://images.unsplash.com/photo-1607623843868-819a115e88e8?w=400&q=80' },
+                    { name: 'Wyvern Poison', level: 'Level 180', quantity: 1, image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&q=80' },
+                    { name: 'Managarmr', level: 'Level 160', quantity: 1, image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80' },
+                    { name: 'Argentavis', level: 'Level 120', quantity: 2, image: 'https://images.unsplash.com/photo-1551085254-e96b210db58a?w=400&q=80' },
+                    { name: 'Spino', level: 'Level 140', quantity: 1, image: 'https://images.unsplash.com/photo-1598329292760-2c5cb0ca1e21?w=400&q=80' }
+                ]
+            },
+            {
+                id: 'tools',
+                name: 'GÓI DỤNG CỤ',
+                description: 'Bộ dụng cụ toàn diện cho mọi hoạt động từ khai thác đến chiến đấu.',
+                price: '150.000',
+                originalPrice: '800.000',
+                image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=600&q=80',
+                badge: 'VIP',
+                featured: false,
+                items: [
+                    { name: 'Cung Ascendant', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=400&q=80' },
+                    { name: 'Rìu Pickaxe', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80' },
+                    { name: 'Kiếm Sword', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=400&q=80' },
+                    { name: 'Giáp Flak', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=400&q=80' },
+                    { name: 'Balo Backpack', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80' }
+                ]
+            },
+            {
+                id: 'starter',
+                name: 'GÓI KHỞI ĐẦU',
+                description: 'Gói hoàn hảo cho người mới bắt đầu chơi ARK Survival.',
+                price: '100.000',
+                originalPrice: '400.000',
+                image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=600&q=80',
+                badge: 'NEW',
+                featured: false,
+                items: [
+                    { name: 'Rex', level: 'Level 50', quantity: 1, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
+                    { name: 'Cung Crossbow', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=400&q=80' },
+                    { name: 'Rìu Pickaxe', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80' },
+                    { name: 'Lều Tent', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80' }
+                ]
+            },
+            {
+                id: 'boss',
+                name: 'GÓI BOSS',
+                description: 'Gói chuyên săn boss với các thú và vũ khí tối thượng.',
+                price: '500.000',
+                originalPrice: '2.000.000',
+                image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&q=80',
+                badge: 'MAX',
+                featured: false,
+                items: [
+                    { name: 'Rex', level: 'Level 200', quantity: 2, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
+                    { name: 'Giga', level: 'Level 250', quantity: 1, image: 'https://images.unsplash.com/photo-1607623843868-819a115e88e8?w=400&q=80' },
+                    { name: 'Cung Ascendant', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=400&q=80' },
+                    { name: 'Giáp Flak', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=400&q=80' }
+                ]
+            }
         ];
 
-        let shuffledPrizes = [];
-        let gameEnded = false;
-        let isFirstGame = true;
-        let playCount = 0; // Số lần đã chơi
-        let hasPaid = false; // Đã thanh toán chưa
+        // Load packages list
+        function loadPackages() {
+            const packagesGrid = document.getElementById('packagesGrid');
+            packagesGrid.innerHTML = '';
 
-        function getLuckRate() {
-            // Lần đầu: 100%
-            if (isFirstGame) return 100;
-            // Lần 2: 0%
-            // Sau đó tăng dần từ 0% lên 100% theo số lần chơi
-            // Mỗi 10 lần chơi tăng 10%, tối đa 100%
-            return Math.min(Math.max(0, (playCount - 1) * 10), 100);
-        }
-
-        function updateLuckBar() {
-            const luckRate = getLuckRate();
-            const luckBar = document.getElementById('luckBar');
-            const luckPercentage = document.getElementById('luckPercentage');
-            
-            luckBar.style.width = luckRate + '%';
-            luckPercentage.textContent = luckRate + '%';
-        }
-
-        function shuffleArray(array) {
-            const newArray = [...array];
-            for (let i = newArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-            }
-            return newArray;
-        }
-
-        function initGame() {
-            gameEnded = false; // Reset gameEnded khi bắt đầu game mới
-
-            const currentUser = getCurrentUser();
-
-            // Nếu chưa đăng nhập, cho chơi thử miễn phí lần đầu
-            if (!currentUser) {
-                if (!isFirstGame) {
-                    document.getElementById('paymentModal').classList.add('active');
-                    return;
-                }
-                // Lần đầu chơi không cần đăng nhập
-            } else {
-                // Kiểm tra lượt chơi nếu đã đăng nhập
-                if (currentUser.tickets <= 0 && !isFirstGame) {
-                    document.getElementById('paymentModal').classList.add('active');
-                    return;
-                }
-
-                // Trừ 1 lượt chơi (nếu có lượt)
-                if (currentUser.tickets > 0) {
-                    const users = getUsers();
-                    const userIndex = users.findIndex(u => u.id === currentUser.id);
-
-                    if (userIndex !== -1) {
-                        users[userIndex].tickets -= 1;
-                        addDepositHistory(currentUser.id, 0, 'debit', 'Chơi Bốc Túi Mù');
-                        saveUsers(users);
-                        setCurrentUser(users[userIndex]);
-                    }
-                }
-            }
-
-            const luckRate = getLuckRate();
-
-            if (isFirstGame) {
-                // Lần đầu chơi: đảm bảo 100 KIBBLE ở vị trí đầu tiên
-                shuffledPrizes = shuffleArray(prizes);
-                const index100Kibble = shuffledPrizes.findIndex(p => p.name === "100 KIBBLE");
-                if (index100Kibble > 0) {
-                    [shuffledPrizes[0], shuffledPrizes[index100Kibble]] = [shuffledPrizes[index100Kibble], shuffledPrizes[0]];
-                }
-            } else {
-                // Các lần sau: áp dụng tỷ lệ may mắn
-                shuffledPrizes = shuffleArray(prizes);
-
-                // Nếu tỷ lệ may mắn > 0, có cơ hội đưa 100 KIBBLE lên vị trí đầu
-                if (luckRate > 0 && Math.random() * 100 < luckRate) {
-                    const index100Kibble = shuffledPrizes.findIndex(p => p.name === "100 KIBBLE");
-                    if (index100Kibble > 0) {
-                        [shuffledPrizes[0], shuffledPrizes[index100Kibble]] = [shuffledPrizes[index100Kibble], shuffledPrizes[0]];
-                    }
-                }
-            }
-
-            gameEnded = false;
-            const grid = document.getElementById('boxGrid');
-            grid.innerHTML = '';
-
-            shuffledPrizes.forEach((prize, index) => {
-                const box = document.createElement('div');
-                box.className = 'mystery-box';
-                box.dataset.index = index;
-                box.innerHTML = '<div class="box-icon">📦</div>';
-                box.addEventListener('click', () => revealBox(box, index));
-                grid.appendChild(box);
-            });
-
-            document.getElementById('startGame').style.display = 'none';
-            document.getElementById('playAgain').style.display = 'none';
-            updateLuckBar(); // Cập nhật thanh tiến độ may mắn
-        }
-
-        function initPage() {
-            // Khởi tạo trang nhưng không tự động bắt đầu game
-            updateLuckBar();
-            updateNavigation();
-            updatePaymentModal();
-
-            const currentUser = getCurrentUser();
-            if (currentUser) {
-                document.getElementById('startGame').style.display = 'block';
-            } else {
-                document.getElementById('startGame').style.display = 'none';
-            }
-        }
-
-        function revealBox(selectedBox, selectedIndex) {
-            if (gameEnded) return;
-            gameEnded = true;
-
-            const allBoxes = document.querySelectorAll('.mystery-box');
-            
-            // Nếu là lần đầu chơi, đảm bảo chọn hộp đầu tiên (có 100 KIBBLE)
-            if (isFirstGame) {
-                selectedIndex = 0;
-                selectedBox = allBoxes[0];
-            }
-            
-            allBoxes.forEach((box, index) => {
-                const prize = shuffledPrizes[index];
-                box.innerHTML = `
-                    <img src="${prize.img}" class="prize-img" alt="${prize.name}">
-                    <div class="prize-name">${prize.name}</div>
+            packages.forEach(pkg => {
+                const packageCard = document.createElement('div');
+                packageCard.className = `package-card ${pkg.featured ? 'featured' : ''}`;
+                packageCard.innerHTML = `
+                    <span class="package-badge">${pkg.badge}</span>
+                    <img src="${pkg.image}" alt="${pkg.name}" class="package-image">
+                    <div class="package-content">
+                        <h3 class="package-name">${pkg.name}</h3>
+                        <p class="package-description">${pkg.description}</p>
+                        <p class="package-price">${pkg.price}.000 VNĐ</p>
+                        <p class="package-original-price">${pkg.originalPrice}.000 VNĐ</p>
+                        <div class="package-items">
+                            ${pkg.items.slice(0, 3).map(item => `<div class="package-item">${item.name} (${item.level})</div>`).join('')}
+                            ${pkg.items.length > 3 ? `<div class="package-item">+${pkg.items.length - 3} vật phẩm khác</div>` : ''}
+                        </div>
+                        <button class="package-btn" onclick="showPackageDetail('${pkg.id}')">XEM CHI TIẾT</button>
+                    </div>
                 `;
-                
-                if (index === selectedIndex) {
-                    box.classList.add('revealed');
-                } else {
-                    box.classList.add('greyed');
-                }
+                packagesGrid.appendChild(packageCard);
             });
-
-            document.getElementById('playAgain').style.display = 'block';
-            document.getElementById('startGame').style.display = 'none';
-            isFirstGame = false;
-            playCount++; // Tăng số lần chơi sau mỗi lần reveal
-            hasPaid = false; // Reset thanh toán sau khi chơi xong
-            updateLuckBar(); // Cập nhật thanh tiến độ sau khi chơi
         }
 
-        // Xử lý nút BẮT ĐẦU CHƠI
-        document.getElementById('startGame').addEventListener('click', () => {
-            initGame();
-        });
+        // Show package detail
+        function showPackageDetail(packageId) {
+            currentPackageData = packages.find(p => p.id === packageId);
+            if (!currentPackageData) return;
 
-        // Xử lý modal thanh toán
-        document.getElementById('cancelPayment').addEventListener('click', () => {
-            document.getElementById('paymentModal').classList.remove('active');
-            // Cập nhật giao diện sau khi đóng modal (trường hợp user vừa đăng nhập)
-            updateNavigation();
-            updatePaymentModal();
-            const currentUser = getCurrentUser();
-            if (currentUser) {
-                document.getElementById('startGame').style.display = 'block';
-            }
-        });
+            // Update breadcrumb
+            document.getElementById('currentPackage').textContent = currentPackageData.name;
 
-        // Cập nhật modal khi mở
-        function updatePaymentModal() {
-            const currentUser = getCurrentUser();
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMessage = document.getElementById('modalMessage');
-            const userInfo = document.getElementById('userInfo');
-            const ticketOptions = document.getElementById('ticketOptions');
-            const confirmBtn = document.getElementById('confirmPayment');
-
-            if (currentUser) {
-                modalTitle.textContent = '💰 NẠP LƯỢT CHƠI';
-                modalMessage.textContent = 'Quét mã QR để nạp 25.000đ = 1 lượt chơi';
-                userInfo.style.display = 'block';
-                ticketOptions.style.display = 'block';
-                document.getElementById('currentTickets').textContent = currentUser.tickets;
-                document.getElementById('currentBalance').textContent = currentUser.balance.toLocaleString('vi-VN');
-                confirmBtn.textContent = 'NẠP NGAY (25.000đ)';
-                confirmBtn.style.display = 'block';
-                // Reset selection
-                document.querySelectorAll('.ticket-option:not(#decreaseTickets):not(#increaseTickets)').forEach(btn => btn.classList.remove('selected'));
-                document.querySelector('.ticket-option[data-tickets="1"]').classList.add('selected');
-                // Reset custom input
-                document.getElementById('customTickets').value = 1;
-                document.getElementById('customAmount').textContent = '25.000đ';
-                selectedTickets = 1;
-                selectedAmount = 25000;
-            } else {
-                modalTitle.textContent = '🔐 ĐĂNG NHẬP ĐỂ CHƠI';
-                modalMessage.textContent = 'Bạn cần đăng nhập tài khoản để chơi Bốc Túi Mù';
-                userInfo.style.display = 'none';
-                ticketOptions.style.display = 'none';
-                confirmBtn.textContent = 'ĐĂNG NHẬP NGAY';
-            }
-        }
-
-        // Biến lưu số lượt và số tiền đang chọn
-        let selectedTickets = 1;
-        let selectedAmount = 25000;
-
-        // Hàm cập nhật theo số lượt tùy chỉnh
-        function updateCustomTickets(tickets) {
-            if (tickets < 1) tickets = 1;
-            if (tickets > 100) tickets = 100;
-
-            selectedTickets = tickets;
-            selectedAmount = tickets * 25000;
-
-            document.getElementById('customTickets').value = tickets;
-            document.getElementById('customAmount').textContent = selectedAmount.toLocaleString('vi-VN') + 'đ';
-
-            // Cập nhật QR code và thông tin
-            const qrImg = document.querySelector('.qr-code img');
-            qrImg.src = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${selectedAmount}&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save`;
-
-            // Cập nhật thông tin thanh toán
-            document.querySelector('.payment-info p:nth-child(4)').innerHTML = `<strong>Số tiền:</strong> ${selectedAmount.toLocaleString('vi-VN')}đ = ${selectedTickets} lượt chơi`;
-
-            // Cập nhật nút nạp
-            document.getElementById('confirmPayment').textContent = `NẠP NGAY (${selectedAmount.toLocaleString('vi-VN')}đ)`;
-
-            // Bỏ chọn các nút preset
-            document.querySelectorAll('.ticket-option:not(#decreaseTickets):not(#increaseTickets)').forEach(b => b.classList.remove('selected'));
-        }
-
-        // Xử lý nút giảm lượt
-        document.getElementById('decreaseTickets').addEventListener('click', () => {
-            const current = parseInt(document.getElementById('customTickets').value);
-            updateCustomTickets(current - 1);
-        });
-
-        // Xử lý nút tăng lượt
-        document.getElementById('increaseTickets').addEventListener('click', () => {
-            const current = parseInt(document.getElementById('customTickets').value);
-            updateCustomTickets(current + 1);
-        });
-
-        // Xử lý input thay đổi
-        document.getElementById('customTickets').addEventListener('change', (e) => {
-            updateCustomTickets(parseInt(e.target.value));
-        });
-
-        // Xử lý chọn số lượt preset
-        document.querySelectorAll('.ticket-option:not(#decreaseTickets):not(#increaseTickets)').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.ticket-option:not(#decreaseTickets):not(#increaseTickets)').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                selectedTickets = parseInt(btn.dataset.tickets);
-                selectedAmount = parseInt(btn.dataset.amount);
-
-                // Cập nhật input tùy chỉnh
-                document.getElementById('customTickets').value = selectedTickets;
-                document.getElementById('customAmount').textContent = selectedAmount.toLocaleString('vi-VN') + 'đ';
-
-                // Cập nhật QR code và thông tin
-                const qrImg = document.querySelector('.qr-code img');
-                qrImg.src = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${selectedAmount}&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save`;
-
-                // Cập nhật thông tin thanh toán
-                document.querySelector('.payment-info p:nth-child(4)').innerHTML = `<strong>Số tiền:</strong> ${selectedAmount.toLocaleString('vi-VN')}đ = ${selectedTickets} lượt chơi`;
-
-                // Cập nhật nút nạp
-                document.getElementById('confirmPayment').textContent = `NẠP NGAY (${selectedAmount.toLocaleString('vi-VN')}đ)`;
-            });
-        });
-
-
-        // ==================== HỆ THỐNG ĐĂNG NHẬP ====================
-        
-        // Lấy user đang đăng nhập
-        function getCurrentUser() {
-            const user = localStorage.getItem('currentUser');
-            return user ? JSON.parse(user) : null;
-        }
-
-        // Lưu user đang đăng nhập
-        function setCurrentUser(user) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-
-        // Lấy danh sách users từ localStorage
-        function getUsers() {
-            const users = localStorage.getItem('users');
-            return users ? JSON.parse(users) : [];
-        }
-
-        // Lưu danh sách users vào localStorage
-        function saveUsers(users) {
-            localStorage.setItem('users', JSON.stringify(users));
-        }
-
-        // Cập nhật navigation dựa trên trạng thái đăng nhập
-        function updateNavigation() {
-            const currentUser = getCurrentUser();
-            const profileLink = document.getElementById('profileLink');
-            const loginLink = document.getElementById('loginLink');
-            const registerLink = document.getElementById('registerLink');
-
-            if (currentUser) {
-                profileLink.style.display = 'inline';
-                loginLink.style.display = 'none';
-                registerLink.style.display = 'none';
-            } else {
-                profileLink.style.display = 'none';
-                loginLink.style.display = 'inline';
-                registerLink.style.display = 'inline';
-            }
-        }
-
-        // ==================== HỆ THỐNG NẠP TIỀN TỰ ĐỘNG ====================
-
-        // Thêm lịch sử giao dịch cho user
-        function addDepositHistory(userId, amount, type, description) {
-            const users = getUsers();
-            const userIndex = users.findIndex(u => u.id === userId);
+            // Update package detail view
+            document.getElementById('packageTitle').textContent = currentPackageData.name;
+            document.getElementById('infoPanelTitle').textContent = currentPackageData.name;
+            document.getElementById('packagePrice').textContent = `${currentPackageData.price}.000 VNĐ`;
+            document.getElementById('packageItemCount').textContent = currentPackageData.items.length;
+            document.getElementById('packageTotalValue').textContent = `${currentPackageData.originalPrice}.000 VNĐ`;
             
-            if (userIndex !== -1) {
-                if (!users[userIndex].depositHistory) {
-                    users[userIndex].depositHistory = [];
-                }
+            const savings = parseInt(currentPackageData.originalPrice) - parseInt(currentPackageData.price);
+            document.getElementById('packageSavings').textContent = `${savings.toLocaleString()}.000 VNĐ`;
+            document.getElementById('packageDescription').textContent = currentPackageData.description;
+
+            // Load package items
+            const packageItemsGrid = document.getElementById('packageItemsGrid');
+            packageItemsGrid.innerHTML = '';
+            
+            currentPackageData.items.forEach(item => {
+                const itemCard = document.createElement('div');
+                itemCard.className = 'package-item-card';
+                itemCard.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h4>${item.name}</h4>
+                    <p class="item-level">${item.level}</p>
+                    <p class="item-quantity">Số lượng: ${item.quantity}</p>
+                `;
+                itemCard.onclick = () => viewItemDetail(item);
+                packageItemsGrid.appendChild(itemCard);
+            });
+
+            // Show detail view, hide list view
+            document.getElementById('packageListView').style.display = 'none';
+            document.getElementById('packageDetailView').style.display = 'block';
+        }
+
+        // Show package list
+        function showPackageList() {
+            document.getElementById('packageDetailView').style.display = 'none';
+            document.getElementById('packageListView').style.display = 'block';
+            currentPackageData = null;
+        }
+
+        // View item detail
+        function viewItemDetail(item) {
+            alert(`Chi tiết ${item.name} (${item.level}) - Tính năng đang được phát triển!`);
+        }
+
+        // Buy package
+        function buyPackage() {
+            if (!currentPackageData) return;
+
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập để mua gói!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const priceNum = parseInt(currentPackageData.price) * 1000;
+            if ((currentUser.balance || 0) < priceNum) {
+                alert('Bạn không đủ tiền! Vui lòng nạp thêm.');
+                return;
+            }
+
+            if (confirm(`Bạn có chắc muốn mua ${currentPackageData.name} với giá ${currentPackageData.price}.000 VNĐ?`)) {
+                currentUser.balance -= priceNum;
+                currentUser.orders = (currentUser.orders || 0) + 1;
                 
-                users[userIndex].depositHistory.push({
-                    timestamp: Date.now(),
-                    amount: amount,
-                    type: type,
-                    description: description
+                // Add transaction
+                if (!currentUser.transactions) currentUser.transactions = [];
+                currentUser.transactions.unshift({
+                    date: new Date().toISOString(),
+                    type: 'Mua gói',
+                    description: `Mua ${currentPackageData.name}`,
+                    amount: -priceNum
                 });
                 
-                saveUsers(users);
-                
-                // Cập nhật current user
-                const currentUser = getCurrentUser();
-                if (currentUser && currentUser.id === userId) {
-                    setCurrentUser(users[userIndex]);
-                }
+                setCurrentUser(currentUser);
+                updateNavigation();
+                alert(`Mua ${currentPackageData.name} thành công!`);
             }
         }
 
-        // Nạp tiền tự động (không cần admin)
-        function autoDeposit(amount, description) {
-            const currentUser = getCurrentUser();
-            
-            if (!currentUser) {
-                alert('Vui lòng đăng nhập để nạp tiền!');
-                window.location.href = 'login.html';
-                return false;
-            }
-
-            const users = getUsers();
-            const userIndex = users.findIndex(u => u.id === currentUser.id);
-            
-            if (userIndex !== -1) {
-                // Cộng tiền vào tài khoản
-                users[userIndex].balance += amount;
-                
-                // Cộng lượt chơi (mỗi 25.000đ = 1 lượt)
-                const ticketsToAdd = Math.floor(amount / 25000);
-                users[userIndex].tickets += ticketsToAdd;
-                
-                // Lưu lịch sử giao dịch
-                addDepositHistory(currentUser.id, amount, 'credit', description);
-                
-                saveUsers(users);
-                setCurrentUser(users[userIndex]);
-                
-                return true;
-            }
-            
-            return false;
+        // Add to cart (placeholder)
+        function addToCart() {
+            alert('Tính năng giỏ hàng đang được phát triển!');
         }
 
-        // Xử lý nạp tiền
-        document.getElementById('confirmPayment').addEventListener('click', () => {
-            const currentUser = getCurrentUser();
-
-            if (!currentUser) {
-                // Chuyển đến trang đăng nhập
-                document.getElementById('paymentModal').classList.remove('active');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Nạp tự động theo số lượt đã chọn
-            const success = autoDeposit(selectedAmount, `Nạp ${selectedTickets} lượt chơi Bốc Túi Mù`);
-
-            if (success) {
-                alert(`✅ Nạp thành công! Bạn đã nhận được ${selectedTickets} lượt chơi.`);
-                document.getElementById('paymentModal').classList.remove('active');
-                updatePaymentModal(); // Cập nhật lại modal
-                // Hiển thị nút BẮT ĐẦU CHƠI
-                document.getElementById('startGame').style.display = 'block';
-                document.getElementById('playAgain').style.display = 'none';
-            } else {
-                alert('❌ Có lỗi xảy ra khi nạp tiền!');
-            }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPackages();
+            updateNavigation();
         });
-
-        document.getElementById('playAgain').addEventListener('click', () => {
-            gameEnded = false; // Reset gameEnded trước khi chơi lại
-            const currentUser = getCurrentUser();
-
-            // Kiểm tra lượt chơi trước khi chơi lại
-            if (!currentUser || currentUser.tickets <= 0) {
-                document.getElementById('paymentModal').classList.add('active');
-                updatePaymentModal();
-                return;
-            }
-
-            initGame();
-        });
-
-        initPage(); // Khởi tạo trang khi load
-
-        let position = 0;
-        let direction = 1;
-        
-        setInterval(() => {
-            position += 0.8 * direction; 
-            
-            if (position >= 100) { direction = -1; }
-            if (position <= 0) { direction = 1; }
-            
-            const buttons = document.querySelectorAll('.play-again-btn, .start-game-btn');
-            buttons.forEach(btn => {
-                btn.style.setProperty('background-position', `${position}% 50%`, 'important');
-            });
-        }, 20);
     </script>
-    <script src="auth.js"></script>
 </body>
 </html>
