@@ -286,7 +286,7 @@ body {
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 10;
     max-width: 800px;
     padding: 20px;
 }
@@ -299,8 +299,15 @@ body {
     letter-spacing: 4px;
     margin-bottom: 20px;
     text-shadow: 0 0 30px rgba(255, 23, 68, 0.8),
-                 0 0 60px rgba(124, 77, 255, 0.6);
+                 0 0 60px rgba(124, 77, 255, 0.6),
+                 0 0 40px rgba(255, 215, 0, 0.4); /* Gold glow for National Day */
     animation: glowPulse 2s ease-in-out infinite;
+    background: linear-gradient(90deg, #ffffff, #FFD700, #ff0000, #FFD700, #ffffff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
 }
 
 @keyframes glowPulse {
@@ -532,6 +539,43 @@ body {
     color: white;
 }
 
+/* Sale Badge for 2/9 National Day */
+.sale-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff1744, #ff6b6b);
+    color: white;
+    z-index: 11;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 20px rgba(255, 23, 68, 0.6);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Original Price strikethrough */
+.original-price {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+/* Discount percentage display */
+.discount-display {
+    color: var(--primary-neon-red);
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
 .product-image {
     width: 100%;
     height: 200px;
@@ -755,25 +799,34 @@ body {
     align-items: center;
     gap: 10px;
     font-size: 14px;
+    background: rgba(255, 23, 68, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 23, 68, 0.2);
 }
 
 .breadcrumb-item {
     color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
 
 .breadcrumb-item:hover {
     color: var(--primary-neon-red);
+    background: rgba(255, 23, 68, 0.1);
 }
 
 .breadcrumb-separator {
     color: var(--text-secondary);
+    font-weight: bold;
 }
 
 .breadcrumb-item.active {
     color: var(--primary-neon-red);
     font-weight: bold;
+    background: rgba(255, 23, 68, 0.15);
+    text-shadow: 0 0 10px rgba(255, 23, 68, 0.3);
 }
 
 /* ==================== PRODUCT DETAIL PAGE ==================== */
@@ -1075,6 +1128,43 @@ body {
     color: var(--primary-neon-blue);
 }
 
+/* Enhanced Modal Details Grid */
+.modal-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+    background: var(--bg-navy);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 23, 68, 0.3);
+}
+
+.modal-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.modal-detail-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.modal-detail-value {
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 500;
+    min-height: 20px;
+    background: rgba(255, 23, 68, 0.1);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 23, 68, 0.2);
+}
+
 .modal-buy-btn {
     margin-top: 20px;
     padding: 15px 30px;
@@ -1103,6 +1193,77 @@ body {
     
     .modal-image img {
         max-height: 250px;
+    }
+}
+
+/* ==================== NATIONAL DAY DECORATION ==================== */
+.national-day-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.national-day-star {
+    position: absolute;
+    font-size: 16px;
+    animation: fall linear infinite;
+    opacity: 0.6;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.national-day-flag {
+    position: absolute;
+    font-size: 20px;
+    animation: float linear infinite;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 8px rgba(255, 23, 68, 0.4));
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(50px) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+/* High-performance optimization */
+@media (prefers-reduced-motion: reduce) {
+    .national-day-star,
+    .national-day-flag {
+        animation: none;
+        display: none;
     }
 }
 
