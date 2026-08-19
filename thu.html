@@ -47,7 +47,7 @@
     <nav class="breadcrumb">
         <a href="index.html" class="breadcrumb-item">TRANG CHỦ</a>
         <span class="breadcrumb-separator">></span>
-        <span class="breadcrumb-item active">THÚ</span>
+        <span class="breadcrumb-item active">TÊN THÚ</span>
     </nav>
 
     <!-- ANIMALS SECTION -->
@@ -74,7 +74,50 @@
                     <p id="modalLevel" class="modal-level">Level</p>
                     <p id="modalDescription" class="modal-description">Description</p>
                     <p id="modalPrice" class="modal-price">Price</p>
-                    <div class="modal-stats" id="modalStats"></div>
+                    
+                    <div class="modal-details-grid">
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Skills:</label>
+                            <div id="modalSkills" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Abilities:</label>
+                            <div id="modalAbilities" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Rarity:</label>
+                            <div id="modalRarity" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Elemental Type:</label>
+                            <div id="modalElemental" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">HP:</label>
+                            <div id="modalHP" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Damage:</label>
+                            <div id="modalDamage" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Speed:</label>
+                            <div id="modalSpeed" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Defense:</label>
+                            <div id="modalDefense" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Special Ability:</label>
+                            <div id="modalSpecial" class="modal-detail-value"></div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <label class="modal-detail-label">Notes:</label>
+                            <div id="modalNotes" class="modal-detail-value"></div>
+                        </div>
+                    </div>
+                    
                     <button class="modal-buy-btn" id="modalBuyBtn">MUA NGAY</button>
                 </div>
             </div>
@@ -120,10 +163,14 @@
                     name: 'MÀU THÚ 10/1CON',
                     level: '10 ĐIỂM',
                     description: 'Màu thú 10 màu cho 1 con',
-                    price: '10.000 VNĐ',
+                    price: '9.300 VNĐ',
+                    originalPrice: '10.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 9300,
                     image: 'https://i.ibb.co/TMJhxkQ9/image.png',
                     badge: 'hot',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=9300&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '500',
                         'Dame': '100',
@@ -135,10 +182,14 @@
                     name: 'giffin',
                     level: '100 ĐIỂM',
                     description: 'giffin với tốc độ cực đại',
-                    price: '100.000 VNĐ',
+                    price: '93.000 VNĐ',
+                    originalPrice: '100.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 93000,
                     image: 'https://i.ibb.co/PG2LC51t/image.png',
                     badge: 'vip',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=93000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '1500',
                         'Dame': '400',
@@ -150,10 +201,14 @@
                     name: 'ROCDAKE 1 CẶP',
                     level: '199 ĐIỂM',
                     description: 'ROCDAKE 1 CẶP với tốc độ đáng sợ',
-                    price: '199.000 VNĐ',
+                    price: '185.130 VNĐ',
+                    originalPrice: '199.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 185130,
                     image: 'https://i.ibb.co/6R37Gcd8/image.png',
                     badge: 'new',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=199000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=185130&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '3000',
                         'Dame': '800',
@@ -165,10 +220,14 @@
                     name: 'con cú ',
                     level: '35 ĐIỂM',
                     description: 'tính năng bay nhanh hồi máu',
-                    price: '35.000 VNĐ',
+                    price: '32.550 VNĐ',
+                    originalPrice: '35.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 32550,
                     image: 'https://i.ibb.co/chDpDPLC/image.png',
                     badge: 'hot',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=32550&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '800',
                         'Dame': '200',
@@ -180,10 +239,14 @@
                     name: 'Hiêu Tek',
                     level: '100 ĐIỂM',
                     description: 'hiêu tek ông hoàng fam ',
-                    price: '100.000 VNĐ',
+                    price: '93.000 VNĐ',
+                    originalPrice: '100.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 93000,
                     image: 'https://i.ibb.co/zVtm9BHz/image.png',
                     badge: '',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=93000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '2000',
                         'Dame': '600',
@@ -195,10 +258,14 @@
                     name: 'CARCHA',
                     level: '150 ĐIỂM',
                     description: 'CARCHA quái vật mạnh nhất',
-                    price: '150.000 VNĐ',
+                    price: '139.500 VNĐ',
+                    originalPrice: '150.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 139500,
                     image: 'https://i.ibb.co/TxwwmDZD/image.png',
                     badge: 'vip',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=139500&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '5000',
                         'Dame': '1000',
@@ -210,10 +277,14 @@
                     name: 'RỒNG CRY 1 CẶP',
                     level: '150 ĐIỂM',
                     description: 'RỒNG CRY 3 HỆ MÁU NƯỚC LỬA TỰ CHỌN',
-                    price: '150.000 VNĐ',
+                    price: '139.500 VNĐ',
+                    originalPrice: '150.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 139500,
                     image: 'https://i.ibb.co/99sPgF9n/image.png',
                     badge: 'vip',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=139500&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '4000',
                         'Dame': '900',
@@ -225,10 +296,14 @@
                     name: 'CON MỎ VỊT',
                     level: '25 ĐIỂM',
                     description: 'VUA NUÔI BABY ',
-                    price: '25.000 VNĐ',
+                    price: '23.250 VNĐ',
+                    originalPrice: '25.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 23250,
                     image: 'https://i.ibb.co/TMJDM9cZ/image.png',
                     badge: 'HOT',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=25000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=23250&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '300',
                         'Dame': '50',
@@ -240,10 +315,14 @@
                     name: 'R-VELOM',
                     level: '35 ĐIỂM',
                     description: 'ÔNG HOÀNG SÚNG MÁY  ',
-                    price: '35.000 VNĐ',
+                    price: '32.550 VNĐ',
+                    originalPrice: '35.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 32550,
                     image: 'https://i.ibb.co/7dRtrmSR/image.png',
                     badge: '',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=32550&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '1000',
                         'Dame': '700',
@@ -255,10 +334,14 @@
                     name: 'R-REPER',
                     level: '149 ĐIỂM',
                     description: 'ÔNG HOÀNG GIÁP TRÂU PVP',
-                    price: '149.000 VNĐ',
+                    price: '138.570 VNĐ',
+                    originalPrice: '149.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 138570,
                     image: 'https://i.ibb.co/d0jS7g80/image.png',
                     badge: '',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=149000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=138570&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '8000',
                         'Dame': '1200',
@@ -270,10 +353,14 @@
                     name: 'GIGAN TEK',
                     level: '149 ĐIỂM',
                     description: 'ÔNG HOÀNG TEK ',
-                    price: '149.000 VNĐ',
+                    price: '138.570 VNĐ',
+                    originalPrice: '149.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 138570,
                     image: 'https://i.ibb.co/gMqgyhgZ/image.png',
                     badge: '',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=149000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=138570&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '6000',
                         'Dame': '1500',
@@ -285,10 +372,14 @@
                     name: 'MANAGA',
                     level: '100 ĐIỂM',
                     description: 'ÔNG HOÀNG MANAGA BAY VÀ PHUN BĂNG ',
-                    price: '100.000 VNĐ',
+                    price: '93.000 VNĐ',
+                    originalPrice: '100.000 VNĐ',
+                    discount: '20%',
+                    realPrice: 93000,
                     image: 'https://i.ibb.co/rRkZdfYP/image.png',
                     badge: '',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    saleBadge: '-20%',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=93000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
                     stats: {
                         'HP': '2500',
                         'Dame': '800',
@@ -301,14 +392,33 @@
             animals.forEach(animal => {
                 const animalCard = document.createElement('div');
                 animalCard.className = 'product-card';
+
+                let saleBadgeHTML = '';
+                let priceHTML = `<p class="product-price">${animal.price}</p>`;
+
+                if (animal.saleBadge) {
+                    saleBadgeHTML = `<span class="sale-badge">${animal.saleBadge}</span>`;
+                }
+
+                if (animal.originalPrice && animal.originalPrice !== '0 VNĐ') {
+                    priceHTML = `
+                        <div class="price-container">
+                            <span class="original-price">${animal.originalPrice}</span>
+                            <p class="product-price">${animal.price}</p>
+                            <span class="discount-display">${animal.discount}</span>
+                        </div>
+                    `;
+                }
+
                 animalCard.innerHTML = `
+                    ${saleBadgeHTML}
                     ${animal.badge ? `<span class="product-badge ${animal.badge}">${animal.badge.toUpperCase()}</span>` : ''}
                     <img src="${animal.image}" alt="${animal.name}" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">${animal.name}</h3>
                         <p class="product-level">${animal.level}</p>
                         <p class="product-description">${animal.description}</p>
-                        <p class="product-price">${animal.price}</p>
+                        ${priceHTML}
                         <div class="product-actions">
                             <button class="product-btn primary" onclick="buyAnimal('${animal.name}', '${animal.price}', '${animal.link}')">GÓP QUỸ</button>
                             <button class="product-btn secondary" onclick="viewAnimalDetail('${animal.name}')">CHI TIẾT</button>
@@ -336,7 +446,19 @@
                 document.getElementById('modalDescription').textContent = animal.description;
                 document.getElementById('modalPrice').textContent = animal.price;
                 
-                // Stats
+                // Clear all detail fields (user will fill them in)
+                document.getElementById('modalSkills').textContent = '';
+                document.getElementById('modalAbilities').textContent = '';
+                document.getElementById('modalRarity').textContent = '';
+                document.getElementById('modalElemental').textContent = '';
+                document.getElementById('modalHP').textContent = '';
+                document.getElementById('modalDamage').textContent = '';
+                document.getElementById('modalSpeed').textContent = '';
+                document.getElementById('modalDefense').textContent = '';
+                document.getElementById('modalSpecial').textContent = '';
+                document.getElementById('modalNotes').textContent = '';
+                
+                // Stats (keep old stats if available)
                 const statsDiv = document.getElementById('modalStats');
                 if (animal.stats) {
                     statsDiv.innerHTML = Object.entries(animal.stats).map(([key, value]) => `
