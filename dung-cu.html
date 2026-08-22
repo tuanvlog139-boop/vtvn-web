@@ -40,8 +40,45 @@
                     <span class="user-balance" id="userBalance">0 VNĐ</span>
                 </div>
             </div>
+            <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
         </div>
     </header>
+
+    <!-- SHOPPING CART SIDEBAR -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2 class="cart-title">GIỎ HÀNG</h2>
+            <button class="cart-close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty" id="cartEmpty">
+                <span class="cart-empty-icon">🛒</span>
+                <p>Giỏ hàng của bạn đang trống</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="cart-total-label">Tổng tiền:</span>
+                <span class="cart-total-price" id="cartTotal">0 VNĐ</span>
+            </div>
+            <div class="cart-actions">
+                <button class="cart-btn-continue" onclick="toggleCart()">Tiếp tục mua sắm</button>
+                <button class="cart-btn-checkout" onclick="checkout()">Tiếp tục thanh toán</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART OVERLAY -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast-notification" id="toastNotification">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toastMessage">Đã thêm vào giỏ hàng!</span>
+    </div>
 
     <!-- BREADCRUMB -->
     <nav class="breadcrumb">
@@ -75,7 +112,10 @@
                     <p id="modalDescription" class="modal-description">Description</p>
                     <p id="modalPrice" class="modal-price">Price</p>
                     <div class="modal-stats" id="modalStats"></div>
-                    <button class="modal-buy-btn" id="modalBuyBtn">MUA NGAY</button>
+                    <div class="modal-buttons">
+                        <button class="modal-add-cart-btn" id="modalAddCartBtn">THÊM VÀO GIỎ</button>
+                        <button class="modal-buy-btn" id="modalBuyBtn">MUA NGAY</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,12 +150,22 @@
 
     <script src="auth.js"></script>
     <script>
+        // Đảm bảo cart.js được load trước khi dùng
+        console.log('Loading cart.js...');
+    </script>
+    <script src="cart.js"></script>
+    <script>
+        console.log('cart.js loaded, window.addToCart:', typeof window.addToCart);
+    </script>
+    <script>
         // Load tools
+        let tools = []; // Khai báo biến toàn cục
+
         function loadTools() {
             const toolsGrid = document.getElementById('toolsGrid');
-            
+
             // Dữ liệu dụng cụ gốc từ GitHub
-            const tools = [
+            tools = [
                 {
                     name: 'TEK GEN + 100 ELE',
                     type: 'Vật phẩm Tek',
@@ -455,6 +505,7 @@
                         <div class="product-actions">
                             <button class="product-btn primary" onclick="buyTool('${tool.name}', '${tool.price}', '${tool.link}')">GÓP QUỸ</button>
                             <button class="product-btn secondary" onclick="viewToolDetail('${tool.name}')">CHI TIẾT</button>
+                            <button class="product-btn cart" onclick="addToCartFromToolList('${tool.name}')">THÊM VÀO GIỎ</button>
                         </div>
                     </div>
                 `;
@@ -495,7 +546,20 @@
                 // Buy button
                 const buyBtn = document.getElementById('modalBuyBtn');
                 buyBtn.onclick = () => buyTool(tool.name, tool.price, tool.link);
-                
+
+                // Add to cart button
+                const addCartBtn = document.getElementById('modalAddCartBtn');
+                addCartBtn.onclick = () => {
+                    const cartProduct = {
+                        id: tool.name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+                        name: tool.name,
+                        price: tool.realPrice || parseInt(tool.price.replace(/[^0-9]/g, '')),
+                        image: tool.image,
+                        description: tool.description
+                    };
+                    addToCart(cartProduct);
+                };
+
                 modal.classList.add('active');
             }
         }
@@ -513,6 +577,51 @@
         });
 
         // Initialize
+        // Add to cart from tool list
+        function addToCartFromToolList(toolName) {
+            console.log('addToCartFromToolList called with:', toolName);
+            console.log('tools array:', tools);
+            console.log('window.addToCart type:', typeof window.addToCart);
+
+            const tool = tools.find(t => t.name === toolName);
+            if (!tool) {
+                alert('Không tìm thấy dụng cụ!');
+                return;
+            }
+
+            const cartProduct = {
+                id: tool.name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+                name: tool.name,
+                price: tool.realPrice || parseInt(tool.price.replace(/[^0-9]/g, '')),
+                image: tool.image,
+                description: tool.description
+            };
+
+            console.log('Adding to cart:', cartProduct);
+
+            // Tải lại cart.js nếu chưa được load
+            if (typeof window.addToCart !== 'function') {
+                console.log('cart.js not loaded, attempting to reload...');
+                const script = document.createElement('script');
+                script.src = 'cart.js';
+                script.onload = function() {
+                    console.log('cart.js reloaded successfully');
+                    if (typeof window.addToCart === 'function') {
+                        window.addToCart(cartProduct);
+                    } else {
+                        alert('Không thể thêm vào giỏ hàng - hệ thống giỏ hàng không khả dụng!');
+                    }
+                };
+                script.onerror = function() {
+                    console.error('Failed to load cart.js');
+                    alert('Không thể tải file cart.js!');
+                };
+                document.head.appendChild(script);
+            } else {
+                window.addToCart(cartProduct);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             loadTools();
             updateNavigation();
