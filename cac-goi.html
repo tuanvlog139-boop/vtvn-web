@@ -156,6 +156,17 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .package-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .package-buttons .package-btn,
+        .package-buttons .product-btn {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
@@ -191,8 +202,45 @@
                     <span class="user-balance" id="userBalance">0 VNĐ</span>
                 </div>
             </div>
+            <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
         </div>
     </header>
+
+    <!-- SHOPPING CART SIDEBAR -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2 class="cart-title">GIỎ HÀNG</h2>
+            <button class="cart-close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty" id="cartEmpty">
+                <span class="cart-empty-icon">🛒</span>
+                <p>Giỏ hàng của bạn đang trống</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="cart-total-label">Tổng tiền:</span>
+                <span class="cart-total-price" id="cartTotal">0 VNĐ</span>
+            </div>
+            <div class="cart-actions">
+                <button class="cart-btn-continue" onclick="toggleCart()">Tiếp tục mua sắm</button>
+                <button class="cart-btn-checkout" onclick="checkout()">Tiếp tục thanh toán</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART OVERLAY -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast-notification" id="toastNotification">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toastMessage">Đã thêm vào giỏ hàng!</span>
+    </div>
 
     <!-- BREADCRUMB -->
     <nav class="breadcrumb">
@@ -239,7 +287,7 @@
                 </div>
 
                 <button class="package-btn" id="buyPackageBtn" onclick="buyPackage()">MUA NGAY</button>
-                <button class="product-btn secondary" style="width: 100%; margin-top: 10px;" onclick="addToCart()">THÊM VÀO GIỎ</button>
+                <button class="product-btn secondary" style="width: 100%; margin-top: 10px;" onclick="addToCartPackage()">THÊM VÀO GIỎ</button>
             </div>
         </div>
     </section>
@@ -283,6 +331,7 @@
     </footer>
 
     <script src="auth.js"></script>
+    <script src="cart.js"></script>
     <script>
         let currentPackageData = null;
 
@@ -377,7 +426,10 @@
                             ${pkg.items.slice(0, 3).map(item => `<div class="package-item">${item.name} (${item.level})</div>`).join('')}
                             ${pkg.items.length > 3 ? `<div class="package-item">+${pkg.items.length - 3} vật phẩm khác</div>` : ''}
                         </div>
-                        <button class="package-btn" onclick="showPackageDetail('${pkg.id}')">XEM CHI TIẾT</button>
+                        <div class="package-buttons">
+                            <button class="package-btn" onclick="showPackageDetail('${pkg.id}')">XEM CHI TIẾT</button>
+                            <button class="product-btn secondary" onclick="addToCartFromList('${pkg.id}')">THÊM VÀO GIỎ</button>
+                        </div>
                     </div>
                 `;
                 packagesGrid.appendChild(packageCard);
@@ -473,9 +525,56 @@
             }
         }
 
-        // Add to cart (placeholder)
-        function addToCart() {
-            alert('Tính năng giỏ hàng đang được phát triển!');
+        // Add to cart function (from detail view)
+        function addToCartPackage() {
+            console.log('addToCartPackage called, currentPackageData:', currentPackageData);
+            if (!currentPackageData) {
+                alert('Vui lòng chọn một gói trước!');
+                return;
+            }
+
+            // Gọi hàm addToCartPackage từ cart.js
+            if (typeof window.addToCartPackage === 'function') {
+                window.addToCartPackage(currentPackageData);
+            } else {
+                console.error('Hàm addToCartPackage không tồn tại trong cart.js');
+                // Fallback: gọi trực tiếp hàm addToCart
+                const cartProduct = {
+                    id: currentPackageData.name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+                    name: currentPackageData.name,
+                    price: currentPackageData.realPrice || parseInt(currentPackageData.price.replace(/[^0-9]/g, '')),
+                    image: currentPackageData.image,
+                    description: currentPackageData.description
+                };
+                if (typeof window.addToCart === 'function') {
+                    window.addToCart(cartProduct);
+                } else {
+                    alert('Không thể thêm vào giỏ hàng - hệ thống giỏ hàng chưa được tải!');
+                }
+            }
+        }
+
+        // Add to cart from list view
+        function addToCartFromList(packageId) {
+            const pkg = packages.find(p => p.id === packageId);
+            if (!pkg) {
+                alert('Không tìm thấy gói!');
+                return;
+            }
+
+            const cartProduct = {
+                id: pkg.name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+                name: pkg.name,
+                price: parseInt(pkg.price) * 1000, // Convert to VNĐ
+                image: pkg.image,
+                description: pkg.description
+            };
+
+            if (typeof window.addToCart === 'function') {
+                window.addToCart(cartProduct);
+            } else {
+                alert('Không thể thêm vào giỏ hàng - hệ thống giỏ hàng chưa được tải!');
+            }
         }
 
         // Initialize
