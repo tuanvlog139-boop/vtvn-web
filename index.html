@@ -40,12 +40,63 @@
                     <span class="user-balance" id="userBalance">0 VNĐ</span>
                 </div>
             </div>
+            <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
         </div>
     </header>
+
+    <!-- SHOPPING CART SIDEBAR -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2 class="cart-title">GIỎ HÀNG</h2>
+            <button class="cart-close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Các sản phẩm sẽ được thêm vào đây bằng JavaScript -->
+            <div class="cart-empty" id="cartEmpty">
+                <span class="cart-empty-icon">🛒</span>
+                <p>Giỏ hàng của bạn đang trống</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="cart-total-label">Tổng tiền:</span>
+                <span class="cart-total-price" id="cartTotal">0 VNĐ</span>
+            </div>
+            <div class="cart-actions">
+                <button class="cart-btn-continue" onclick="toggleCart()">Tiếp tục mua sắm</button>
+                <button class="cart-btn-checkout" onclick="checkout()">Tiếp tục thanh toán</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART OVERLAY -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast-notification" id="toastNotification">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toastMessage">Đã thêm vào giỏ hàng!</span>
+    </div>
 
     <!-- HERO BANNER -->
     <section class="hero-banner">
         <div class="national-day-decoration" id="nationalDayDecoration"></div>
+        <div class="particles-container" id="particlesContainer"></div>
+        
+        <!-- Marquee Effect -->
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span class="marquee-text">✨ CHÚC MỪNG NGÀY QUỐC KHÁNH 2/9 - ĐẠI TIỆC ƯU ĐÃI NGẬP TRÀN! ✨</span>
+                <span class="marquee-text">✨ CHÚC MỪNG NGÀY QUỐC KHÁNH 2/9 - ĐẠI TIỆC ƯU ĐÃI NGẬP TRÀN! ✨</span>
+                <span class="marquee-text">✨ CHÚC MỪNG NGÀY QUỐC KHÁNH 2/9 - ĐẠI TIỆC ƯU ĐÃI NGẬP TRÀN! ✨</span>
+                <span class="marquee-text">✨ CHÚC MỪNG NGÀY QUỐC KHÁNH 2/9 - ĐẠI TIỆC ƯU ĐÃI NGẬP TRÀN! ✨</span>
+                <span class="marquee-text">✨ CHÚC MỪNG NGÀY QUỐC KHÁNH 2/9 - ĐẠI TIỆC ƯU ĐÃI NGẬP TRÀN! ✨</span>
+            </div>
+        </div>
+        
         <div class="hero-content">
             <h1 class="hero-title">CỬA HÀNG SV VT VN - GIẢM GIÁ 20% MỌI THỨ</h1>
             <!-- <p class="hero-subtitle">HỆ THỐNG SHOP ARK SURVIVAL</p> -->
@@ -117,7 +168,10 @@
                     <p id="modalDescription" class="modal-description">Description</p>
                     <p id="modalPrice" class="modal-price">Price</p>
                     <div class="modal-stats" id="modalStats"></div>
-                    <button class="modal-buy-btn" id="modalBuyBtn">MUA NGAY</button>
+                    <div class="modal-buttons">
+                        <button class="modal-add-cart-btn" id="modalAddCartBtn">THÊM VÀO GIỎ</button>
+                        <button class="modal-buy-btn" id="modalBuyBtn">MUA NGAY</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,6 +216,7 @@
     </footer>
 
     <script src="auth.js"></script>
+    <script src="cart.js"></script>
     <script>
         // Global variable để lưu products
         let products = [];
@@ -303,6 +358,7 @@
                         <div class="product-actions">
                             <button class="product-btn primary" onclick="window.open('${product.link}', '_blank')">GÓP QUỸ</button>
                             <button class="product-btn secondary" onclick="viewProductDetail('${product.name}')">CHI TIẾT</button>
+                            <button class="product-btn cart" onclick="addToCartFromFeatured('${product.name}')">THÊM VÀO GIỎ</button>
                         </div>
                     </div>
                 `;
@@ -341,6 +397,19 @@
                 const buyBtn = document.getElementById('modalBuyBtn');
                 buyBtn.onclick = () => window.open(product.link, '_blank');
                 
+                // Add to cart button
+                const addCartBtn = document.getElementById('modalAddCartBtn');
+                addCartBtn.onclick = () => {
+                    const cartProduct = {
+                        id: product.name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+                        name: product.name,
+                        price: product.realPrice || parseInt(product.price.replace(/[^0-9]/g, '')),
+                        image: product.image,
+                        description: product.description
+                    };
+                    addToCart(cartProduct);
+                };
+                
                 modal.classList.add('active');
                 console.log('Modal should be visible now');
             } else {
@@ -365,11 +434,35 @@
             }
         }, 100);
 
+        // Add to cart from featured products
+        function addToCartFromFeatured(productName) {
+            const product = products.find(p => p.name === productName);
+            if (!product) {
+                alert('Không tìm thấy sản phẩm!');
+                return;
+            }
+
+            const cartProduct = {
+                id: product.name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+                name: product.name,
+                price: product.realPrice || parseInt(product.price.replace(/[^0-9]/g, '')),
+                image: product.image,
+                description: product.description
+            };
+
+            if (typeof window.addToCart === 'function') {
+                window.addToCart(cartProduct);
+            } else {
+                alert('Không thể thêm vào giỏ hàng - hệ thống giỏ hàng chưa được tải!');
+            }
+        }
+
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
             loadFeaturedProducts();
             updateNavigation();
             initNationalDayDecoration();
+            initParticles();
         });
 
         // National Day Decoration Effect
@@ -430,6 +523,47 @@
             // Initial burst
             for (let i = 0; i < 5; i++) {
                 setTimeout(createStar, i * 200);
+            }
+        }
+
+        // Particles Effect for Banner
+        function initParticles() {
+            const container = document.getElementById('particlesContainer');
+            if (!container) return;
+
+            const particleTypes = ['✦', '✧', '★', '⚡', '💫'];
+            const colors = ['#FFD700', '#FF1744', '#7C4DFF', '#2979FF', '#EC4899'];
+
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'article-star';
+                particle.textContent = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                particle.style.animationDelay = Math.random() * 1 + 's';
+                container.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 4000);
+            }
+
+            // Throttled creation
+            let lastParticleTime = 0;
+
+            function animateParticles(timestamp) {
+                if (timestamp - lastParticleTime > 400) {
+                    createParticle();
+                    lastParticleTime = timestamp;
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            requestAnimationFrame(animateParticles);
+
+            // Initial burst
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createParticle, i * 100);
             }
         }
     </script>
