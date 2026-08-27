@@ -21,8 +21,64 @@
 
         .package-items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        /* Special layout for 11 items package */
+        .package-items-grid.eleven-items {
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
+        }
+
+        .package-items-grid.eleven-items .package-item-card {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .package-items-grid.eleven-items .package-item-card img {
+            width: 80%;
+            height: auto;
+            margin-bottom: 10px;
+            filter: contrast(1.1) brightness(1.05) saturate(1.1);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        .item-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff1744, #7c4dff);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+            z-index: 1;
+        }
+
+        /* Ẩn số thứ tự nếu muốn */
+        .package-items-grid.eleven-items .package-item-card .item-number {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .package-items-grid.eleven-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .package-item-card {
@@ -338,70 +394,26 @@
         // Package data
         const packages = [
             {
-                id: 'animal',
-                name: 'GÓI THÚ',
-                description: 'Gói gồm các con thú mạnh nhất với level cao, giúp bạn thống trị server nhanh chóng.',
-                price: '200.000',
+                id: 'special',
+                name: 'GÓI ĐẶC BIỆT',
+                description: 'Gói đặc biệt với 11 vật phẩm độc đáo và quý hiếm.',
+                price: '350',
                 originalPrice: '1.500.000',
-                image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600&q=80',
-                badge: 'HOT',
+                image: 'https://i.ibb.co/vvzdJJtG/image.png',
+                badge: 'LEGENDARY',
                 featured: true,
                 items: [
-                    { name: 'Rex', level: 'Level 150', quantity: 1, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
-                    { name: 'Giga', level: 'Level 200', quantity: 1, image: 'https://images.unsplash.com/photo-1607623843868-819a115e88e8?w=400&q=80' },
-                    { name: 'Wyvern Poison', level: 'Level 180', quantity: 1, image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&q=80' },
-                    { name: 'Managarmr', level: 'Level 160', quantity: 1, image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80' },
-                    { name: 'Argentavis', level: 'Level 120', quantity: 2, image: 'https://images.unsplash.com/photo-1551085254-e96b210db58a?w=400&q=80' },
-                    { name: 'Spino', level: 'Level 140', quantity: 1, image: 'https://images.unsplash.com/photo-1598329292760-2c5cb0ca1e21?w=400&q=80' }
-                ]
-            },
-            {
-                id: 'tools',
-                name: 'GÓI DỤNG CỤ',
-                description: 'Bộ dụng cụ toàn diện cho mọi hoạt động từ khai thác đến chiến đấu.',
-                price: '150.000',
-                originalPrice: '800.000',
-                image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=600&q=80',
-                badge: 'VIP',
-                featured: false,
-                items: [
-                    { name: 'Cung Ascendant', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=400&q=80' },
-                    { name: 'Rìu Pickaxe', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80' },
-                    { name: 'Kiếm Sword', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=400&q=80' },
-                    { name: 'Giáp Flak', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=400&q=80' },
-                    { name: 'Balo Backpack', level: 'Max', quantity: 1, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80' }
-                ]
-            },
-            {
-                id: 'starter',
-                name: 'GÓI KHỞI ĐẦU',
-                description: 'Gói hoàn hảo cho người mới bắt đầu chơi ARK Survival.',
-                price: '100.000',
-                originalPrice: '400.000',
-                image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=600&q=80',
-                badge: 'NEW',
-                featured: false,
-                items: [
-                    { name: 'Rex', level: 'Level 50', quantity: 1, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
-                    { name: 'Cung Crossbow', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=400&q=80' },
-                    { name: 'Rìu Pickaxe', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80' },
-                    { name: 'Lều Tent', level: 'Basic', quantity: 1, image: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80' }
-                ]
-            },
-            {
-                id: 'boss',
-                name: 'GÓI BOSS',
-                description: 'Gói chuyên săn boss với các thú và vũ khí tối thượng.',
-                price: '500.000',
-                originalPrice: '2.000.000',
-                image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&q=80',
-                badge: 'MAX',
-                featured: false,
-                items: [
-                    { name: 'Rex', level: 'Level 200', quantity: 2, image: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80' },
-                    { name: 'Giga', level: 'Level 250', quantity: 1, image: 'https://images.unsplash.com/photo-1607623843868-819a115e88e8?w=400&q=80' },
-                    { name: 'Cung Ascendant', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1593305841991-05c29736ce87?w=400&q=80' },
-                    { name: 'Giáp Flak', level: 'Max', quantity: 2, image: 'https://images.unsplash.com/photo-1558703292-9ed194685e7e?w=400&q=80' }
+                    { name: 'Vật phẩm 1', level: 'Đặc biệt', quantity: 1, image: 'https://i.ibb.co/7trkYxRb/image.png' },
+                    { name: 'Vật phẩm 2', level: 'Quý hiếm', quantity: 1, image: 'https://i.ibb.co/4w8HkpvN/image.png' },
+                    { name: 'Vật phẩm 3', level: 'Hiếm', quantity: 1, image: 'https://i.ibb.co/8nCrbJvG/image.png' },
+                    { name: 'Vật phẩm 4', level: 'Vip', quantity: 1, image: 'https://i.ibb.co/qYYw1Kf9/image.png' },
+                    { name: 'Vật phẩm 5', level: 'Pro', quantity: 1, image: 'https://i.ibb.co/XkYPzb77/image.png' },
+                    { name: 'Vật phẩm 6', level: 'Elite', quantity: 1, image: 'https://i.ibb.co/Pvcm10zk/image.png' },
+                    { name: 'Vật phẩm 7', level: 'Master', quantity: 1, image: 'https://i.ibb.co/hFdL3zC4/image.png' },
+                    { name: 'Vật phẩm 8', level: 'Grand', quantity: 1, image: 'https://i.ibb.co/PZRD3kBG/image.png' },
+                    { name: 'Vật phẩm 9', level: 'Ultimate', quantity: 1, image: 'https://i.ibb.co/cKHb8Qdc/image.png' },
+                    { name: 'Vật phẩm 10', level: 'Mythic', quantity: 1, image: 'https://i.ibb.co/Pv4ngJZG/image.png' },
+                    { name: 'Vật phẩm 11', level: 'Divine', quantity: 1, image: 'https://i.ibb.co/vvzdJJtG/image.png' }
                 ]
             }
         ];
@@ -458,16 +470,34 @@
             // Load package items
             const packageItemsGrid = document.getElementById('packageItemsGrid');
             packageItemsGrid.innerHTML = '';
-            
-            currentPackageData.items.forEach(item => {
+
+            // Add special class for 11 items package
+            if (currentPackageData.items.length === 11) {
+                packageItemsGrid.classList.add('eleven-items');
+            } else {
+                packageItemsGrid.classList.remove('eleven-items');
+            }
+
+            currentPackageData.items.forEach((item, index) => {
                 const itemCard = document.createElement('div');
                 itemCard.className = 'package-item-card';
-                itemCard.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
-                    <h4>${item.name}</h4>
-                    <p class="item-level">${item.level}</p>
-                    <p class="item-quantity">Số lượng: ${item.quantity}</p>
-                `;
+
+                // For 11 items, show them in a nice grid without numbers
+                if (currentPackageData.items.length === 11) {
+                    itemCard.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <h4>${item.name}</h4>
+                        <p class="item-level">${item.level}</p>
+                    `;
+                } else {
+                    itemCard.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <h4>${item.name}</h4>
+                        <p class="item-level">${item.level}</p>
+                        <p class="item-quantity">Số lượng: ${item.quantity}</p>
+                    `;
+                }
+
                 itemCard.onclick = () => viewItemDetail(item);
                 packageItemsGrid.appendChild(itemCard);
             });
@@ -493,36 +523,16 @@
         function buyPackage() {
             if (!currentPackageData) return;
 
-            const currentUser = getCurrentUser();
-            if (!currentUser) {
-                alert('Vui lòng đăng nhập để mua gói!');
-                window.location.href = 'login.html';
-                return;
-            }
-
             const priceNum = parseInt(currentPackageData.price) * 1000;
-            if ((currentUser.balance || 0) < priceNum) {
-                alert('Bạn không đủ tiền! Vui lòng nạp thêm.');
-                return;
-            }
 
-            if (confirm(`Bạn có chắc muốn mua ${currentPackageData.name} với giá ${currentPackageData.price}.000 VNĐ?`)) {
-                currentUser.balance -= priceNum;
-                currentUser.orders = (currentUser.orders || 0) + 1;
-                
-                // Add transaction
-                if (!currentUser.transactions) currentUser.transactions = [];
-                currentUser.transactions.unshift({
-                    date: new Date().toISOString(),
-                    type: 'Mua gói',
-                    description: `Mua ${currentPackageData.name}`,
-                    amount: -priceNum
-                });
-                
-                setCurrentUser(currentUser);
-                updateNavigation();
-                alert(`Mua ${currentPackageData.name} thành công!`);
-            }
+            // Tạo QR code động cho số tiền của gói
+            const qrUrl = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${priceNum}&addInfo=Quy/Gia/Han/Mua/Goi/${currentPackageData.name}&accountName=Quy%20Gia%20Han%20Save`;
+
+            // Mở QR code trong tab mới
+            window.open(qrUrl, '_blank');
+
+            // Hiển thị thông báo hướng dẫn
+            alert(`Đã mở mã QR thanh toán cho ${currentPackageData.name}!\n\nSố tiền: ${currentPackageData.price}.000 VNĐ\n\nVui lòng quét mã QR bằng app ngân hàng để thanh toán.\nSau khi thanh toán, hệ thống sẽ tự động cộng gói vào tài khoản của bạn trong 5-10 phút.`);
         }
 
         // Add to cart function (from detail view)

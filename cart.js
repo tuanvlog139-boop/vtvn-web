@@ -172,13 +172,25 @@ function checkout() {
         return;
     }
 
-    // Tạm thời chỉ đóng giỏ hàng và thông báo
-    // Trong thực tế sẽ chuyển đến trang thanh toán
-    toggleCart();
-    showToast('Đang chuyển đến trang thanh toán...');
+    // Tính tổng tiền
+    const totalAmount = calculateTotal();
 
-    // Có thể thêm logic chuyển trang:
-    // window.location.href = 'checkout.html';
+    // Nội dung chuyển khoản CỐ ĐỊNH
+    const addInfo = "Quy/Gia/Han/May/Chu/Tu/Nguyen";
+
+    // Tạo URL QR code với tổng số tiền và nội dung chuyển khoản cố định
+    const qrUrl = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${totalAmount}&addInfo=${encodeURIComponent(addInfo)}&accountName=Quy%20Gia%20Han%20Save`;
+
+    // Mở QR code trong tab mới
+    window.open(qrUrl, '_blank');
+
+    // Hiển thị thông báo chi tiết
+    const itemsSummary = cart.map(item => `- ${item.name} x${item.quantity}: ${formatPrice(item.price * item.quantity)}`).join('\n');
+
+    alert(`ĐƠN HÀNG CỦA BẠN:\n\n${itemsSummary}\n\nTỔNG TIỀN: ${formatPrice(totalAmount)}\n\nĐã mở mã QR thanh toán!\n\nVui lòng quét mã QR bằng app ngân hàng để thanh toán.\nNội dung chuyển khoản: ${addInfo}\n\nSau khi thanh toán, hệ thống sẽ xử lý trong 5-10 phút.`);
+
+    // Đóng giỏ hàng
+    toggleCart();
 }
 
 /**

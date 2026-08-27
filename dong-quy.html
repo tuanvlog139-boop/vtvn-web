@@ -134,6 +134,139 @@
             font-size: 14px;
         }
 
+        .qr-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .amount-input-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .amount-input-section h3 {
+            color: var(--primary-neon-red);
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .amount-input-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .amount-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 20px;
+            background: var(--bg-navy);
+            border: 2px solid rgba(255, 23, 68, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .amount-input:focus {
+            border-color: var(--primary-neon-blue);
+            box-shadow: 0 0 15px rgba(41, 121, 255, 0.3);
+        }
+
+        .amount-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .quick-amounts {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .quick-amount-btn {
+            padding: 10px 20px;
+            background: rgba(255, 23, 68, 0.2);
+            border: 1px solid rgba(255, 23, 68, 0.4);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .quick-amount-btn:hover {
+            background: rgba(255, 23, 68, 0.4);
+            border-color: rgba(255, 23, 68, 0.8);
+            transform: scale(1.05);
+        }
+
+        .generate-qr-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary-neon-red), var(--primary-neon-purple));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 23, 68, 0.4);
+        }
+
+        .generate-qr-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 23, 68, 0.6);
+        }
+
+        .usage-guide {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-top: 30px;
+        }
+
+        .usage-guide h3 {
+            color: var(--primary-neon-blue);
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .usage-guide ol {
+            color: var(--text-secondary);
+            line-height: 2;
+            padding-left: 25px;
+        }
+
+        .usage-guide li {
+            margin-bottom: 15px;
+        }
+
+        .usage-guide .step-number {
+            color: var(--primary-neon-red);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
         @media (max-width: 768px) {
             .info-grid {
                 grid-template-columns: 1fr;
@@ -142,6 +275,22 @@
             .qr-placeholder {
                 width: 200px;
                 height: 200px;
+            }
+
+            .amount-input-container {
+                flex-direction: column;
+            }
+
+            .amount-input {
+                width: 100%;
+            }
+
+            .quick-amounts {
+                justify-content: center;
+            }
+
+            .generate-qr-btn {
+                width: 100%;
             }
         }
     </style>
@@ -225,12 +374,44 @@
             </div>
         </div>
 
+        <div class="amount-input-section">
+            <h3>💰 NHẬP SỐ TIỀN MUỐN CHUYỂN</h3>
+            <div class="amount-input-container">
+                <input type="number" class="amount-input" id="amountInput" placeholder="Nhập số tiền (VNĐ)" min="1000" step="1000">
+                <button class="generate-qr-btn" onclick="generateQR()">TẠO QR</button>
+            </div>
+            <div class="quick-amounts">
+                <button class="quick-amount-btn" onclick="setAmount(50000)">50K</button>
+                <button class="quick-amount-btn" onclick="setAmount(100000)">100K</button>
+                <button class="quick-amount-btn" onclick="setAmount(200000)">200K</button>
+                <button class="quick-amount-btn" onclick="setAmount(500000)">500K</button>
+                <button class="quick-amount-btn" onclick="setAmount(1000000)">1M</button>
+                <button class="quick-amount-btn" onclick="setAmount(2000000)">2M</button>
+            </div>
+        </div>
+
         <div class="qr-section">
             <h3>📱 MÃ QR CHUYỂN KHOẢN</h3>
             <div class="qr-placeholder">
-                <img src="https://i.ibb.co/rKKyZwZJ/image.png" alt="QR Code Chuyển Khoản" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+                <img id="qrImage" src="https://i.ibb.co/rKKyZwZJ/image.png" alt="QR Code Chuyển Khoản">
             </div>
-            <p style="color: var(--text-secondary);">Sử dụng ứng dụng ngân hàng để quét mã QR và chuyển khoản</p>
+            <p id="qrAmountText" style="color: var(--text-secondary);">Sử dụng ứng dụng ngân hàng để quét mã QR và chuyển khoản</p>
+        </div>
+
+        <div class="usage-guide">
+            <h3>📖 HƯỚNG DẪN SỬ DỤNG</h3>
+            <ol>
+                <li><span class="step-number">Bước 1:</span> Nhập số tiền bạn muốn chuyển vào ô nhập số tiền (hoặc chọn mệnh giá nhanh)</li>
+                <li><span class="step-number">Bước 2:</span> Bấm nút "TẠO QR" để hệ thống tạo mã QR tương ứng với số tiền bạn chọn</li>
+                <li><span class="step-number">Bước 3:</span> Mở ứng dụng ngân hàng trên điện thoại (Vietcombank, MB Bank, Techcombank, v.v.)</li>
+                <li><span class="step-number">Bước 4:</span> Chọn tính năng "Quét mã QR" hoặc "Scan QR" trong ứng dụng ngân hàng</li>
+                <li><span class="step-number">Bước 5:</span> Quét mã QR hiển thị trên màn hình</li>
+                <li><span class="step-number">Bước 6:</span> Kiểm tra thông tin: Số tài khoản 1051357963 - Chủ tài khoản Quy Gia Han Save</li>
+                <li><span class="step-number">Bước 7:</span> Xác nhận số tiền đúng với số bạn đã nhập</li>
+                <li><span class="step-number">Bước 8:</span> Ghi nội dung chuyển khoản: "Quy/Gia/Han/Dong/Quy/[Số tiền]" (ví dụ: Quy/Gia/Han/Dong/Quy/200000)</li>
+                <li><span class="step-number">Bước 9:</span> Xác nhận chuyển khoản</li>
+                <li><span class="step-number">Bước 10:</span> Chờ 5-10 phút để hệ thống xử lý, số tiền sẽ được cộng vào tài khoản của bạn</li>
+            </ol>
         </div>
     </section>
 
@@ -262,6 +443,45 @@
     </footer>
 
     <script src="auth.js"></script>
+    <script>
+        // Function to set amount from quick buttons
+        function setAmount(amount) {
+            document.getElementById('amountInput').value = amount;
+            generateQR();
+        }
+
+        // Function to generate QR code with custom amount
+        function generateQR() {
+            const amount = document.getElementById('amountInput').value;
+
+            if (!amount || amount < 1000) {
+                alert('Vui lòng nhập số tiền hợp lệ (tối thiểu 1.000 VNĐ)');
+                return;
+            }
+
+            // Generate QR URL with custom amount
+            const qrUrl = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${amount}&addInfo=Quy/Gia/Han/Dong/Quy/${amount}&accountName=Quy%20Gia%20Han%20Save`;
+
+            // Update QR image
+            document.getElementById('qrImage').src = qrUrl;
+
+            // Update text
+            document.getElementById('qrAmountText').textContent = `Mã QR cho số tiền: ${parseInt(amount).toLocaleString()} VNĐ`;
+        }
+
+        // Auto-generate QR when input changes
+        document.getElementById('amountInput').addEventListener('input', function() {
+            const amount = this.value;
+            if (amount >= 1000) {
+                generateQR();
+            }
+        });
+
+        // Initialize with default QR
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavigation();
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             updateNavigation();

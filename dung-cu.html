@@ -521,16 +521,66 @@
 
         // View tool detail with modal
         function viewToolDetail(name) {
+            console.log('viewToolDetail called with:', name);
             const tool = tools.find(t => t.name === name);
+            console.log('Found tool:', tool);
+
             if (tool) {
                 const modal = document.getElementById('productDetailModal');
+                console.log('Modal element:', modal);
+
+                if (!modal) {
+                    console.error('Modal element not found!');
+                    alert('Không tìm thấy modal chi tiết!');
+                    return;
+                }
+
+                // Basic info
                 document.getElementById('modalImage').src = tool.image;
                 document.getElementById('modalName').textContent = tool.name;
                 document.getElementById('modalLevel').textContent = tool.type;
                 document.getElementById('modalDescription').textContent = tool.description;
                 document.getElementById('modalPrice').textContent = tool.price;
-                
-                // Stats
+
+                // Detail fields - fill from stats if available
+                const skillsField = document.getElementById('modalSkills');
+                const abilitiesField = document.getElementById('modalAbilities');
+                const rarityField = document.getElementById('modalRarity');
+                const elementalField = document.getElementById('modalElemental');
+                const hpField = document.getElementById('modalHP');
+                const damageField = document.getElementById('modalDamage');
+                const speedField = document.getElementById('modalSpeed');
+                const defenseField = document.getElementById('modalDefense');
+                const specialField = document.getElementById('modalSpecial');
+                const notesField = document.getElementById('modalNotes');
+
+                // Map stats to detail fields
+                if (tool.stats) {
+                    skillsField.textContent = tool.stats['Skills'] || tool.stats['Kỹ năng'] || 'Chưa có thông tin';
+                    abilitiesField.textContent = tool.stats['Abilities'] || tool.stats['Khả năng'] || tool.stats['Công dụng'] || 'Chưa có thông tin';
+                    rarityField.textContent = tool.stats['Rarity'] || tool.stats['Độ hiếm'] || tool.badge || 'Common';
+                    elementalField.textContent = tool.stats['Elemental Type'] || tool.stats['Loại'] || tool.stats['Hệ'] || 'Normal';
+                    hpField.textContent = tool.stats['HP'] || tool.stats['Điểm'] || tool.stats['Sức mạnh'] || 'N/A';
+                    damageField.textContent = tool.stats['Damage'] || tool.stats['Sát thương'] || tool.stats['Sức mạnh'] || 'N/A';
+                    speedField.textContent = tool.stats['Speed'] || tool.stats['Tốc độ'] || 'N/A';
+                    defenseField.textContent = tool.stats['Defense'] || tool.stats['Phòng thủ'] || tool.stats['Giáp'] || 'N/A';
+                    specialField.textContent = tool.stats['Special Ability'] || tool.stats['Khả năng đặc biệt'] || 'Không có';
+                    notesField.textContent = tool.stats['Notes'] || tool.stats['Ghi chú'] || tool.stats['Thông tin thêm'] || 'Không có';
+                } else {
+                    // Fallback values if no stats
+                    skillsField.textContent = 'Chưa có thông tin';
+                    abilitiesField.textContent = tool.description || 'Chưa có thông tin';
+                    rarityField.textContent = tool.badge || 'Common';
+                    elementalField.textContent = tool.type || 'Normal';
+                    hpField.textContent = 'N/A';
+                    damageField.textContent = 'N/A';
+                    speedField.textContent = 'N/A';
+                    defenseField.textContent = 'N/A';
+                    specialField.textContent = 'Không có';
+                    notesField.textContent = tool.description || 'Không có';
+                }
+
+                // Stats section (keep old stats display if needed)
                 const statsDiv = document.getElementById('modalStats');
                 if (tool.stats) {
                     statsDiv.innerHTML = Object.entries(tool.stats).map(([key, value]) => `
@@ -542,14 +592,15 @@
                 } else {
                     statsDiv.innerHTML = '';
                 }
-                
+
                 // Buy button
                 const buyBtn = document.getElementById('modalBuyBtn');
                 buyBtn.onclick = () => buyTool(tool.name, tool.price, tool.link);
 
-                // Add to cart button
+                // Add to cart button - fix to use window.addToCart
                 const addCartBtn = document.getElementById('modalAddCartBtn');
                 addCartBtn.onclick = () => {
+                    console.log('Add to cart button clicked in modal');
                     const cartProduct = {
                         id: tool.name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
                         name: tool.name,
@@ -557,10 +608,19 @@
                         image: tool.image,
                         description: tool.description
                     };
-                    addToCart(cartProduct);
+
+                    if (typeof window.addToCart === 'function') {
+                        window.addToCart(cartProduct);
+                    } else {
+                        alert('Không thể thêm vào giỏ hàng - hệ thống giỏ hàng chưa được tải!');
+                    }
                 };
 
                 modal.classList.add('active');
+                console.log('Modal should be visible now');
+            } else {
+                console.error('Tool not found:', name);
+                alert('Không tìm thấy dụng cụ!');
             }
         }
 
