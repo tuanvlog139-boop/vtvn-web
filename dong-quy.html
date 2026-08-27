@@ -292,6 +292,406 @@
             .generate-qr-btn {
                 width: 100%;
             }
+
+            .payment-container-2 {
+                flex-direction: column;
+            }
+
+            .payment-info-2 {
+                padding: 20px;
+            }
+
+            .qr-section-2 {
+                padding: 20px;
+            }
+
+            .qr-container-2 img {
+                width: 180px;
+                height: 180px;
+            }
+        }
+
+        /* CSS cho màn hình 2 nạp tiền */
+        .payment-screen-2 {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 0;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .payment-container-2 {
+            display: flex;
+            min-height: 500px;
+        }
+
+        .payment-info-2 {
+            flex: 1;
+            padding: 40px;
+            background: white;
+        }
+
+        .payment-info-2 h3 {
+            color: var(--primary-neon-red);
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .info-item-2 {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .info-label-2 {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value-2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .copy-btn-2 {
+            background: var(--primary-neon-blue);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        .copy-btn-2:hover {
+            background: #5568d3;
+        }
+
+        .copy-btn-2.copied {
+            background: #28a745;
+        }
+
+        .qr-section-2 {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary-neon-blue), var(--primary-neon-purple));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .qr-section-2 h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .qr-container-2 {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .qr-container-2 img {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+
+        .qr-hint-2 {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .btn-back-2 {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: white;
+            color: var(--primary-neon-blue);
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-back-2:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Màn hình thành công */
+        .success-screen {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 60px 40px;
+            border: 2px solid rgba(255, 23, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .success-icon-2 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .success-icon-2 svg {
+            width: 60px;
+            height: 60px;
+            fill: white;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-title-2 {
+            color: #28a745;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: fadeInUp 0.5s ease-out 0.2s both;
+        }
+
+        .success-message-2 {
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.5s ease-out 0.4s both;
+        }
+
+        .success-amount-2 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            animation: fadeInUp 0.5s ease-out 0.6s both;
+        }
+
+        .btn-home-2 {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary-neon-red), var(--primary-neon-purple));
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fadeInUp 0.5s ease-out 0.8s both;
+        }
+
+        .btn-home-2:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 23, 68, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ==================== USER PROFILE WIDGET - CYBERPUNK STYLE ==================== */
+        
+        .user-info-panel {
+            margin-left: 20px;
+        }
+
+        .user-profile-widget {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            background: rgba(15, 15, 35, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-profile-widget::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #ff0066, #00ff99, #6633ff, #ff0066);
+            background-size: 300% 300%;
+            border-radius: 18px;
+            z-index: -1;
+            animation: borderGlow 4s ease infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .user-profile-widget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255, 0, 102, 0.3), 0 0 20px rgba(0, 255, 153, 0.2);
+            background: rgba(20, 20, 45, 0.85);
+        }
+
+        .user-profile-widget:hover::before {
+            opacity: 1;
+            animation: borderGlow 2s ease infinite;
+        }
+
+        .user-avatar-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-avatar-glow {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff0066, #6633ff);
+            animation: avatarPulse 2s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+        }
+
+        .user-avatar {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6633ff, #ff0066);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            z-index: 1;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .user-name {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .user-balance {
+            color: #00ff66;
+            font-size: 12px;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 768px) {
+            .user-profile-widget {
+                padding: 10px 15px;
+                gap: 12px;
+            }
+
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .user-avatar-glow {
+                width: 40px;
+                height: 40px;
+            }
+
+            .user-name {
+                font-size: 13px;
+            }
+
+            .user-balance {
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -322,11 +722,16 @@
             <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
             <button class="auth-btn" id="logoutBtn" style="display: none;" onclick="logout()">ĐĂNG XUẤT</button>
             <div class="user-info-panel" id="userInfoPanel" style="display: none;">
-                <div class="user-avatar" id="userAvatar">U</div>
-                <div class="user-details">
-                    <span class="user-name" id="userName">Username</span>
-                    <span class="user-balance" id="userBalance">0 VNĐ</span>
-                </div>
+                <a href="profile.html" class="user-profile-widget">
+                    <div class="user-avatar-container">
+                        <div class="user-avatar-glow"></div>
+                        <div class="user-avatar" id="userAvatar">V</div>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="userName">Văn Tuấn</span>
+                        <span class="user-balance" id="userBalance">0 VNĐ</span>
+                    </div>
+                </a>
             </div>
         </div>
     </header>
@@ -374,11 +779,11 @@
             </div>
         </div>
 
-        <div class="amount-input-section">
-            <h3>💰 NHẬP SỐ TIỀN MUỐN CHUYỂN</h3>
+        <div class="amount-input-section" id="depositScreen1">
+            <h3>💰 NHẬP SỐ TIỀN MUỐN NẠP</h3>
             <div class="amount-input-container">
-                <input type="number" class="amount-input" id="amountInput" placeholder="Nhập số tiền (VNĐ)" min="1000" step="1000">
-                <button class="generate-qr-btn" onclick="generateQR()">TẠO QR</button>
+                <input type="number" class="amount-input" id="amountInput" placeholder="Nhập số tiền (VNĐ)" min="1000" step="1000" value="50000">
+                <button class="generate-qr-btn" onclick="showDepositScreen2()">TẠO MÃ QR</button>
             </div>
             <div class="quick-amounts">
                 <button class="quick-amount-btn" onclick="setAmount(50000)">50K</button>
@@ -390,12 +795,77 @@
             </div>
         </div>
 
-        <div class="qr-section">
-            <h3>📱 MÃ QR CHUYỂN KHOẢN</h3>
-            <div class="qr-placeholder">
-                <img id="qrImage" src="https://i.ibb.co/rKKyZwZJ/image.png" alt="QR Code Chuyển Khoản">
+        <!-- Màn hình 2: Hiển thị thông tin thanh toán & mã QR -->
+        <div class="payment-screen-2" id="depositScreen2" style="display: none;">
+            <div class="payment-container-2">
+                <!-- Bên trái: Thông tin chuyển khoản -->
+                <div class="payment-info-2">
+                    <h3>📱 THÔNG TIN CHUYỂN KHOẢN</h3>
+                    
+                    <div class="info-item-2">
+                        <span class="info-label-2">Ngân hàng</span>
+                        <div class="info-value-2">
+                            Vietcombank
+                        </div>
+                    </div>
+
+                    <div class="info-item-2">
+                        <span class="info-label-2">Chủ tài khoản</span>
+                        <div class="info-value-2">
+                            VY VAN TUAN
+                        </div>
+                    </div>
+
+                    <div class="info-item-2">
+                        <span class="info-label-2">Số tài khoản</span>
+                        <div class="info-value-2">
+                            <span id="depositAccountNumber">1051357963</span>
+                            <button class="copy-btn-2" onclick="copyText('1051357963', this)">Sao chép</button>
+                        </div>
+                    </div>
+
+                    <div class="info-item-2">
+                        <span class="info-label-2">Số tiền</span>
+                        <div class="info-value-2">
+                            <span id="depositDisplayAmount">50.000đ</span>
+                            <button class="copy-btn-2" onclick="copyDepositAmount(this)">Sao chép</button>
+                        </div>
+                    </div>
+
+                    <div class="info-item-2">
+                        <span class="info-label-2">Nội dung chuyển khoản</span>
+                        <div class="info-value-2">
+                            <span id="depositContent">QUY GIA HAN MAY CHU TU NGUYEN</span>
+                            <button class="copy-btn-2" onclick="copyText('QUY GIA HAN MAY CHU TU NGUYEN', this)">Sao chép</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bên phải: Mã QR -->
+                <div class="qr-section-2">
+                    <h3>📱 QUÉT MÃ QR ĐỂ THANH TOÁN</h3>
+                    <div class="qr-container-2">
+                        <img id="depositQRImage" src="" alt="Mã QR thanh toán">
+                    </div>
+                    <p class="qr-hint-2">Sử dụng ứng dụng ngân hàng hoặc ví điện tử để quét mã</p>
+                    <button class="btn-back-2" onclick="goBackDeposit()">Quay lại</button>
+                </div>
             </div>
-            <p id="qrAmountText" style="color: var(--text-secondary);">Sử dụng ứng dụng ngân hàng để quét mã QR và chuyển khoản</p>
+        </div>
+
+        <!-- Màn hình thành công -->
+        <div class="success-screen" id="depositSuccessScreen" style="display: none;">
+            <div class="success-icon-2">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                </svg>
+            </div>
+            <h2 class="success-title-2">ĐÃ NẠP THÀNH CÔNG!</h2>
+            <p class="success-message-2">Giao dịch của bạn đã được xử lý thành công</p>
+            <div class="success-amount-2">
+                Số tiền: <span id="successAmount">50.000đ</span>
+            </div>
+            <button class="btn-home-2" onclick="goHomeDeposit()">Nạp tiếp</button>
         </div>
 
         <div class="usage-guide">
@@ -406,7 +876,7 @@
                 <li><span class="step-number">Bước 3:</span> Mở ứng dụng ngân hàng trên điện thoại (Vietcombank, MB Bank, Techcombank, v.v.)</li>
                 <li><span class="step-number">Bước 4:</span> Chọn tính năng "Quét mã QR" hoặc "Scan QR" trong ứng dụng ngân hàng</li>
                 <li><span class="step-number">Bước 5:</span> Quét mã QR hiển thị trên màn hình</li>
-                <li><span class="step-number">Bước 6:</span> Kiểm tra thông tin: Số tài khoản 1051357963 - Chủ tài khoản Quy Gia Han Save</li>
+                <li><span class="step-number">Bước 6:</span> Kiểm tra thông tin: Số tài khoản 1051357963 - Chủ tài khoản VY VAN TUAN</li>
                 <li><span class="step-number">Bước 7:</span> Xác nhận số tiền đúng với số bạn đã nhập</li>
                 <li><span class="step-number">Bước 8:</span> Ghi nội dung chuyển khoản: "Quy/Gia/Han/Dong/Quy/[Số tiền]" (ví dụ: Quy/Gia/Han/Dong/Quy/200000)</li>
                 <li><span class="step-number">Bước 9:</span> Xác nhận chuyển khoản</li>
@@ -444,37 +914,200 @@
 
     <script src="auth.js"></script>
     <script>
+        let currentDepositAmount = 50000;
+        let paymentCheckInterval = null;
+
         // Function to set amount from quick buttons
         function setAmount(amount) {
             document.getElementById('amountInput').value = amount;
-            generateQR();
         }
 
-        // Function to generate QR code with custom amount
-        function generateQR() {
-            const amount = document.getElementById('amountInput').value;
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
 
-            if (!amount || amount < 1000) {
-                alert('Vui lòng nhập số tiền hợp lệ (tối thiểu 1.000 VNĐ)');
+        function showDepositScreen2() {
+            const amountInput = document.getElementById('amountInput');
+            const amount = parseInt(amountInput.value);
+            
+            if (isNaN(amount) || amount < 1000) {
+                alert('Vui lòng nhập số tiền hợp lệ (tối thiểu 1.000đ)');
                 return;
             }
 
-            // Generate QR URL with custom amount
-            const qrUrl = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${amount}&addInfo=Quy/Gia/Han/Dong/Quy/${amount}&accountName=Quy%20Gia%20Han%20Save`;
+            currentDepositAmount = amount;
 
-            // Update QR image
-            document.getElementById('qrImage').src = qrUrl;
+            // Cập nhật hiển thị số tiền
+            document.getElementById('depositDisplayAmount').textContent = formatNumber(amount) + 'đ';
 
-            // Update text
-            document.getElementById('qrAmountText').textContent = `Mã QR cho số tiền: ${parseInt(amount).toLocaleString()} VNĐ`;
+            // Tạo mã QR với API VietQR
+            const qrUrl = `https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=${amount}&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN`;
+            document.getElementById('depositQRImage').src = qrUrl;
+
+            // Chuyển sang màn hình 2
+            document.getElementById('depositScreen1').style.display = 'none';
+            document.getElementById('depositScreen2').style.display = 'block';
+
+            // Bắt đầu kiểm tra trạng thái thanh toán (Long Polling)
+            startPaymentCheck();
         }
 
-        // Auto-generate QR when input changes
-        document.getElementById('amountInput').addEventListener('input', function() {
-            const amount = this.value;
-            if (amount >= 1000) {
-                generateQR();
+        function copyText(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Đã sao chép!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('Không thể sao chép. Vui lòng sao chép thủ công.');
+            });
+        }
+
+        function copyDepositAmount(button) {
+            const amountText = currentDepositAmount.toString();
+            navigator.clipboard.writeText(amountText).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Đã sao chép!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('Không thể sao chép. Vui lòng sao chép thủ công.');
+            });
+        }
+
+        function goBackDeposit() {
+            // Dừng kiểm tra thanh toán
+            stopPaymentCheck();
+            
+            // Quay lại màn hình 1
+            document.getElementById('depositScreen2').style.display = 'none';
+            document.getElementById('depositScreen1').style.display = 'block';
+        }
+
+        function goHomeDeposit() {
+            // Quay lại màn hình 1
+            document.getElementById('depositSuccessScreen').style.display = 'none';
+            document.getElementById('depositScreen1').style.display = 'block';
+            
+            // Reset số tiền về mặc định
+            document.getElementById('amountInput').value = 50000;
+        }
+
+        // ==================== LONG POLLING KIỂM TRA THANH TOÁN ====================
+        
+        function startPaymentCheck() {
+            // Xóa interval cũ nếu có
+            stopPaymentCheck();
+            
+            // Kiểm tra ngay lập tức
+            checkPaymentStatus();
+            
+            // Sau đó kiểm tra mỗi 3 giây
+            paymentCheckInterval = setInterval(checkPaymentStatus, 3000);
+        }
+
+        function stopPaymentCheck() {
+            if (paymentCheckInterval) {
+                clearInterval(paymentCheckInterval);
+                paymentCheckInterval = null;
             }
+        }
+
+        // Hàm skeleton kiểm tra trạng thái thanh toán
+        async function checkPaymentStatus() {
+            try {
+                // ============================================
+                // CẤU HÌNH API CỦA BÊN THỨ BA (Casso/PayOS/Sepay)
+                // ============================================
+                
+                // URL API kiểm tra giao dịch (điền URL của bạn vào đây)
+                const apiURL = 'https://api.casso.vn/v2/transactions'; // Ví dụ: API Casso
+                
+                // Tham số gửi đi (tùy theo API của bên thứ ba)
+                const params = {
+                    amount: currentDepositAmount,
+                    content: 'QUY GIA HAN MAY CHU TU NGUYEN',
+                    // Thêm các tham số khác theo yêu cầu của API
+                };
+
+                // Token/Key xác thực (nếu cần)
+                const headers = {
+                    'Authorization': 'Bearer YOUR_API_KEY_HERE', // Điền API key của bạn
+                    'Content-Type': 'application/json'
+                };
+
+                // ============================================
+                // GỌI API KIỂM TRA GIAO DỊCH
+                // ============================================
+                
+                const response = await fetch(apiURL, {
+                    method: 'GET', // hoặc 'POST' tùy theo API
+                    headers: headers,
+                    // body: JSON.stringify(params) // nếu là POST request
+                });
+
+                const data = await response.json();
+
+                // ============================================
+                // XỬ LÝ KẾT QUẢ TỪ API
+                // ============================================
+                
+                // Kiểm tra trạng thái giao dịch (tùy theo cấu trúc response của API)
+                if (data.success && data.data && data.data.length > 0) {
+                    // Tìm giao dịch khớp với số tiền và nội dung
+                    const matchingTransaction = data.data.find(transaction => 
+                        transaction.amount === currentDepositAmount && 
+                        transaction.description === 'QUY GIA HAN MAY CHU TU NGUYEN'
+                    );
+
+                    if (matchingTransaction) {
+                        // Giao dịch thành công - hiển thị màn hình thành công
+                        onPaymentSuccess();
+                    }
+                }
+
+                // ============================================
+                // VÍ DỤ CẤU TRÚC RESPONSE TỪ CÁC API PHỔ BIẾN:
+                // ============================================
+                
+                // Casso: { success: true, data: [{ amount: 50000, description: "...", transactionId: "..." }] }
+                // PayOS: { code: 0, data: { amount: 50000, description: "...", status: "PAID" } }
+                // Sepay: { status: "success", transactions: [{ amount: 50000, content: "..." }] }
+
+            } catch (error) {
+                console.error('Lỗi khi kiểm tra trạng thái thanh toán:', error);
+                // Không hiển thị lỗi cho user, chỉ log để debug
+            }
+        }
+
+        function onPaymentSuccess() {
+            // Dừng kiểm tra thanh toán
+            stopPaymentCheck();
+            
+            // Cập nhật số tiền hiển thị trên màn hình thành công
+            document.getElementById('successAmount').textContent = formatNumber(currentDepositAmount) + 'đ';
+            
+            // Ẩn màn hình thanh toán, hiện màn hình thành công
+            document.getElementById('depositScreen2').style.display = 'none';
+            document.getElementById('depositSuccessScreen').style.display = 'block';
+            
+            // Có thể thêm các xử lý khác như:
+            // - Gọi API backend để cập nhật số dư user
+            // - Gửi thông báo cho user
+            // - Lưu lịch sử giao dịch
+        }
+
+        // Dừng kiểm tra khi user đóng trang
+        window.addEventListener('beforeunload', () => {
+            stopPaymentCheck();
         });
 
         // Initialize with default QR
