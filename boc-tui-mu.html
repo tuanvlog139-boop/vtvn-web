@@ -238,6 +238,164 @@
             .section-title {
                 font-size: 28px;
             }
+
+            /* ==================== MOBILE RESPONSIVE NAVBAR ==================== */
+            
+            .gaming-header {
+                padding: 15px 20px;
+                position: relative;
+            }
+
+            .header-left {
+                flex: 1;
+            }
+
+            .header-logo img {
+                max-width: 80px;
+                max-height: 25px;
+            }
+
+            .main-name {
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+
+            .sub-name {
+                font-size: 8px;
+            }
+
+            /* Hamburger Menu Button */
+            .hamburger-menu {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                width: 30px;
+                height: 25px;
+                cursor: pointer;
+                z-index: 1001;
+                margin-left: 15px;
+            }
+
+            .hamburger-menu span {
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-blue));
+                border-radius: 3px;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+            }
+
+            .hamburger-menu.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .hamburger-menu.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger-menu.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            /* Mobile Navigation Menu */
+            .header-center {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(10, 10, 30, 0.98);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 80px 30px 30px;
+                gap: 0;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                border-left: 2px solid rgba(255, 23, 68, 0.3);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .header-center.active {
+                right: 0;
+            }
+
+            .header-center a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 16px;
+                padding: 15px 20px;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                margin-bottom: 8px;
+                border: 1px solid transparent;
+                text-align: left;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .header-center a::before {
+                content: '⚡';
+                font-size: 14px;
+                opacity: 0.7;
+            }
+
+            .header-center a:hover {
+                background: rgba(255, 23, 68, 0.2);
+                border-color: rgba(255, 23, 68, 0.5);
+                transform: translateX(5px);
+                box-shadow: 0 0 20px rgba(255, 23, 68, 0.3);
+            }
+
+            .header-center a:hover::before {
+                opacity: 1;
+            }
+
+            /* Overlay when menu is open */
+            .menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 999;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .menu-overlay.active {
+                display: block;
+                opacity: 1;
+            }
+
+            /* Adjust header right for mobile */
+            .header-right {
+                gap: 10px;
+            }
+
+            .auth-btn {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            .user-info-panel {
+                margin-left: 10px;
+            }
+        }
+
+        /* Desktop: Hide hamburger menu */
+        @media (min-width: 769px) {
+            .hamburger-menu {
+                display: none;
+            }
+
+            .menu-overlay {
+                display: none !important;
+            }
         }
 
         .payment-modal {
@@ -832,6 +990,7 @@
             <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
             <a href="dong-quy.html">ĐÓNG QUỲ SV VT</a>
             <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+            <a href="admin.html" style="color: #ff6b6b;">ADMIN</a>
         </nav>
         
         <div class="header-right">
@@ -851,7 +1010,17 @@
                     </div>
                 </a>
             </div>
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
     </header>
 
     <!-- BREADCRUMB -->
@@ -876,99 +1045,6 @@
         <button class="start-game-btn" id="startGame">BẮT ĐẦU CHƠI</button>
         <button class="play-again-btn" id="playAgain" style="display: none;">CHƠI LẠI</button>
     </main>
-
-    <!-- Modal Nạp Tiền QR -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-content">
-            <!-- Màn hình 1: Nhập số tiền -->
-            <div id="depositScreen1" style="display: block;">
-                <h2>NẠP TIỀN</h2>
-                <p>Nạp tiền để mua lượt chơi Bốc Túi Mù</p>
-                <div class="input-group">
-                    <label>Số tiền muốn nạp (VNĐ)</label>
-                    <input type="number" id="depositAmount" value="50000" min="1000" step="1000">
-                </div>
-                <button class="payment-btn confirm" onclick="generateDepositQR()">Tạo mã QR</button>
-            </div>
-
-            <!-- Màn hình 2: Hiển thị thông tin thanh toán & mã QR -->
-            <div id="depositScreen2" style="display: none;">
-                <div class="payment-container-2">
-                    <!-- Bên trái: Thông tin chuyển khoản -->
-                    <div class="payment-info-2">
-                        <h3>📱 THÔNG TIN CHUYỂN KHOẢN</h3>
-                        
-                        <div class="info-item-2">
-                            <span class="info-label-2">Ngân hàng</span>
-                            <div class="info-value-2">
-                                Vietcombank
-                            </div>
-                        </div>
-
-                        <div class="info-item-2">
-                            <span class="info-label-2">Chủ tài khoản</span>
-                            <div class="info-value-2">
-                                VY VAN TUAN
-                            </div>
-                        </div>
-
-                        <div class="info-item-2">
-                            <span class="info-label-2">Số tài khoản</span>
-                            <div class="info-value-2">
-                                <span id="depositAccountNumber">1051357963</span>
-                                <button class="copy-btn-2" onclick="copyText('1051357963', this)">Sao chép</button>
-                            </div>
-                        </div>
-
-                        <div class="info-item-2">
-                            <span class="info-label-2">Số tiền</span>
-                            <div class="info-value-2">
-                                <span id="depositDisplayAmount">50.000đ</span>
-                                <button class="copy-btn-2" onclick="copyDepositAmount(this)">Sao chép</button>
-                            </div>
-                        </div>
-
-                        <div class="info-item-2">
-                            <span class="info-label-2">Nội dung chuyển khoản</span>
-                            <div class="info-value-2">
-                                <span id="depositContent">QUY GIA HAN MAY CHU TU NGUYEN</span>
-                                <button class="copy-btn-2" onclick="copyText('QUY GIA HAN MAY CHU TU NGUYEN', this)">Sao chép</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bên phải: Mã QR -->
-                    <div class="qr-section-2">
-                        <h3>📱 QUÉT MÃ QR ĐỂ THANH TOÁN</h3>
-                        <div class="qr-container-2">
-                            <img id="depositQRImage" src="" alt="Mã QR thanh toán">
-                        </div>
-                        <p class="qr-hint-2">Sử dụng ứng dụng ngân hàng hoặc ví điện tử để quét mã</p>
-                        <button class="btn-back-2" onclick="goBackDeposit()">Quay lại</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Màn hình thành công -->
-            <div id="depositSuccessScreen" style="display: none;" class="success-screen">
-                <div class="success-icon-2">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                    </svg>
-                </div>
-                <h2 class="success-title-2">ĐÃ NẠP THÀNH CÔNG!</h2>
-                <p class="success-message-2">Giao dịch của bạn đã được xử lý thành công</p>
-                <div class="success-amount-2">
-                    Số tiền: <span id="successAmount">50.000đ</span>
-                </div>
-                <button class="btn-home-2" onclick="goHomeDeposit()">Nạp tiếp</button>
-            </div>
-
-            <div class="payment-buttons">
-                <button class="payment-btn cancel" id="cancelPayment">ĐÓNG</button>
-            </div>
-        </div>
-    </div>
 
     <!-- GAMING FOOTER -->
     <footer class="gaming-footer">
@@ -996,37 +1072,6 @@
             <p class="footer-version">Phát triển bởi SV VT VN.com • v2.5.28</p>
         </div>
     </footer>
-                        </div>
-
-                        <div class="info-item" style="margin-bottom: 15px; padding: 12px; background: rgba(255, 107, 107, 0.1); border-radius: 10px;">
-                            <span style="display: block; color: #aaa; font-size: 12px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px;">Nội dung chuyển khoản</span>
-                            <div style="display: flex; align-items: center; justify-content: space-between; color: #fff; font-size: 16px; font-weight: 500;">
-                                <span id="depositContent">QUY GIA HAN MAY CHU TU NGUYEN</span>
-                                <button class="copy-btn" onclick="copyText('QUY GIA HAN MAY CHU TU NGUYEN', this)" style="background: #667eea; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: background 0.3s; white-space: nowrap; margin-left: 10px;">Sao chép</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bên phải: Mã QR -->
-                    <div style="flex: 1; min-width: 300px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-                        <h3 style="color: white; font-size: 20px; margin-bottom: 20px; font-weight: 600;">Quét mã QR để thanh toán</h3>
-                        <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 15px;">
-                            <img id="depositQRImage" src="" alt="Mã QR thanh toán" style="width: 200px; height: 200px; display: block;">
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.9); font-size: 14px; line-height: 1.5;">Sử dụng ứng dụng ngân hàng hoặc ví điện tử để quét mã</p>
-                        <button class="payment-btn cancel" onclick="goBackDeposit()" style="margin-top: 20px; padding: 12px 30px; background: white; color: #667eea; font-size: 16px; font-weight: 600; border: none; border-radius: 10px; cursor: pointer;">Quay lại</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="payment-buttons" style="margin-top: 20px;">
-                <button class="payment-btn cancel" id="cancelPayment">ĐÓNG</button>
-            </div>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="footer-rainbow"></div>
         <div class="footer-content">
             <div class="footer-left">
                 <div class="footer-logo"><img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo"></div>
@@ -1132,8 +1177,8 @@
             } else {
                 // Kiểm tra lượt chơi nếu đã đăng nhập
                 if (currentUser.tickets <= 0 && !isFirstGame) {
-                    alert('Bạn đã hết lượt chơi. Hãy nạp tiền QR để tiếp tục!');
-                    openDepositModal();
+                    alert('Bạn đã hết lượt chơi. Hãy nạp tiền tại trang đóng quỹ để tiếp tục!');
+                    window.location.href = 'dong-quy.html';
                     return;
                 }
 
@@ -1259,88 +1304,6 @@
             }
         });
 
-        // ==================== HỆ THỐNG NẠP TIỀN QR ====================
-        
-        let currentDepositAmount = 50000;
-
-        function openDepositModal() {
-            document.getElementById('paymentModal').classList.add('active');
-            // Reset về màn hình 1
-            document.getElementById('depositScreen1').style.display = 'block';
-            document.getElementById('depositScreen2').style.display = 'none';
-            document.getElementById('depositAmount').value = 50000;
-        }
-
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-
-        function generateDepositQR() {
-            const amountInput = document.getElementById('depositAmount');
-            const amount = parseInt(amountInput.value);
-            
-            if (isNaN(amount) || amount < 1000) {
-                alert('Vui lòng nhập số tiền hợp lệ (tối thiểu 1.000đ)');
-                return;
-            }
-
-            currentDepositAmount = amount;
-
-            // Cập nhật hiển thị số tiền
-            document.getElementById('depositDisplayAmount').textContent = formatNumber(amount) + 'đ';
-
-            // Tạo mã QR với API VietQR
-            const qrUrl = `https://vietqr.io/image?amount=${amount}&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN`;
-            document.getElementById('depositQRImage').src = qrUrl;
-
-            // Chuyển sang màn hình 2
-            document.getElementById('depositScreen1').style.display = 'none';
-            document.getElementById('depositScreen2').style.display = 'block';
-        }
-
-        function copyText(text, button) {
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = button.textContent;
-                button.textContent = 'Đã sao chép!';
-                button.style.background = '#28a745';
-                
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = '#667eea';
-                }, 2000);
-            }).catch(err => {
-                alert('Không thể sao chép. Vui lòng sao chép thủ công.');
-            });
-        }
-
-        function copyDepositAmount(button) {
-            const amountText = currentDepositAmount.toString();
-            navigator.clipboard.writeText(amountText).then(() => {
-                const originalText = button.textContent;
-                button.textContent = 'Đã sao chép!';
-                button.style.background = '#28a745';
-                
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = '#667eea';
-                }, 2000);
-            }).catch(err => {
-                alert('Không thể sao chép. Vui lòng sao chép thủ công.');
-            });
-        }
-
-        function goBackDeposit() {
-            document.getElementById('depositScreen2').style.display = 'none';
-            document.getElementById('depositScreen1').style.display = 'block';
-        }
-
-        // Cập nhật modal khi mở
-        function updatePaymentModal() {
-            // Modal nạp tiền QR không cần cập nhật trạng thái
-            // Chỉ sử dụng cho modal nạp lượt chơi của game
-        }
-
-
         // ==================== HỆ THỐNG ĐĂNG NHẬP ====================
         
         // Lấy user đang đăng nhập
@@ -1462,6 +1425,39 @@
         });
 
         initPage(); // Khởi tạo trang khi load
+
+        // ==================== MOBILE MENU FUNCTION ====================
+        
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.header-center');
+            const hamburger = document.getElementById('hamburgerMenu');
+            const overlay = document.getElementById('menuOverlay');
+            
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close menu when clicking on a menu item
+        document.querySelectorAll('.header-center a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.querySelector('.header-center');
+                const hamburger = document.getElementById('hamburgerMenu');
+                const overlay = document.getElementById('menuOverlay');
+                
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
 
         let position = 0;
         let direction = 1;

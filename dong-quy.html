@@ -294,20 +294,70 @@
             }
 
             .payment-container-2 {
-                flex-direction: column;
+                flex-direction: row !important;
+                flex-wrap: wrap;
             }
 
             .payment-info-2 {
-                padding: 20px;
+                padding: 15px;
+                flex: 1;
+                min-width: 280px;
+            }
+
+            .payment-info-2 h3 {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+
+            .info-item-2 {
+                margin-bottom: 12px;
+                padding: 10px;
+            }
+
+            .info-label-2 {
+                font-size: 10px;
+            }
+
+            .info-value-2 {
+                font-size: 13px;
+            }
+
+            .copy-btn-2 {
+                padding: 4px 8px;
+                font-size: 10px;
             }
 
             .qr-section-2 {
-                padding: 20px;
+                padding: 15px;
+                flex: 1;
+                min-width: 280px;
+            }
+
+            .qr-section-2 h3 {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            .qr-container-2 {
+                padding: 15px;
             }
 
             .qr-container-2 img {
-                width: 180px;
-                height: 180px;
+                width: 150px;
+                height: 150px;
+            }
+
+            .qr-hint-2 {
+                font-size: 12px;
+            }
+
+            .qr-status {
+                font-size: 12px;
+            }
+
+            .btn-back-2 {
+                padding: 10px 20px;
+                font-size: 14px;
             }
         }
 
@@ -413,6 +463,8 @@
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         .qr-container-2 img {
@@ -421,10 +473,59 @@
             display: block;
         }
 
+        .qr-scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ff66, transparent);
+            animation: scanDown 2s linear infinite;
+            z-index: 10;
+            box-shadow: 0 0 10px #00ff66, 0 0 20px #00ff66;
+        }
+
+        @keyframes scanDown {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
         .qr-hint-2 {
             color: rgba(255, 255, 255, 0.9);
             font-size: 14px;
             line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .qr-status {
+            color: #00ff66;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 15px;
+            animation: pulse 1.5s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
         }
 
         .btn-back-2 {
@@ -692,6 +793,333 @@
             .user-balance {
                 font-size: 11px;
             }
+
+            /* ==================== MOBILE RESPONSIVE NAVBAR ==================== */
+            
+            .gaming-header {
+                padding: 15px 20px;
+                position: relative;
+            }
+
+            .header-left {
+                flex: 1;
+            }
+
+            .header-logo img {
+                max-width: 80px;
+                max-height: 25px;
+            }
+
+            .main-name {
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+
+            .sub-name {
+                font-size: 8px;
+            }
+
+            /* Hamburger Menu Button */
+            .hamburger-menu {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 20px;
+                background: rgba(15, 15, 35, 0.8);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 2px solid transparent;
+                border-radius: 12px;
+                cursor: pointer;
+                z-index: 1001;
+                margin-left: 15px;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hamburger-menu::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(135deg, #ff0066, #00ff99, #6633ff, #ff0066);
+                background-size: 300% 300%;
+                border-radius: 14px;
+                z-index: -1;
+                animation: borderGlow 3s ease infinite;
+                opacity: 0.7;
+            }
+
+            .hamburger-menu:hover::before {
+                opacity: 1;
+                animation: borderGlow 1.5s ease infinite;
+            }
+
+            .hamburger-menu:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(255, 0, 102, 0.4);
+            }
+
+            .hamburger-icon {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                width: 25px;
+                height: 20px;
+            }
+
+            .hamburger-icon span {
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-blue));
+                border-radius: 3px;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 8px rgba(255, 23, 68, 0.5);
+            }
+
+            .hamburger-menu.active .hamburger-icon span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            .hamburger-menu.active .hamburger-icon span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger-menu.active .hamburger-icon span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .hamburger-text {
+                color: #fff;
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+                background: linear-gradient(90deg, #ff0066, #00ff99);
+                background-size: 200% 100%;
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: textGlow 2s ease infinite;
+            }
+
+            @keyframes textGlow {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            /* Mobile Navigation Menu */
+            .header-center {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(10, 10, 30, 0.98);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 80px 30px 30px;
+                gap: 0;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                border-left: 2px solid rgba(255, 23, 68, 0.3);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .header-center.active {
+                right: 0;
+            }
+
+            .header-center a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 16px;
+                padding: 15px 20px;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                margin-bottom: 8px;
+                border: 1px solid transparent;
+                text-align: left;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .header-center a::before {
+                content: '⚡';
+                font-size: 14px;
+                opacity: 0.7;
+            }
+
+            .header-center a:hover {
+                background: rgba(255, 23, 68, 0.2);
+                border-color: rgba(255, 23, 68, 0.5);
+                transform: translateX(5px);
+                box-shadow: 0 0 20px rgba(255, 23, 68, 0.3);
+            }
+
+            .header-center a:hover::before {
+                opacity: 1;
+            }
+
+            /* Overlay when menu is open */
+            .menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 999;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .menu-overlay.active {
+                display: block;
+                opacity: 1;
+            }
+
+            /* Adjust header right for mobile */
+            .header-right {
+                gap: 10px;
+            }
+
+            .auth-btn {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            .user-info-panel {
+                margin-left: 10px;
+            }
+
+            /* ==================== BOTTOM NAVIGATION ==================== */
+            
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 30, 0.95);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                border-top: 2px solid rgba(255, 23, 68, 0.3);
+                box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+                z-index: 998;
+                padding: 10px 0;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .bottom-nav::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-purple), var(--primary-neon-blue));
+                background-size: 200% 100%;
+                animation: gradientMove 3s linear infinite;
+            }
+
+            .bottom-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                color: rgba(255, 255, 255, 0.7);
+                transition: all 0.3s ease;
+                padding: 8px 15px;
+                border-radius: 10px;
+                position: relative;
+            }
+
+            .bottom-nav-item:hover {
+                color: #fff;
+                background: rgba(255, 23, 68, 0.2);
+                transform: translateY(-2px);
+            }
+
+            .bottom-nav-item.active {
+                color: var(--primary-neon-red);
+            }
+
+            .bottom-nav-item.active::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 30px;
+                height: 3px;
+                background: var(--primary-neon-red);
+                border-radius: 3px;
+                box-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+            }
+
+            .bottom-nav-icon {
+                font-size: 20px;
+                margin-bottom: 4px;
+                filter: drop-shadow(0 0 5px rgba(255, 23, 68, 0.3));
+            }
+
+            .bottom-nav-text {
+                font-size: 10px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            }
+
+            .cart-badge {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                background: linear-gradient(135deg, #ff0066, #ff3366);
+                color: white;
+                font-size: 10px;
+                font-weight: bold;
+                padding: 2px 6px;
+                border-radius: 10px;
+                min-width: 18px;
+                text-align: center;
+                box-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+                animation: badgePulse 2s ease-in-out infinite;
+            }
+
+            @keyframes badgePulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+
+            /* Add padding to main content for bottom nav */
+            body {
+                padding-bottom: 70px;
+            }
+
+            .footer {
+                margin-bottom: 70px;
+            }
+        }
+
+        /* Desktop: Hide hamburger menu */
+        @media (min-width: 769px) {
+            .hamburger-menu {
+                display: none;
+            }
+
+            .menu-overlay {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -733,7 +1161,17 @@
                     </div>
                 </a>
             </div>
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
     </header>
 
     <!-- BREADCRUMB -->
@@ -845,9 +1283,11 @@
                 <div class="qr-section-2">
                     <h3>📱 QUÉT MÃ QR ĐỂ THANH TOÁN</h3>
                     <div class="qr-container-2">
+                        <div class="qr-scan-line"></div>
                         <img id="depositQRImage" src="" alt="Mã QR thanh toán">
                     </div>
                     <p class="qr-hint-2">Sử dụng ứng dụng ngân hàng hoặc ví điện tử để quét mã</p>
+                    <p class="qr-status">⏳ Đang chờ chuyển tiền...</p>
                     <button class="btn-back-2" onclick="goBackDeposit()">Quay lại</button>
                 </div>
             </div>
@@ -1092,6 +1532,21 @@
             // Dừng kiểm tra thanh toán
             stopPaymentCheck();
             
+            // Cập nhật trạng thái thành công
+            const qrStatus = document.querySelector('.qr-status');
+            if (qrStatus) {
+                qrStatus.textContent = '✅ Đã nhận tiền thành công!';
+                qrStatus.style.color = '#28a745';
+                qrStatus.style.animation = 'none';
+            }
+            
+            // Dừng animation quét
+            const scanLine = document.querySelector('.qr-scan-line');
+            if (scanLine) {
+                scanLine.style.animation = 'none';
+                scanLine.style.display = 'none';
+            }
+            
             // Cập nhật số tiền hiển thị trên màn hình thành công
             document.getElementById('successAmount').textContent = formatNumber(currentDepositAmount) + 'đ';
             
@@ -1113,6 +1568,39 @@
         // Initialize with default QR
         document.addEventListener('DOMContentLoaded', function() {
             updateNavigation();
+        });
+
+        // ==================== MOBILE MENU FUNCTION ====================
+        
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.header-center');
+            const hamburger = document.getElementById('hamburgerMenu');
+            const overlay = document.getElementById('menuOverlay');
+            
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close menu when clicking on a menu item
+        document.querySelectorAll('.header-center a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.querySelector('.header-center');
+                const hamburger = document.getElementById('hamburgerMenu');
+                const overlay = document.getElementById('menuOverlay');
+                
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
         });
     </script>
     <script>
