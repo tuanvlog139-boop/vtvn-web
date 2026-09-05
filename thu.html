@@ -6,6 +6,257 @@
     <title>SV VT VN.COM - Thú</title>
     <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
     <link rel="stylesheet" href="gaming-theme.css">
+    <style>
+        /* ==================== MOBILE MENU & BOTTOM NAVIGATION ==================== */
+        
+        /* Hamburger Menu Button */
+        .hamburger-menu {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ff006e, #00f5ff);
+            border: 2px solid #ff006e;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: borderPulse 2s infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { border-color: #ff006e; box-shadow: 0 0 10px rgba(255, 0, 110, 0.5); }
+            50% { border-color: #00f5ff; box-shadow: 0 0 10px rgba(0, 245, 255, 0.5); }
+        }
+
+        .hamburger-menu:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.8);
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hamburger-icon span {
+            width: 24px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .hamburger-text {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            background: linear-gradient(90deg, #ff006e, #00f5ff, #ff006e);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradient 3s linear infinite;
+        }
+
+        @keyframes textGradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Mobile Menu */
+        .header-center {
+            transition: all 0.3s ease;
+        }
+
+        .header-center.active {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 30, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 9999;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header-center.active a {
+            font-size: 24px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(0, 245, 255, 0.2));
+            border: 2px solid rgba(255, 0, 110, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .header-center.active a:hover {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.4), rgba(0, 245, 255, 0.4));
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 30, 0.95);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #ff006e, #00f5ff, #9d4edd) 1;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 10px 0;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .bottom-nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .bottom-nav-text {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .bottom-nav-item:hover {
+            color: #00f5ff;
+            transform: translateY(-2px);
+        }
+
+        .bottom-nav-item.active {
+            color: #ff006e;
+        }
+
+        .bottom-nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff006e, #00f5ff);
+            border-radius: 2px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff006e, #ff4d4d);
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .header-center {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            body {
+                padding-bottom: 70px;
+            }
+
+            .gaming-footer {
+                margin-bottom: 70px;
+            }
+        }
+
+        /* Desktop: Hide hamburger menu and bottom nav */
+        @media (min-width: 769px) {
+            .hamburger-menu {
+                display: none;
+            }
+
+            .menu-overlay {
+                display: none !important;
+            }
+
+            .bottom-nav {
+                display: none !important;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            .gaming-footer {
+                margin-bottom: 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- GAMING HEADER -->
@@ -29,6 +280,16 @@
         </nav>
         
         <div class="header-right">
+            <!-- Hamburger Menu Button (Mobile) -->
+            <button class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileMenu()">
+                <span class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span class="hamburger-text">MENU</span>
+            </button>
+
             <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
             <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
             <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
@@ -46,6 +307,30 @@
             </button>
         </div>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- Mobile Navigation (Bottom) -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🏠</span>
+            <span class="bottom-nav-text">Trang Chủ</span>
+        </a>
+        <a href="dong-quy.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">💰</span>
+            <span class="bottom-nav-text">Nạp Quỹ</span>
+        </a>
+        <a href="index.html" class="bottom-nav-item" onclick="toggleCart()">
+            <span class="bottom-nav-icon">🛒</span>
+            <span class="bottom-nav-text">Giỏ Hàng</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+        </a>
+        <a href="profile.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">👤</span>
+            <span class="bottom-nav-text">Profile</span>
+        </a>
+    </nav>
 
     <!-- SHOPPING CART SIDEBAR -->
     <div class="cart-sidebar" id="cartSidebar">
@@ -181,7 +466,7 @@
                 <h3>THANH TOÁN</h3>
                 <p>Ngân hàng: Vietcombank</p>
                 <p>Số tài khoản: 1051357963</p>
-                <p>Chủ tài khoản: Quy Gia Han Save</p>
+                <p>Chủ tài khoản: VY VAN TUAN</p>
             </div>
         </div>
         
@@ -213,14 +498,11 @@
                     name: 'MÀU THÚ 10/1CON',
                     level: '10 ĐIỂM',
                     description: 'Màu thú 10 màu cho 1 con',
-                    price: '9.300 VNĐ',
-                    originalPrice: '10.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 9300,
+                    price: '10.000 VNĐ',
+                    realPrice: 10000,
                     image: 'https://i.ibb.co/TMJhxkQ9/image.png',
                     badge: 'hot',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=9300&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=10000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '500',
                         'Dame': '100',
@@ -232,14 +514,11 @@
                     name: 'giffin',
                     level: '100 ĐIỂM',
                     description: 'giffin với tốc độ cực đại',
-                    price: '93.000 VNĐ',
-                    originalPrice: '100.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 93000,
+                    price: '100.000 VNĐ',
+                    realPrice: 100000,
                     image: 'https://i.ibb.co/PG2LC51t/image.png',
                     badge: 'vip',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=93000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '1500',
                         'Dame': '400',
@@ -251,14 +530,11 @@
                     name: 'ROCDAKE 1 CẶP',
                     level: '199 ĐIỂM',
                     description: 'ROCDAKE 1 CẶP với tốc độ đáng sợ',
-                    price: '185.130 VNĐ',
-                    originalPrice: '199.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 185130,
+                    price: '199.000 VNĐ',
+                    realPrice: 199000,
                     image: 'https://i.ibb.co/6R37Gcd8/image.png',
                     badge: 'new',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=185130&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=199000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '3000',
                         'Dame': '800',
@@ -270,14 +546,11 @@
                     name: 'con cú ',
                     level: '35 ĐIỂM',
                     description: 'tính năng bay nhanh hồi máu',
-                    price: '32.550 VNĐ',
-                    originalPrice: '35.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 32550,
+                    price: '35.000 VNĐ',
+                    realPrice: 35000,
                     image: 'https://i.ibb.co/chDpDPLC/image.png',
                     badge: 'hot',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=32550&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '800',
                         'Dame': '200',
@@ -289,14 +562,11 @@
                     name: 'Hiêu Tek',
                     level: '100 ĐIỂM',
                     description: 'hiêu tek ông hoàng fam ',
-                    price: '93.000 VNĐ',
-                    originalPrice: '100.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 93000,
+                    price: '100.000 VNĐ',
+                    realPrice: 100000,
                     image: 'https://i.ibb.co/zVtm9BHz/image.png',
                     badge: '',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=93000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '2000',
                         'Dame': '600',
@@ -308,14 +578,11 @@
                     name: 'CARCHA',
                     level: '150 ĐIỂM',
                     description: 'CARCHA quái vật mạnh nhất',
-                    price: '139.500 VNĐ',
-                    originalPrice: '150.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 139500,
+                    price: '150.000 VNĐ',
+                    realPrice: 150000,
                     image: 'https://i.ibb.co/TxwwmDZD/image.png',
                     badge: 'vip',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=139500&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '5000',
                         'Dame': '1000',
@@ -327,14 +594,11 @@
                     name: 'RỒNG CRY 1 CẶP',
                     level: '150 ĐIỂM',
                     description: 'RỒNG CRY 3 HỆ MÁU NƯỚC LỬA TỰ CHỌN',
-                    price: '139.500 VNĐ',
-                    originalPrice: '150.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 139500,
+                    price: '150.000 VNĐ',
+                    realPrice: 150000,
                     image: 'https://i.ibb.co/99sPgF9n/image.png',
                     badge: 'vip',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=139500&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=150000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '4000',
                         'Dame': '900',
@@ -346,14 +610,11 @@
                     name: 'CON MỎ VỊT',
                     level: '25 ĐIỂM',
                     description: 'VUA NUÔI BABY ',
-                    price: '23.250 VNĐ',
-                    originalPrice: '25.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 23250,
+                    price: '25.000 VNĐ',
+                    realPrice: 25000,
                     image: 'https://i.ibb.co/TMJDM9cZ/image.png',
                     badge: 'HOT',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=23250&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=25000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '300',
                         'Dame': '50',
@@ -365,14 +626,11 @@
                     name: 'R-VELOM',
                     level: '35 ĐIỂM',
                     description: 'ÔNG HOÀNG SÚNG MÁY  ',
-                    price: '32.550 VNĐ',
-                    originalPrice: '35.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 32550,
+                    price: '35.000 VNĐ',
+                    realPrice: 35000,
                     image: 'https://i.ibb.co/7dRtrmSR/image.png',
                     badge: '',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=32550&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=35000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '1000',
                         'Dame': '700',
@@ -384,14 +642,11 @@
                     name: 'R-REPER',
                     level: '149 ĐIỂM',
                     description: 'ÔNG HOÀNG GIÁP TRÂU PVP',
-                    price: '138.570 VNĐ',
-                    originalPrice: '149.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 138570,
+                    price: '149.000 VNĐ',
+                    realPrice: 149000,
                     image: 'https://i.ibb.co/d0jS7g80/image.png',
                     badge: '',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=138570&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=149000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '8000',
                         'Dame': '1200',
@@ -403,14 +658,11 @@
                     name: 'GIGAN TEK',
                     level: '149 ĐIỂM',
                     description: 'ÔNG HOÀNG TEK ',
-                    price: '138.570 VNĐ',
-                    originalPrice: '149.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 138570,
+                    price: '149.000 VNĐ',
+                    realPrice: 149000,
                     image: 'https://i.ibb.co/gMqgyhgZ/image.png',
                     badge: '',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=138570&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=149000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '6000',
                         'Dame': '1500',
@@ -422,14 +674,11 @@
                     name: 'MANAGA',
                     level: '100 ĐIỂM',
                     description: 'ÔNG HOÀNG MANAGA BAY VÀ PHUN BĂNG ',
-                    price: '93.000 VNĐ',
-                    originalPrice: '100.000 VNĐ',
-                    discount: '20%',
-                    realPrice: 93000,
+                    price: '100.000 VNĐ',
+                    realPrice: 100000,
                     image: 'https://i.ibb.co/rRkZdfYP/image.png',
                     badge: '',
-                    saleBadge: '-20%',
-                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=93000&addInfo=Quy/Gia/Han/May/Chu/Tu/Nguyen%&accountName=Quy%20Gia%20Han%20Save',
+                    link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=100000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
                     stats: {
                         'HP': '2500',
                         'Dame': '800',
@@ -448,16 +697,6 @@
 
                 if (animal.saleBadge) {
                     saleBadgeHTML = `<span class="sale-badge">${animal.saleBadge}</span>`;
-                }
-
-                if (animal.originalPrice && animal.originalPrice !== '0 VNĐ') {
-                    priceHTML = `
-                        <div class="price-container">
-                            <span class="original-price">${animal.originalPrice}</span>
-                            <p class="product-price">${animal.price}</p>
-                            <span class="discount-display">${animal.discount}</span>
-                        </div>
-                    `;
                 }
 
                 animalCard.innerHTML = `
@@ -652,6 +891,78 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadAnimals();
             updateNavigation();
+        });
+
+        // ==================== MOBILE MENU FUNCTIONS ====================
+        
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.header-center');
+            const hamburger = document.getElementById('hamburgerMenu');
+            const overlay = document.getElementById('menuOverlay');
+            
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close menu when clicking on a menu item
+        document.querySelectorAll('.header-center a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.querySelector('.header-center');
+                const hamburger = document.getElementById('hamburgerMenu');
+                const overlay = document.getElementById('menuOverlay');
+                
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ==================== BOTTOM NAVIGATION ====================
+        
+        // Set active state for bottom nav items
+        function updateBottomNavActive() {
+            const currentPath = window.location.pathname;
+            const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+            
+            bottomNavItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (currentPath.includes(href) || (currentPath === '/' && href === 'index.html')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Update cart badge (skeleton function)
+        function updateCartBadge() {
+            const cartBadge = document.querySelector('.cart-badge');
+            if (cartBadge) {
+                // Lấy số lượng giỏ hàng từ localStorage hoặc API
+                const currentUser = getCurrentUser();
+                if (currentUser && currentUser.cart) {
+                    cartBadge.textContent = currentUser.cart.length;
+                    cartBadge.style.display = currentUser.cart.length > 0 ? 'block' : 'none';
+                } else {
+                    cartBadge.textContent = '0';
+                    cartBadge.style.display = 'none';
+                }
+            }
+        }
+
+        // Initialize bottom nav
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBottomNavActive();
+            updateCartBadge();
         });
     </script>
 </body>

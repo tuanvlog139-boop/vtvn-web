@@ -6,6 +6,257 @@
     <title>SV VT VN.COM - Thuê Máy Chủ</title>
     <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png">
     <link rel="stylesheet" href="gaming-theme.css">
+    <style>
+        /* ==================== MOBILE MENU & BOTTOM NAVIGATION ==================== */
+        
+        /* Hamburger Menu Button */
+        .hamburger-menu {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ff006e, #00f5ff);
+            border: 2px solid #ff006e;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: borderPulse 2s infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { border-color: #ff006e; box-shadow: 0 0 10px rgba(255, 0, 110, 0.5); }
+            50% { border-color: #00f5ff; box-shadow: 0 0 10px rgba(0, 245, 255, 0.5); }
+        }
+
+        .hamburger-menu:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.8);
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hamburger-icon span {
+            width: 24px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .hamburger-text {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            background: linear-gradient(90deg, #ff006e, #00f5ff, #ff006e);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradient 3s linear infinite;
+        }
+
+        @keyframes textGradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Mobile Menu */
+        .header-center {
+            transition: all 0.3s ease;
+        }
+
+        .header-center.active {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 30, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 9999;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header-center.active a {
+            font-size: 24px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(0, 245, 255, 0.2));
+            border: 2px solid rgba(255, 0, 110, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .header-center.active a:hover {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.4), rgba(0, 245, 255, 0.4));
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 30, 0.95);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #ff006e, #00f5ff, #9d4edd) 1;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 10px 0;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .bottom-nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .bottom-nav-text {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .bottom-nav-item:hover {
+            color: #00f5ff;
+            transform: translateY(-2px);
+        }
+
+        .bottom-nav-item.active {
+            color: #ff006e;
+        }
+
+        .bottom-nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff006e, #00f5ff);
+            border-radius: 2px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff006e, #ff4d4d);
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .header-center {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            body {
+                padding-bottom: 70px;
+            }
+
+            .gaming-footer {
+                margin-bottom: 70px;
+            }
+        }
+
+        /* Desktop: Hide hamburger menu and bottom nav */
+        @media (min-width: 769px) {
+            .hamburger-menu {
+                display: none;
+            }
+
+            .menu-overlay {
+                display: none !important;
+            }
+
+            .bottom-nav {
+                display: none !important;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            .gaming-footer {
+                margin-bottom: 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- GAMING HEADER -->
@@ -29,6 +280,16 @@
         </nav>
         
         <div class="header-right">
+            <!-- Hamburger Menu Button (Mobile) -->
+            <button class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileMenu()">
+                <span class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span class="hamburger-text">MENU</span>
+            </button>
+
             <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
             <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
             <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
@@ -42,6 +303,30 @@
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- Mobile Navigation (Bottom) -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🏠</span>
+            <span class="bottom-nav-text">Trang Chủ</span>
+        </a>
+        <a href="dong-quy.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">💰</span>
+            <span class="bottom-nav-text">Nạp Quỹ</span>
+        </a>
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🛒</span>
+            <span class="bottom-nav-text">Giỏ Hàng</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+        </a>
+        <a href="profile.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">👤</span>
+            <span class="bottom-nav-text">Profile</span>
+        </a>
+    </nav>
 
     <!-- BREADCRUMB -->
     <nav class="breadcrumb">
@@ -78,7 +363,7 @@
                 <h3>THANH TOÁN</h3>
                 <p>Ngân hàng: Vietcombank</p>
                 <p>Số tài khoản: 1051357963</p>
-                <p>Chủ tài khoản: Quy Gia Han Save</p>
+                <p>Chủ tài khoản: VY VAN TUAN</p>
             </div>
         </div>
         
@@ -208,6 +493,78 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadServerPackages();
             updateNavigation();
+        });
+
+        // ==================== MOBILE MENU FUNCTIONS ====================
+        
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.header-center');
+            const hamburger = document.getElementById('hamburgerMenu');
+            const overlay = document.getElementById('menuOverlay');
+            
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close menu when clicking on a menu item
+        document.querySelectorAll('.header-center a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.querySelector('.header-center');
+                const hamburger = document.getElementById('hamburgerMenu');
+                const overlay = document.getElementById('menuOverlay');
+                
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ==================== BOTTOM NAVIGATION ====================
+        
+        // Set active state for bottom nav items
+        function updateBottomNavActive() {
+            const currentPath = window.location.pathname;
+            const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+            
+            bottomNavItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (currentPath.includes(href) || (currentPath === '/' && href === 'index.html')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Update cart badge (skeleton function)
+        function updateCartBadge() {
+            const cartBadge = document.querySelector('.cart-badge');
+            if (cartBadge) {
+                // Lấy số lượng giỏ hàng từ localStorage hoặc API
+                const currentUser = getCurrentUser();
+                if (currentUser && currentUser.cart) {
+                    cartBadge.textContent = currentUser.cart.length;
+                    cartBadge.style.display = currentUser.cart.length > 0 ? 'block' : 'none';
+                } else {
+                    cartBadge.textContent = '0';
+                    cartBadge.style.display = 'none';
+                }
+            }
+        }
+
+        // Initialize bottom nav
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBottomNavActive();
+            updateCartBadge();
         });
     </script>
 </body>

@@ -1111,7 +1111,7 @@
             }
         }
 
-        /* Desktop: Hide hamburger menu */
+        /* Desktop: Hide hamburger menu and bottom nav */
         @media (min-width: 769px) {
             .hamburger-menu {
                 display: none;
@@ -1119,6 +1119,18 @@
 
             .menu-overlay {
                 display: none !important;
+            }
+
+            .bottom-nav {
+                display: none !important;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            .footer {
+                margin-bottom: 0;
             }
         }
     </style>
@@ -1163,15 +1175,39 @@
             </div>
             <!-- Hamburger Menu Button -->
             <div class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <div class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="hamburger-text">MENU</span>
             </div>
         </div>
     </header>
 
     <!-- Mobile Menu Overlay -->
     <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- Bottom Navigation (Mobile Only) -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="bottom-nav-item active">
+            <span class="bottom-nav-icon">🏠</span>
+            <span class="bottom-nav-text">TRANG CHỦ</span>
+        </a>
+        <a href="dong-quy.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">💰</span>
+            <span class="bottom-nav-text">NẠP QUỸ</span>
+        </a>
+        <a href="cac-goi.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🛒</span>
+            <span class="bottom-nav-text">CÁC GÓI</span>
+            <span class="cart-badge">0</span>
+        </a>
+        <a href="profile.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">👤</span>
+            <span class="bottom-nav-text">PROFILE</span>
+        </a>
+    </nav>
     </header>
 
     <!-- BREADCRUMB -->
@@ -1601,6 +1637,45 @@
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
             });
+        });
+
+        // ==================== BOTTOM NAVIGATION ====================
+        
+        // Set active state for bottom nav items
+        function updateBottomNavActive() {
+            const currentPath = window.location.pathname;
+            const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+            
+            bottomNavItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (currentPath.includes(href) || (currentPath === '/' && href === 'index.html')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Update cart badge (skeleton function)
+        function updateCartBadge() {
+            const cartBadge = document.querySelector('.cart-badge');
+            if (cartBadge) {
+                // Lấy số lượng giỏ hàng từ localStorage hoặc API
+                const currentUser = getCurrentUser();
+                if (currentUser && currentUser.cart) {
+                    cartBadge.textContent = currentUser.cart.length;
+                    cartBadge.style.display = currentUser.cart.length > 0 ? 'block' : 'none';
+                } else {
+                    cartBadge.textContent = '0';
+                    cartBadge.style.display = 'none';
+                }
+            }
+        }
+
+        // Initialize bottom nav
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBottomNavActive();
+            updateCartBadge();
         });
     </script>
     <script>

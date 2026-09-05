@@ -267,34 +267,94 @@
             /* Hamburger Menu Button */
             .hamburger-menu {
                 display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-                width: 30px;
-                height: 25px;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 20px;
+                background: rgba(15, 15, 35, 0.8);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 2px solid transparent;
+                border-radius: 12px;
                 cursor: pointer;
                 z-index: 1001;
                 margin-left: 15px;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
             }
 
-            .hamburger-menu span {
+            .hamburger-menu::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(135deg, #ff0066, #00ff99, #6633ff, #ff0066);
+                background-size: 300% 300%;
+                border-radius: 14px;
+                z-index: -1;
+                animation: borderGlow 3s ease infinite;
+                opacity: 0.7;
+            }
+
+            .hamburger-menu:hover::before {
+                opacity: 1;
+                animation: borderGlow 1.5s ease infinite;
+            }
+
+            .hamburger-menu:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(255, 0, 102, 0.4);
+            }
+
+            .hamburger-icon {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                width: 25px;
+                height: 20px;
+            }
+
+            .hamburger-icon span {
                 width: 100%;
                 height: 3px;
                 background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-blue));
                 border-radius: 3px;
                 transition: all 0.3s ease;
-                box-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+                box-shadow: 0 0 8px rgba(255, 23, 68, 0.5);
             }
 
-            .hamburger-menu.active span:nth-child(1) {
-                transform: rotate(45deg) translate(8px, 8px);
+            .hamburger-menu.active .hamburger-icon span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
             }
 
-            .hamburger-menu.active span:nth-child(2) {
+            .hamburger-menu.active .hamburger-icon span:nth-child(2) {
                 opacity: 0;
             }
 
-            .hamburger-menu.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -7px);
+            .hamburger-menu.active .hamburger-icon span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .hamburger-text {
+                color: #fff;
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+                background: linear-gradient(90deg, #ff0066, #00ff99);
+                background-size: 200% 100%;
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: textGlow 2s ease infinite;
+            }
+
+            @keyframes textGlow {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
             }
 
             /* Mobile Navigation Menu */
@@ -385,9 +445,118 @@
             .user-info-panel {
                 margin-left: 10px;
             }
+
+            /* ==================== BOTTOM NAVIGATION ==================== */
+            
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 30, 0.95);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                border-top: 2px solid rgba(255, 23, 68, 0.3);
+                box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+                z-index: 998;
+                padding: 10px 0;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .bottom-nav::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--primary-neon-red), var(--primary-neon-purple), var(--primary-neon-blue));
+                background-size: 200% 100%;
+                animation: gradientMove 3s linear infinite;
+            }
+
+            .bottom-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                color: rgba(255, 255, 255, 0.7);
+                transition: all 0.3s ease;
+                padding: 8px 15px;
+                border-radius: 10px;
+                position: relative;
+            }
+
+            .bottom-nav-item:hover {
+                color: #fff;
+                background: rgba(255, 23, 68, 0.2);
+                transform: translateY(-2px);
+            }
+
+            .bottom-nav-item.active {
+                color: var(--primary-neon-red);
+            }
+
+            .bottom-nav-item.active::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 30px;
+                height: 3px;
+                background: var(--primary-neon-red);
+                border-radius: 3px;
+                box-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+            }
+
+            .bottom-nav-icon {
+                font-size: 20px;
+                margin-bottom: 4px;
+                filter: drop-shadow(0 0 5px rgba(255, 23, 68, 0.3));
+            }
+
+            .bottom-nav-text {
+                font-size: 10px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            }
+
+            .cart-badge {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                background: linear-gradient(135deg, #ff0066, #ff3366);
+                color: white;
+                font-size: 10px;
+                font-weight: bold;
+                padding: 2px 6px;
+                border-radius: 10px;
+                min-width: 18px;
+                text-align: center;
+                box-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+                animation: badgePulse 2s ease-in-out infinite;
+            }
+
+            @keyframes badgePulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+
+            /* Add padding to main content for bottom nav */
+            body {
+                padding-bottom: 70px;
+            }
+
+            .footer {
+                margin-bottom: 70px;
+            }
         }
 
-        /* Desktop: Hide hamburger menu */
+        /* Desktop: Hide hamburger menu and bottom nav */
         @media (min-width: 769px) {
             .hamburger-menu {
                 display: none;
@@ -395,6 +564,18 @@
 
             .menu-overlay {
                 display: none !important;
+            }
+
+            .bottom-nav {
+                display: none !important;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            .footer {
+                margin-bottom: 0;
             }
         }
 
@@ -1012,15 +1193,38 @@
             </div>
             <!-- Hamburger Menu Button -->
             <div class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <div class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="hamburger-text">MENU</span>
             </div>
         </div>
     </header>
 
     <!-- Mobile Menu Overlay -->
     <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- Bottom Navigation (Mobile Only) -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="bottom-nav-item active">
+            <span class="bottom-nav-icon">🏠</span>
+            <span class="bottom-nav-text">TRANG CHỦ</span>
+        </a>
+        <a href="dong-quy.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">💰</span>
+            <span class="bottom-nav-text">NẠP QUỸ</span>
+        </a>
+        <a href="cac-goi.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🎮</span>
+            <span class="bottom-nav-text">BỐC TÚI</span>
+        </a>
+        <a href="profile.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">👤</span>
+            <span class="bottom-nav-text">PROFILE</span>
+        </a>
+    </nav>
     </header>
 
     <!-- BREADCRUMB -->
@@ -1070,28 +1274,6 @@
         <div class="footer-bottom">
             <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
             <p class="footer-version">Phát triển bởi SV VT VN.com • v2.5.28</p>
-        </div>
-    </footer>
-        <div class="footer-content">
-            <div class="footer-left">
-                <div class="footer-logo"><img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo"></div>
-            </div>
-            
-            <div class="footer-right">
-                <div class="footer-section">
-                    <h3>VỀ CHÚNG TÔI</h3>
-                    <p>Chúng tôi luôn lấy uy tín đặt lên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>LIÊN HỆ HỖ TRỢ</h3>
-                    <p>Thời gian hỗ trợ: Sáng: 8h00 -> 12h | Chiều: 14h -> 20h (Chủ Nhật 17h00)</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 SV VT VN.com. Tất cả quyền được bảo lưu.</p>
-            <p class="footer-developed-by">Phát triển bởi SV VT VN.com • v2.5.28</p>
         </div>
     </footer>
 
@@ -1457,6 +1639,45 @@
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
             });
+        });
+
+        // ==================== BOTTOM NAVIGATION ====================
+        
+        // Set active state for bottom nav items
+        function updateBottomNavActive() {
+            const currentPath = window.location.pathname;
+            const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+            
+            bottomNavItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (currentPath.includes(href) || (currentPath === '/' && href === 'index.html')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Update cart badge (skeleton function)
+        function updateCartBadge() {
+            const cartBadge = document.querySelector('.cart-badge');
+            if (cartBadge) {
+                // Lấy số lượng giỏ hàng từ localStorage hoặc API
+                const currentUser = getCurrentUser();
+                if (currentUser && currentUser.cart) {
+                    cartBadge.textContent = currentUser.cart.length;
+                    cartBadge.style.display = currentUser.cart.length > 0 ? 'block' : 'none';
+                } else {
+                    cartBadge.textContent = '0';
+                    cartBadge.style.display = 'none';
+                }
+            }
+        }
+
+        // Initialize bottom nav
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBottomNavActive();
+            updateCartBadge();
         });
 
         let position = 0;
