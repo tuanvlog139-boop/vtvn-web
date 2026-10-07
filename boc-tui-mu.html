@@ -1422,7 +1422,6 @@
             // Khởi tạo trang nhưng không tự động bắt đầu game
             updateLuckBar();
             updateNavigation();
-            updatePaymentModal();
 
             const currentUser = getCurrentUser();
             if (currentUser) {
@@ -1469,21 +1468,6 @@
         // Xử lý nút BẮT ĐẦU CHƠI
         document.getElementById('startGame').addEventListener('click', () => {
             initGame();
-        });
-
-        // Xử lý modal thanh toán
-        document.getElementById('cancelPayment').addEventListener('click', () => {
-            document.getElementById('paymentModal').classList.remove('active');
-            // Reset về màn hình 1
-            document.getElementById('depositScreen1').style.display = 'block';
-            document.getElementById('depositScreen2').style.display = 'none';
-            // Cập nhật giao diện sau khi đóng modal (trường hợp user vừa đăng nhập)
-            updateNavigation();
-            updatePaymentModal();
-            const currentUser = getCurrentUser();
-            if (currentUser) {
-                document.getElementById('startGame').style.display = 'block';
-            }
         });
 
         // ==================== HỆ THỐNG ĐĂNG NHẬP ====================
@@ -1598,8 +1582,8 @@
 
             // Kiểm tra lượt chơi trước khi chơi lại
             if (!currentUser || currentUser.tickets <= 0) {
-                document.getElementById('paymentModal').classList.add('active');
-                updatePaymentModal();
+                alert('Bạn đã hết lượt chơi. Hãy nạp tiền tại trang đóng quỹ để tiếp tục!');
+                window.location.href = 'dong-quy.html';
                 return;
             }
 
