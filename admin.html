@@ -17,6 +17,7 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
             color: #fff;
+            padding-bottom: 80px;
         }
 
         .header {
@@ -25,6 +26,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
@@ -45,18 +50,115 @@
 
         .nav {
             display: flex;
-            gap: 30px;
+            gap: 18px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
         }
 
-        .nav a {
+        .nav a,
+        .nav button,
+        .nav .user-info {
             color: #fff;
             text-decoration: none;
             font-size: 16px;
-            transition: color 0.3s;
+            transition: color 0.3s ease, opacity 0.3s ease;
+            background: transparent;
+            border: none;
+            cursor: pointer;
         }
 
-        .nav a:hover {
+        .nav a:hover,
+        .nav button:hover {
             color: #ff6b6b;
+        }
+
+        .nav .user-info {
+            color: #48dbfb;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .nav .logout-btn,
+        .nav .auth-btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 107, 107, 0.5);
+            background: rgba(255, 107, 107, 0.08);
+        }
+
+        .hamburger-menu {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 107, 107, 0.6);
+            background: rgba(255, 107, 107, 0.12);
+            cursor: pointer;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger-icon span {
+            width: 22px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            display: block;
+        }
+
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 20, 0.7);
+            z-index: 90;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 110;
+            background: rgba(15, 15, 35, 0.96);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 107, 107, 0.2);
+            padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .bottom-nav a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 11px;
+            padding: 8px 4px;
+            border-radius: 10px;
+        }
+
+        .bottom-nav a.active {
+            background: rgba(255, 107, 107, 0.15);
+            color: #ff9a8b;
         }
 
         .rainbow-line {
@@ -297,13 +399,52 @@
 
         @media (max-width: 768px) {
             .header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px 20px;
+                padding: 15px 18px;
+                position: sticky;
+                top: 0;
             }
 
             .nav {
-                gap: 15px;
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(8, 8, 18, 0.98);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 28px 22px;
+                gap: 18px;
+                transition: transform 0.25s ease, opacity 0.25s ease;
+                transform: translateX(100%);
+                opacity: 0;
+                z-index: 120;
+                border-left: none;
+            }
+
+            .nav.open {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            .hamburger-menu {
+                display: flex;
+                position: relative;
+                z-index: 130;
+                background: linear-gradient(135deg, #ff6b6b, #feca57);
+                border: 1px solid rgba(255,255,255,0.3);
+                box-shadow: 0 8px 20px rgba(255, 107, 107, 0.35);
+            }
+
+            .nav a,
+            .nav button,
+            .nav .user-info {
+                font-size: 15px;
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+                justify-content: center;
             }
 
             .stats {
@@ -321,6 +462,10 @@
             .footer-content {
                 flex-direction: column;
             }
+
+            .bottom-nav {
+                display: grid;
+            }
         }
     </style>
 </head>
@@ -330,17 +475,29 @@
             <img src="https://i.ibb.co/wNrdFLbM/logo-web-fotor-202608162233.png" alt="Logo">
             SV VT VN.COM
         </div>
-        <nav class="nav">
+
+        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Mở menu" onclick="toggleMobileMenu()">
+            <span class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </button>
+
+        <nav class="nav" id="mainNav">
             <a href="index.html">TRANG CHỦ</a>
             <a href="thue-may-chu.html">THUÊ MÁY CHỦ</a>
-            <a href="dong-quy.html">ĐÓNG QUỲ SV VT</a>
+            <a href="dong-quy.html">ĐÓNG QUỸ SV VT</a>
             <a href="boc-tui-mu.html">BỐC TÚI MÙ</a>
+            <a href="admin.html" id="adminLink" style="display: none;">ADMIN</a>
             <a href="profile.html" id="profileLink" style="display: none;">THÔNG TIN</a>
-            <a href="login.html" id="loginLink">ĐĂNG NHẬP</a>
-            <a href="register.html" id="registerLink">ĐĂNG KÝ</a>
-            <span id="userInfo" style="display: none;"></span>
+            <a href="login.html" id="loginLink" class="auth-btn">ĐĂNG NHẬP</a>
+            <a href="register.html" id="registerLink" class="auth-btn">ĐĂNG KÝ</a>
+            <button class="logout-btn" id="logoutBtn" style="display: none;" onclick="logout()">ĐĂNG XUẤT</button>
+            <span id="userInfo" class="user-info" style="display: none;"></span>
         </nav>
     </header>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
     <div class="rainbow-line"></div>
 
     <main class="main-content">
@@ -577,7 +734,34 @@
 
         // Tải khi trang được mở
         loadTransactions();
+
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            const overlay = document.getElementById('menuOverlay');
+            const isOpen = nav.classList.toggle('open');
+            overlay.classList.toggle('active', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('#mainNav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const nav = document.getElementById('mainNav');
+                    const overlay = document.getElementById('menuOverlay');
+                    nav.classList.remove('open');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        });
     </script>
     <script src="auth.js"></script>
+    <nav class="bottom-nav" aria-label="Điều hướng dưới cùng">
+        <a href="index.html" class="active">🏠<span>Trang chủ</span></a>
+        <a href="dong-quy.html">💰<span>Đóng quỹ</span></a>
+        <a href="thue-may-chu.html">🖥️<span>Máy chủ</span></a>
+        <a href="profile.html">👤<span>Profile</span></a>
+    </nav>
 </body>
 </html>

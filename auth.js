@@ -1,9 +1,44 @@
 // ==================== HỆ THỐNG ĐĂNG NHẬP CHUNG ====================
 
+function safeParseJSON(value, fallback = []) {
+    try {
+        return value ? JSON.parse(value) : fallback;
+    } catch (error) {
+        console.warn('Invalid localStorage JSON detected:', error);
+        return fallback;
+    }
+}
+
+function ensureDemoUsers() {
+    const existingUsers = getUsers();
+    if (existingUsers.length > 0) return;
+
+    const demoUsers = [
+        {
+            username: 'admin',
+            email: 'admin@svvtvn.com',
+            password: 'admin123',
+            balance: 9999999,
+            role: 'admin',
+            createdAt: Date.now()
+        },
+        {
+            username: 'demo',
+            email: 'demo@svvtvn.com',
+            password: 'demo123',
+            balance: 500000,
+            role: 'user',
+            createdAt: Date.now()
+        }
+    ];
+
+    saveUsers(demoUsers);
+}
+
 // Lấy user đang đăng nhập
 function getCurrentUser() {
     const user = localStorage.getItem('currentUser');
-    return user ? JSON.parse(user) : null;
+    return user ? safeParseJSON(user, null) : null;
 }
 
 // Lưu user đang đăng nhập
@@ -14,7 +49,7 @@ function setCurrentUser(user) {
 // Lấy danh sách users từ localStorage
 function getUsers() {
     const users = localStorage.getItem('users');
-    return users ? JSON.parse(users) : [];
+    return safeParseJSON(users, []);
 }
 
 // Lưu danh sách users vào localStorage
@@ -31,6 +66,7 @@ function updateNavigation() {
     const logoutLink = document.getElementById('logoutLink');
     const logoutBtn = document.getElementById('logoutBtn');
     const userInfo = document.getElementById('userInfo');
+    const adminLink = document.getElementById('adminLink');
     
     // Gaming header elements
     const userInfoPanel = document.getElementById('userInfoPanel');
@@ -39,7 +75,6 @@ function updateNavigation() {
     const userBalance = document.getElementById('userBalance');
 
     if (currentUser) {
-        // Old navigation
         if (profileLink) profileLink.style.display = 'inline';
         if (loginLink) loginLink.style.display = 'none';
         if (registerLink) registerLink.style.display = 'none';
@@ -48,8 +83,10 @@ function updateNavigation() {
             userInfo.style.display = 'inline';
             userInfo.innerHTML = `👤 ${currentUser.username}`;
         }
+        if (adminLink) {
+            adminLink.style.display = currentUser.role === 'admin' ? 'inline' : 'none';
+        }
         
-        // New gaming header
         if (userInfoPanel) {
             userInfoPanel.style.display = 'flex';
             if (userAvatar) userAvatar.textContent = currentUser.username.charAt(0).toUpperCase();
@@ -62,14 +99,13 @@ function updateNavigation() {
         if (profileLink) profileLink.style.display = 'inline-block';
         if (logoutBtn) logoutBtn.style.display = 'inline-block';
     } else {
-        // Old navigation
         if (profileLink) profileLink.style.display = 'none';
         if (loginLink) loginLink.style.display = 'inline';
         if (registerLink) registerLink.style.display = 'inline';
         if (logoutLink) logoutLink.style.display = 'none';
         if (userInfo) userInfo.style.display = 'none';
+        if (adminLink) adminLink.style.display = 'none';
         
-        // New gaming header
         if (userInfoPanel) userInfoPanel.style.display = 'none';
         if (loginLink) loginLink.style.display = 'inline-block';
         if (registerLink) registerLink.style.display = 'inline-block';
@@ -82,15 +118,19 @@ function updateNavigation() {
 function logout() {
     if (confirm('Bạn có chắc muốn đăng xuất?')) {
         localStorage.removeItem('currentUser');
-        window.location.href = 'index.html';
+        if (window.location.pathname.includes('admin.html')) {
+            window.location.href = 'index.html';
+        } else {
+            window.location.href = 'index.html';
+        }
     }
 }
 
 // Khởi tạo khi load trang
 document.addEventListener('DOMContentLoaded', function() {
+    ensureDemoUsers();
     updateNavigation();
     
-    // Thêm sự kiện logout nếu có nút
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', logout);

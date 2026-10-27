@@ -215,10 +215,48 @@
         @media (max-width: 768px) {
             .hamburger-menu {
                 display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                z-index: 130;
+                background: linear-gradient(135deg, #ff1744, #7c4dff);
+                border: 1px solid rgba(255,255,255,0.35);
+                box-shadow: 0 8px 20px rgba(255, 23, 68, 0.35);
+                padding: 10px 12px;
             }
 
             .header-center {
-                display: none;
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 18px;
+                background: rgba(7, 8, 18, 0.98);
+                z-index: 120;
+                opacity: 0;
+                transform: translateX(100%);
+                pointer-events: none;
+                transition: all 0.25s ease;
+            }
+
+            .header-center.active {
+                opacity: 1;
+                transform: translateX(0);
+                pointer-events: auto;
+            }
+
+            .header-center a {
+                width: min(100%, 280px);
+                padding: 16px 22px;
+                font-size: 18px;
+                text-align: center;
+                border-radius: 12px;
+                background: rgba(255, 23, 68, 0.12);
+                border: 1px solid rgba(255,255,255,0.14);
             }
 
             .bottom-nav {
@@ -227,11 +265,11 @@
             }
 
             body {
-                padding-bottom: 70px;
+                padding-bottom: 82px;
             }
 
             .gaming-footer {
-                margin-bottom: 70px;
+                margin-bottom: 82px;
             }
         }
 
@@ -1073,10 +1111,10 @@
                 },
                 {
                     name: 'Thyla',
-                    level: '50 ĐIỂM',
+                    level: '500 ĐIỂM',
                     description: 'ÔNG HOÀNG Dame',
-                    price: '50.000 VNĐ',
-                    realPrice: 50000,
+                    price: '500.000 VNĐ',
+                    realPrice: 500000,
                     image: 'https://i.ibb.co/5WsNBBSW/image.png',
                     badge: '',
                     link: 'https://img.vietqr.io/image/vietcombank-1051357963-compact2.jpg?amount=50000&addInfo=QUY%20GIA%20HAN%20MAY%20CHU%20TU%20NGUYEN&accountName=VY%20VAN%20TUAN',
