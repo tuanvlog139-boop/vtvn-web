@@ -3,116 +3,648 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messenger Chat Widget</title>
+    <meta name="theme-color" content="#101513">
+    <title>Hỗ trợ khách hàng | SV VT VN</title>
     <style>
-        /* ==================== MESSENGER CHAT WIDGET ==================== */
-        
-        .messenger-chat-widget {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0084ff, #00c6ff, #0084ff);
-            background-size: 200% 200%;
-            background-position: 0% 50%;
+        :root {
+            color-scheme: dark;
+            --page: #101513;
+            --surface: #19211d;
+            --surface-raised: #222c26;
+            --line: rgba(224, 238, 221, 0.12);
+            --text: #f2f4ed;
+            --muted: #a4afa4;
+            --lime: #d3e788;
+            --blue: #49b7e8;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text);
+            background: var(--page);
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        button, input { font: inherit; }
+
+        .support-shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+            background:
+                radial-gradient(ellipse at 12% 0%, rgba(105, 139, 75, 0.18), transparent 38%),
+                linear-gradient(145deg, #111815, #101513 58%, #17201a);
+        }
+
+        .support-sidebar {
+            min-height: 100vh;
+            padding: 28px 20px;
+            border-right: 1px solid var(--line);
+            background: rgba(14, 19, 16, 0.72);
+        }
+
+        .brand {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 12px;
+            padding: 0 4px 26px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(211, 231, 136, 0.42);
+            border-radius: 10px;
+            color: var(--lime);
+            font-weight: 800;
+        }
+
+        .brand-name { font-weight: 800; }
+        .brand-caption { margin-top: 3px; color: var(--muted); font-size: 11px; }
+
+        .sidebar-heading {
+            margin: 26px 4px 12px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .topic-list { display: grid; gap: 7px; }
+
+        .topic-button {
+            width: 100%;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 10px 12px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            background: transparent;
+            color: #dfe5dc;
+            text-align: left;
             cursor: pointer;
-            z-index: 9999;
-            box-shadow: 
-                0 4px 20px rgba(0, 132, 255, 0.4),
-                0 0 0 0 rgba(0, 132, 255, 0.7);
-            animation: 
-                pulse 3s ease-in-out infinite,
-                gradientMove 3s linear infinite;
-            transition: all 0.3s ease;
+        }
+
+        .topic-button:hover,
+        .topic-button:focus-visible {
+            border-color: var(--line);
+            background: var(--surface);
+            outline: none;
+        }
+
+        .topic-icon { width: 20px; color: var(--lime); text-align: center; }
+
+        .sidebar-note {
+            margin: 28px 4px 0;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .support-main {
+            min-width: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 30px;
+        }
+
+        .chat-window {
+            width: min(100%, 560px);
+            height: min(760px, calc(100vh - 60px));
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #151c18;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+        }
+
+        .chat-header {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 18px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(28, 38, 31, 0.92);
+        }
+
+        .exit-chat {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 23px;
+            line-height: 1;
+        }
+
+        .exit-chat:hover,
+        .exit-chat:focus-visible {
+            border-color: rgba(211, 231, 136, 0.55);
+            color: var(--lime);
+            outline: none;
+        }
+
+        .agent-avatar {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: #35452d;
+            color: var(--lime);
+            font-weight: 800;
+        }
+
+        .agent-avatar::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 9px;
+            height: 9px;
+            border: 2px solid #1c261f;
+            border-radius: 50%;
+            background: #79cf7c;
+        }
+
+        .agent-name { font-size: 14px; font-weight: 750; }
+        .agent-state { margin-top: 4px; color: #aab9a4; font-size: 12px; }
+
+        .chat-header-tag {
+            margin-left: auto;
+            padding: 6px 9px;
+            border: 1px solid rgba(211, 231, 136, 0.22);
+            border-radius: 5px;
+            color: var(--lime);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .message-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 22px 18px;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            width: fit-content;
+            max-width: min(88%, 430px);
+            margin: 0 0 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: 4px 12px 12px 12px;
+            background: var(--surface);
+            color: #e7ece4;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+            animation: message-in 180ms ease-out both;
+        }
+
+        .message.user {
+            margin-left: auto;
+            border-color: rgba(73, 183, 232, 0.28);
+            border-radius: 12px 4px 12px 12px;
+            background: #16354a;
+        }
+
+        .message a { color: var(--lime); font-weight: 700; }
+        .message-meta { margin: -5px 0 15px 3px; color: #78847a; font-size: 10px; }
+        .message-meta.user-meta { text-align: right; }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 18px 14px;
+        }
+
+        .quick-question {
+            min-height: 36px;
+            padding: 8px 11px;
+            border: 1px solid rgba(211, 231, 136, 0.28);
+            border-radius: 6px;
+            background: transparent;
+            color: #dce8c0;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .quick-question:hover,
+        .quick-question:focus-visible {
+            background: rgba(211, 231, 136, 0.1);
+            outline: 2px solid transparent;
+        }
+
+        .human-support-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #dce8c0;
             text-decoration: none;
         }
 
-        .messenger-chat-widget:hover {
-            transform: scale(1.15);
-            box-shadow: 
-                0 6px 30px rgba(0, 132, 255, 0.6),
-                0 0 0 10px rgba(0, 132, 255, 0.3);
+        .human-support-link:hover {
+            border-color: rgba(211, 231, 136, 0.7);
+            background: rgba(211, 231, 136, 0.12);
         }
 
-        .messenger-chat-widget svg {
-            width: 32px;
-            height: 32px;
-            fill: white;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        .chat-actions {
+            display: flex;
+            gap: 8px;
+            padding: 0 18px 14px;
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 
-                    0 4px 20px rgba(0, 132, 255, 0.4),
-                    0 0 0 0 rgba(0, 132, 255, 0.7);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 
-                    0 6px 30px rgba(0, 132, 255, 0.6),
-                    0 0 0 15px rgba(0, 132, 255, 0.4);
-            }
+        .action-link {
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 11px;
+            border-radius: 6px;
+            background: rgba(73, 183, 232, 0.12);
+            color: #a9ddf3;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
         }
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .action-link:hover { background: rgba(73, 183, 232, 0.2); }
+
+        .composer {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+            border-top: 1px solid var(--line);
+            background: #19211d;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .messenger-chat-widget {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-            }
-
-            .messenger-chat-widget svg {
-                width: 26px;
-                height: 26px;
-            }
-
-            .messenger-chat-widget:hover {
-                transform: scale(1.1);
-            }
+        .composer input {
+            min-width: 0;
+            height: 42px;
+            flex: 1;
+            padding: 0 13px;
+            border: 1px solid rgba(224, 238, 221, 0.14);
+            border-radius: 7px;
+            outline: none;
+            background: #101613;
+            color: var(--text);
+            font-size: 13px;
         }
 
-        @media (max-width: 480px) {
-            .messenger-chat-widget {
-                bottom: 15px;
-                right: 15px;
-                width: 45px;
-                height: 45px;
-            }
+        .composer input:focus { border-color: rgba(73, 183, 232, 0.7); }
+        .composer input::placeholder { color: #758077; }
 
-            .messenger-chat-widget svg {
-                width: 24px;
-                height: 24px;
+        .send-button {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 0;
+            border-radius: 7px;
+            background: #1684c2;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .send-button:disabled { opacity: 0.45; cursor: not-allowed; }
+        .send-button svg { width: 18px; height: 18px; fill: currentColor; }
+
+        .composer-hint {
+            padding: 0 16px 10px;
+            background: #19211d;
+            color: #748077;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .toast {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 10;
+            max-width: min(360px, calc(100vw - 32px));
+            padding: 12px 15px;
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            background: #26332b;
+            color: var(--text);
+            font-size: 12px;
+            line-height: 1.5;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes message-in {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 760px) {
+            .support-shell { display: block; min-height: 100dvh; }
+            .support-sidebar { display: none; }
+            .support-main { min-height: 100dvh; padding: 0; }
+            .chat-window {
+                width: 100%;
+                height: 100dvh;
+                min-height: 0;
+                border: 0;
+                border-radius: 0;
             }
+            .chat-header { min-height: 68px; padding: 12px 15px; }
+            .message-list { padding: 18px 14px; }
+            .quick-questions,
+            .chat-actions { padding-right: 14px; padding-left: 14px; }
+            .toast { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; }
         }
     </style>
 </head>
 <body>
-    <!-- Thay link https://m.me của bạn vào href bên dưới -->
-    <a href="https://m.me/your-page-id" target="_blank" class="messenger-chat-widget" title="Chat với chúng tôi qua Messenger">
-        <!-- Facebook Messenger Icon -->
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.23 2 12c0 1.62.45 3.16 1.24 4.38.07.1.14.07.23.07.35 0 .56-.22.9-.73.53-1.05-.03-.03-.1-.07-.13-.11-.07-.06-.17-.12-.29-.12-.08 0-.15.03-.21.07-.14.11-.3.26-.37.43-.06.13-.08.28-.08.43 0-.11.01-.22.04-.32.1-.07.06-.13.15-.16.25-.02-.08-.04-.17-.04-.26 0-.15.06-.29.13-.42.07-.2.21-.54.21-.78 0-.27-.16-.51-.38-.67-.08-.06-.18-.09-.28-.09-.1 0-.2.04-.28.12-.08.09-.12.21-.12.34 0 .13.04.25.11.36.07.11.18.19.31.24.12.06.25.09.38.09.15 0 .29-.05.41-.15.11-.1.24-.24.35-.32-.11-.08-.24-.12-.38-.12-.13 0-.25.05-.36.14-.11.09-.18.22-.18.37 0-.14.07-.27.18-.39.05-.12.14-.18.31-.18.5 0-.19.07-.36.18-.5.11-.15.29-.22.51-.22-.8 0-.32.14-.59.36-.76.11-.08.25-.12.39-.12.14 0 .27.05.39.14.11.09.18.22.18.37 0 .14-.07.27-.18.39-.05.12-.14.18-.31.18-.5 0-.19-.07-.36-.18-.5-.11-.15-.29-.22-.51-.22-.8 0-.32.14-.59.36-.76.11-.08.25-.12.39-.12.14 0 .27.05.39.14.11.09.18.22.18.37 0 .14-.07.27-.18-.39-.05-.12-.14-.18-.31-.18-.5z"/>
-        </svg>
-    </a>
+    <main class="support-shell">
+        <aside class="support-sidebar" aria-label="Chủ đề hỗ trợ">
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true">SV</div>
+                <div>
+                    <div class="brand-name">SV VT VN</div>
+                    <div class="brand-caption">ARK SURVIVAL SHOP</div>
+                </div>
+            </div>
+            <p class="sidebar-heading" id="faq">Câu hỏi thường gặp</p>
+            <div class="topic-list">
+                <button class="topic-button" type="button" data-topic="deposit"><span class="topic-icon">$</span> Nạp quỹ và thanh toán</button>
+                <button class="topic-button" type="button" data-topic="products"><span class="topic-icon">+</span> Mua vật phẩm</button>
+                <button class="topic-button" type="button" data-topic="server"><span class="topic-icon">⌘</span> Thuê máy chủ</button>
+                <button class="topic-button" type="button" data-topic="hours"><span class="topic-icon">◷</span> Giờ hỗ trợ</button>
+            </div>
+            <p class="sidebar-note">Trợ lý tự động trả lời câu hỏi thường gặp. Đơn hàng, giao dịch hoặc câu hỏi cần người kiểm tra? Nhắn Zalo 0363 076 260.</p>
+        </aside>
 
-    <!-- Nội dung demo trang web -->
-    <div style="min-height: 100vh; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; align-items: center; justify-content: center; color: white; font-family: Arial, sans-serif;">
-        <h1>Trang web demo - Messenger Widget ở góc dưới phải</h1>
-    </div>
+        <section class="support-main" aria-label="Trò chuyện hỗ trợ">
+            <div class="chat-window">
+                <header class="chat-header">
+                    <a class="exit-chat" href="index.html" id="exitChat" aria-label="Thoát hỗ trợ, quay lại trang trước" title="Quay lại">&#8592;</a>
+                    <div class="agent-avatar" aria-hidden="true">SV</div>
+                    <div>
+                        <div class="agent-name">Hỗ trợ SV VT VN</div>
+                        <div class="agent-state">Trợ lý tự động · Phản hồi tức thì</div>
+                    </div>
+                    <span class="chat-header-tag">HỖ TRỢ</span>
+                </header>
+
+                <div class="message-list" id="messageList" role="log" aria-live="polite" aria-relevant="additions">
+                    <div class="message">Xin chào! Bạn có thể hỏi mình về sản phẩm và giá, nạp quỹ, thanh toán giỏ hàng, tài khoản, thuê máy chủ, bốc túi mù, nhận vật phẩm hoặc giờ hỗ trợ. Mình sẽ tìm theo thông tin shop đã công bố.</div>
+                    <div class="message-meta">Trợ lý · Vừa xong</div>
+                </div>
+
+                <div class="quick-questions" aria-label="Câu hỏi nhanh">
+                    <button class="quick-question" type="button" data-topic="deposit">Cách nạp quỹ?</button>
+                    <button class="quick-question" type="button" data-topic="price">Giá sản phẩm</button>
+                    <button class="quick-question" type="button" data-topic="cart">Thanh toán giỏ hàng</button>
+                    <button class="quick-question" type="button" data-topic="account">Tài khoản</button>
+                    <button class="quick-question" type="button" data-topic="server">Thuê máy chủ</button>
+                    <button class="quick-question" type="button" data-topic="blindbag">Bốc túi mù</button>
+                    <button class="quick-question" type="button" data-topic="hours">Giờ hỗ trợ</button>
+                    <a class="quick-question human-support-link" href="https://zalo.me/0363076260" target="_blank" rel="noopener noreferrer">Gặp người thật · Zalo</a>
+                </div>
+
+                <div class="chat-actions" id="chatActions">
+                    <a class="action-link" href="dong-quy.html">Mở trang Đóng Quỹ</a>
+                    <a class="action-link" href="index.html#categories">Xem danh mục</a>
+                    <a class="action-link human-support-link" href="https://zalo.me/0363076260" target="_blank" rel="noopener noreferrer">Nhắn Zalo · 0363 076 260</a>
+                </div>
+
+                <form class="composer" id="chatForm">
+                    <input id="chatInput" type="text" maxlength="240" autocomplete="off" placeholder="Hỏi về sản phẩm, thanh toán, tài khoản..." aria-label="Nhập câu hỏi">
+                    <button class="send-button" id="sendButton" type="submit" aria-label="Gửi câu hỏi" disabled>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </button>
+                </form>
+                <div class="composer-hint">Không nhập mật khẩu, mã OTP hoặc thông tin thẻ ngân hàng.</div>
+            </div>
+        </section>
+    </main>
+    <div class="toast" id="toast" role="status" hidden></div>
+
+    <script>
+        const answers = {
+            deposit: {
+                question: 'Cách nạp quỹ?',
+                answer: 'Cách nạp: 1) Mở Đóng Quỹ, nhập số tiền hoặc chọn mệnh giá. 2) Bấm Tạo mã QR. 3) Dùng ứng dụng ngân hàng quét mã. 4) Kiểm tra đúng ngân hàng Vietcombank, chủ tài khoản VY VAN TUAN, số tài khoản 1051357963, số tiền và nội dung hiển thị trên trang rồi mới xác nhận. Website ghi thời gian xử lý khoảng 5–10 phút. Nếu đã chuyển nhưng chưa thấy cập nhật, gửi biên lai/mã giao dịch cho người hỗ trợ qua Zalo; không gửi OTP hoặc mật khẩu.',
+                links: [{ label: 'Đi tới Đóng Quỹ', href: 'dong-quy.html' }, { label: 'Nhờ người kiểm tra qua Zalo', href: 'https://zalo.me/0363076260' }]
+            },
+            paymentIssue: {
+                question: 'Đã chuyển tiền nhưng quỹ chưa cập nhật',
+                answer: 'Mình không xem được giao dịch cá nhân. Website ghi thời gian xử lý khoảng 5–10 phút; nếu đã chờ mà quỹ vẫn chưa cập nhật, nhắn Zalo 0363 076 260 và gửi mã giao dịch/biên lai, số tiền cùng thời gian chuyển để người thật kiểm tra. Không gửi OTP, mật khẩu hoặc thông tin thẻ.',
+                links: [{ label: 'Nhờ kiểm tra giao dịch qua Zalo', href: 'https://zalo.me/0363076260' }, { label: 'Mở trang Đóng Quỹ', href: 'dong-quy.html' }]
+            },
+            products: {
+                question: 'Xem sản phẩm',
+                answer: 'Website có các danh mục thú ARK, dụng cụ, các gói vật phẩm và máy chủ. Mở trang danh mục để xem mô tả, giá đang hiển thị, ảnh và chi tiết. Giá có thể thay đổi theo nội dung trang tại thời điểm bạn xem.',
+                links: [
+                    { label: 'Xem thú', href: 'thu.html' },
+                    { label: 'Xem dụng cụ', href: 'dung-cu.html' },
+                    { label: 'Xem các gói', href: 'cac-goi.html' },
+                    { label: 'Xem máy chủ', href: 'thue-may-chu.html' }
+                ]
+            },
+            price: {
+                question: 'Giá sản phẩm',
+                answer: 'Giá từng món được hiển thị trên thẻ sản phẩm ở các trang Thú, Dụng Cụ và Các Gói. Mình chưa có chỉ mục giá cho từng tên món trong khung chat, nên hãy mở danh mục phù hợp và tìm tên món để xem giá hiện tại.',
+                links: [
+                    { label: 'Bảng giá thú', href: 'thu.html' },
+                    { label: 'Bảng giá dụng cụ', href: 'dung-cu.html' },
+                    { label: 'Bảng giá gói', href: 'cac-goi.html' }
+                ]
+            },
+            cart: {
+                question: 'Thanh toán giỏ hàng',
+                answer: 'Thêm món vào giỏ, mở biểu tượng giỏ hàng và kiểm tra số lượng/tổng tiền. Bấm Tiếp tục thanh toán để mở mã QR. Website thông báo giao dịch thường được xử lý trong 5–10 phút sau khi thanh toán. Nếu thanh toán lỗi hoặc cần kiểm tra đơn cụ thể, nhắn Zalo và cung cấp mã giao dịch; tuyệt đối không gửi OTP/mật khẩu.',
+                links: [{ label: 'Về trang shop', href: 'index.html#categories' }, { label: 'Hướng dẫn nạp quỹ', href: 'dong-quy.html' }, { label: 'Hỗ trợ đơn hàng qua Zalo', href: 'https://zalo.me/0363076260' }]
+            },
+            account: {
+                question: 'Tài khoản đăng nhập',
+                answer: 'Bạn có thể đăng ký tài khoản bằng trang Đăng Ký, sau đó đăng nhập. Một số chức năng như hồ sơ hoặc đặt thuê máy chủ yêu cầu đăng nhập. Không gửi mật khẩu hay mã xác thực trong khung chat này.',
+                links: [{ label: 'Đăng ký', href: 'register.html' }, { label: 'Đăng nhập', href: 'login.html' }, { label: 'Hồ sơ', href: 'profile.html' }]
+            },
+            server: {
+                question: 'Thuê máy chủ',
+                answer: 'Trang Thuê Máy Chủ liệt kê cấu hình, mô tả và giá các gói. Bấm Thuê Ngay; website yêu cầu đăng nhập để tiếp tục. Thông tin thuê được gửi để shop liên hệ xác nhận.',
+                links: [{ label: 'Xem gói máy chủ', href: 'thue-may-chu.html' }]
+            },
+            blindbag: {
+                question: 'Bốc túi mù',
+                answer: 'Mở trang Bốc Túi Mù, bấm Bắt Đầu Chơi rồi chọn một hộp. Sau khi hiện kết quả, bấm Chơi Lại để mở lượt tiếp theo. Trò chơi trên trang hiện cho chơi miễn phí, không cần nạp quỹ.',
+                links: [{ label: 'Chơi Bốc Túi Mù', href: 'boc-tui-mu.html' }]
+            },
+            fulfillment: {
+                question: 'Nhận vật phẩm sau khi mua',
+                answer: 'Website chưa nêu rõ thời gian và cách giao vật phẩm cho từng đơn. Nhắn Zalo hỗ trợ và gửi tên tài khoản trong game, server, vật phẩm đã mua cùng mã giao dịch để người thật kiểm tra. Không gửi mật khẩu tài khoản.',
+                links: [{ label: 'Nhờ kiểm tra đơn qua Zalo', href: 'https://zalo.me/0363076260' }, { label: 'Thông báo', href: 'thong-bao.html' }]
+            },
+            refund: {
+                question: 'Hoàn tiền hoặc hủy đơn',
+                answer: 'Mình chưa thấy website công bố chính sách hoàn tiền/hủy đơn nên không thể xác nhận thay shop. Hãy nhắn Zalo để người phụ trách xem giao dịch; chuẩn bị mã giao dịch, số tiền và thời gian chuyển. Không chuyển thêm phí và không chia sẻ OTP/mật khẩu.',
+                links: [{ label: 'Hỏi người phụ trách qua Zalo', href: 'https://zalo.me/0363076260' }, { label: 'Trang Đóng Quỹ', href: 'dong-quy.html' }]
+            },
+            human: {
+                question: 'Mình muốn nói chuyện với người thật',
+                answer: 'Được nhé. Bấm nút Zalo bên dưới để nhắn trực tiếp số hỗ trợ 0363 076 260. Để được giúp nhanh, bạn ghi ngắn gọn vấn đề và gửi mã giao dịch nếu có; đừng gửi mật khẩu hoặc mã OTP.',
+                links: [{ label: 'Mở Zalo hỗ trợ', href: 'https://zalo.me/0363076260' }, { label: 'Gọi 0363 076 260', href: 'tel:0363076260' }]
+            },
+            hours: {
+                question: 'Giờ hỗ trợ',
+                answer: 'Thời gian hỗ trợ được website công bố: sáng 8:00–12:00, chiều 14:00–20:00; Chủ Nhật đến 17:00.',
+                links: [{ label: 'Xem thông báo', href: 'thong-bao.html' }]
+            }
+        };
+
+        const intentTerms = {
+            human: ['zalo', 'nguoi that', 'nhan vien that', 'gap nhan vien', 'noi chuyen voi nguoi', 'goi tu van', 'tu van vien', 'lien he nguoi', 'cho minh gap', 'muon gap nguoi'],
+            refund: ['hoan tien', 'tra tien', 'huy don', 'huy mua', 'doi tra', 'refund', 'chargeback'],
+            fulfillment: ['nhan hang', 'nhan do', 'giao hang', 'giao do', 'bao lau co', 'chua nhan', 'don hang dau', 'nhan thu', 'nhan vat pham', 'giao dich vat pham'],
+            blindbag: ['boc tui', 'tui mu', 'hop qua', 'mo hop', 'choi game', 'choi mien phi', 'boc thu', 'game may man'],
+            server: ['may chu', 'server', 'thue server', 'thue may', 'cau hinh server', 'host server'],
+            account: ['tai khoan', 'dang nhap', 'dang ky', 'quen mat khau', 'mat khau', 'doi mat khau', 'ho so', 'profile'],
+            cart: ['gio hang', 'thanh toan', 'checkout', 'mua hang', 'them vao gio', 'ma qr gio', 'dat hang'],
+            paymentIssue: ['chua cong quy', 'chua vao quy', 'chua cong tien', 'chua vao tien', 'chua cap nhat so du', 'chuyen tien chua cong', 'chuyen tien chua vao', 'da chuyen ma chua', 'da ck ma chua', 'nap chua vao', 'chua nhan tien', 'chua duoc cong', 'mat tien'],
+            deposit: ['nap', 'dong quy', 'dong tien', 'nap quy', 'nap tien', 'chuyen khoan', 'giao dich nap', 'vietcombank', 'so tai khoan', 'tao qr', 'quet qr', 'qr', 'bao lau cong', 'bao lau xu ly'],
+            price: ['gia', 'bao nhieu tien', 'bao nhieu diem', 'bang gia', 'gia ca', 'gia tien', 'dat khong', 're nhat', 'gia cua'],
+            products: ['thu', 'khung long', 'dung cu', 'vat pham', 'san pham', 'cac goi', 'goi do', 'mua gi', 'mua con', 'danh muc', 'shop co', 'co ban'],
+            hours: ['gio ho tro', 'thoi gian ho tro', 'ho tro', 'lien he', 'nhan vien', 'admin', 'hotline', 'bao gio']
+        };
+
+        const input = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const messageList = document.getElementById('messageList');
+        const chatActions = document.getElementById('chatActions');
+        const toast = document.getElementById('toast');
+        let toastTimer;
+
+        document.getElementById('exitChat').addEventListener('click', event => {
+            if (window.self !== window.top) {
+                event.preventDefault();
+                return;
+            }
+            if (window.history.length > 1) {
+                event.preventDefault();
+                window.history.back();
+            }
+        });
+
+        if (window.self !== window.top) {
+            document.getElementById('exitChat').style.display = 'none';
+        }
+
+        function addMessage(text, sender, links = []) {
+            const message = document.createElement('div');
+            message.className = `message ${sender}`;
+            message.textContent = text;
+            messageList.appendChild(message);
+
+            const meta = document.createElement('div');
+            meta.className = `message-meta${sender === 'user' ? ' user-meta' : ''}`;
+            meta.textContent = sender === 'user' ? 'Bạn · Vừa xong' : 'Trợ lý · Vừa xong';
+            messageList.appendChild(meta);
+
+            chatActions.replaceChildren();
+            links.forEach(({ label, href }) => {
+                const link = document.createElement('a');
+                link.className = 'action-link';
+                link.href = href;
+                link.textContent = label;
+                if (href.startsWith('https://')) {
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                }
+                chatActions.appendChild(link);
+            });
+            messageList.scrollTop = messageList.scrollHeight;
+        }
+
+        function answerTopic(topic) {
+            const item = answers[topic];
+            if (!item) return;
+            addMessage(item.question, 'user');
+            window.setTimeout(() => addMessage(item.answer, 'assistant', item.links), 180);
+        }
+
+        function normalizeQuestion(value) {
+            return value.toLocaleLowerCase('vi')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/[^a-z0-9]+/g, ' ')
+                .trim();
+        }
+
+        function findIntent(question) {
+            const normalized = normalizeQuestion(question);
+            const priority = ['human', 'paymentIssue', 'refund', 'fulfillment', 'blindbag', 'server', 'account', 'cart', 'deposit', 'price', 'products', 'hours'];
+            return priority.find(intent => intentTerms[intent].some(term => normalized.includes(term))) || null;
+        }
+
+        function answerFreeText(text) {
+            const topic = findIntent(text);
+
+            addMessage(text, 'user');
+            window.setTimeout(() => {
+                if (topic) {
+                    addMessage(answers[topic].answer, 'assistant', answers[topic].links);
+                } else {
+                    addMessage('Mình chưa chắc câu hỏi này, nên không muốn đoán sai. Bạn có thể diễn đạt lại hoặc nhắn trực tiếp người hỗ trợ qua Zalo 0363 076 260. Với đơn hàng/giao dịch cá nhân, người thật cần kiểm tra; đừng gửi mật khẩu hoặc mã OTP.', 'assistant', [
+                        { label: 'Xem câu hỏi thường gặp', href: '#faq' },
+                        { label: 'Xem danh mục', href: 'index.html#categories' },
+                        { label: 'Hướng dẫn nạp quỹ', href: 'dong-quy.html' },
+                        { label: 'Nhắn người hỗ trợ qua Zalo', href: 'https://zalo.me/0363076260' }
+                    ]);
+                }
+            }, 180);
+        }
+
+        document.querySelectorAll('[data-topic]').forEach(button => {
+            button.addEventListener('click', () => answerTopic(button.dataset.topic));
+        });
+
+        input.addEventListener('input', () => {
+            sendButton.disabled = input.value.trim().length === 0;
+        });
+
+        document.getElementById('chatForm').addEventListener('submit', event => {
+            event.preventDefault();
+            const text = input.value.trim();
+            if (!text) return;
+            input.value = '';
+            sendButton.disabled = true;
+            answerFreeText(text);
+            input.focus();
+        });
+    </script>
 </body>
 </html>
