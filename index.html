@@ -6,6 +6,7 @@
     <title>SV VT VN.COM - CỬA HÀNG VT-VN</title>
     <link rel="icon" type="image/png" href="https://cdn.phototourl.com/free/2026-07-23-c77cb032-5206-4e48-9048-a2a63ce065de.png?v=2">
     <link rel="stylesheet" href="gaming-theme.css">
+    <link rel="stylesheet" href="mobile-menu.css">
 </head>
 <body>
     <!-- GAMING HEADER -->
@@ -19,6 +20,7 @@
         </div>
         
         <nav class="header-center">
+            <button class="mobile-menu-close" type="button" aria-label="Đóng menu" onclick="toggleMobileMenu()">&times;</button>
             <a href="index.html">TRANG CHỦ</a>
             <a href="thu.html">THÚ</a>
             <a href="dung-cu.html">DỤNG CỤ</a>
@@ -29,6 +31,10 @@
         </nav>
         
         <div class="header-right">
+            <button class="hamburger-menu" id="hamburgerMenu" type="button" aria-label="Mở menu" onclick="toggleMobileMenu()">
+                <span class="hamburger-icon"><span></span><span></span><span></span></span>
+                <span class="hamburger-text">MENU</span>
+            </button>
             <a href="login.html" class="auth-btn" id="loginLink">ĐĂNG NHẬP</a>
             <a href="register.html" class="auth-btn" id="registerLink">ĐĂNG KÝ</a>
             <a href="profile.html" class="auth-btn" id="profileLink" style="display: none;">PROFILE</a>
@@ -46,6 +52,8 @@
             </button>
         </div>
     </header>
+
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
 
     <!-- SHOPPING CART SIDEBAR -->
     <div class="cart-sidebar" id="cartSidebar">
@@ -82,30 +90,33 @@
     </div>
 
     <!-- HERO BANNER -->
-    <section class="hero-banner">
-        <div class="national-day-decoration" id="nationalDayDecoration"></div>
-        <div class="particles-container" id="particlesContainer"></div>
-        
-        <!-- Marquee Effect -->
-        <div class="marquee-container">
-            <div class="marquee-content">
-                <span class="marquee-text">✨ CHÀO MỪNG ĐẾN VỚI SV VT VN - HỆ THỐNG SHOP ARK SURVIVAL HÀNG ĐẦU VIỆT NAM! ✨</span>
-                <span class="marquee-text">✨ CHÀO MỪNG ĐẾN VỚI SV VT VN - HỆ THỐNG SHOP ARK SURVIVAL HÀNG ĐẦU VIỆT NAM! ✨</span>
-                <span class="marquee-text">✨ CHÀO MỪNG ĐẾN VỚI SV VT VN - HỆ THỐNG SHOP ARK SURVIVAL HÀNG ĐẦU VIỆT NAM! ✨</span>
-                <span class="marquee-text">✨ CHÀO MỪNG ĐẾN VỚI SV VT VN - HỆ THỐNG SHOP ARK SURVIVAL HÀNG ĐẦU VIỆT NAM! ✨</span>
-                <span class="marquee-text">✨ CHÀO MỪNG ĐẾN VỚI SV VT VN - HỆ THỐNG SHOP ARK SURVIVAL HÀNG ĐẦU VIỆT NAM! ✨</span>
+    <section class="hero-banner home-hero">
+        <div class="home-hero-content">
+            <p class="home-hero-kicker"><span></span> ARK SURVIVAL COMMUNITY SHOP</p>
+            <h1 class="home-hero-title">SV VT VN</h1>
+            <p class="home-hero-copy">Chuẩn bị hành trang, chọn đồng đội và bắt đầu cuộc sinh tồn theo cách của bạn.</p>
+            <div class="home-hero-actions">
+                <a href="#categories" class="home-hero-primary">KHÁM PHÁ SHOP <span aria-hidden="true">&#8594;</span></a>
+                <a href="thu.html" class="home-hero-secondary">XEM THÚ ARK</a>
+            </div>
+            <div class="home-hero-meta" aria-label="Danh mục cửa hàng">
+                <span>THÚ VÀ SINH VẬT</span>
+                <span>DỤNG CỤ SINH TỒN</span>
+                <span>GÓI KHỞI ĐẦU</span>
             </div>
         </div>
-        
-        <div class="hero-content">
-            <h1 class="hero-title">CỬA HÀNG SV VT VN - HỆ THỐNG SHOP ARK SURVIVAL</h1>
-            <!-- <p class="hero-subtitle">HỆ THỐNG SHOP ARK SURVIVAL</p> -->
-            <a href="#categories" class="hero-cta-btn">KHÁM PHÁ NGAY</a>
-        </div>
+        <div class="home-hero-caption"><span>01</span> THE ISLAND / SURVIVE TOGETHER</div>
     </section>
 
-      <!-- CATEGORY CARDS -->
-    <section class="category-section" id="categories">
+    <!-- CATEGORY CARDS -->
+    <section class="category-section home-categories" id="categories">
+        <div class="home-section-heading">
+            <div>
+                <p class="home-section-kicker">BẮT ĐẦU HÀNH TRÌNH</p>
+                <h2>CHỌN LỐI CHƠI CỦA BẠN</h2>
+            </div>
+            <p>Từ thú đồng hành đến trang bị và những gói đồ được tuyển chọn.</p>
+        </div>
         <div class="category-grid">
             <!-- CARD THÚ -->
             <div class="category-card" onclick="window.location.href='thu.html'">
@@ -218,6 +229,17 @@
     <script src="auth.js"></script>
     <script src="cart.js"></script>
     <script>
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.header-center');
+            const hamburger = document.getElementById('hamburgerMenu');
+            const overlay = document.getElementById('menuOverlay');
+            const isOpen = menu.classList.toggle('active');
+
+            hamburger.classList.toggle('active', isOpen);
+            overlay.classList.toggle('active', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+
         // Global variable để lưu products
         let products = [];
 

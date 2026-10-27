@@ -213,6 +213,10 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .menu-overlay {
+                z-index: 90;
+            }
+
             .hamburger-menu {
                 display: flex;
                 align-items: center;
@@ -244,24 +248,58 @@
             }
 
             .header-center.active {
+                inset: 0;
+                height: 100vh;
+                height: 100dvh;
+                min-height: 100vh;
+                flex-wrap: nowrap;
+                gap: 12px;
+                overflow-y: auto;
+                box-sizing: border-box;
+                padding: calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));
                 opacity: 1;
                 transform: translateX(0);
                 pointer-events: auto;
             }
 
-            .header-center a {
+            .header-center.active a {
                 width: min(100%, 280px);
-                padding: 16px 22px;
-                font-size: 18px;
+                flex: 0 0 auto;
+                box-sizing: border-box;
+                padding: 14px 18px;
+                font-size: 16px;
                 text-align: center;
                 border-radius: 12px;
                 background: rgba(255, 23, 68, 0.12);
                 border: 1px solid rgba(255,255,255,0.14);
             }
 
+            .mobile-menu-close {
+                display: none;
+            }
+
+            .header-center.active .mobile-menu-close {
+                display: grid;
+                place-items: center;
+                position: absolute;
+                top: calc(16px + env(safe-area-inset-top));
+                right: 16px;
+                width: 44px;
+                height: 44px;
+                border: 1px solid rgba(255,255,255,0.3);
+                border-radius: 50%;
+                background: rgba(255,255,255,0.1);
+                color: #fff;
+                font-size: 26px;
+                line-height: 1;
+                cursor: pointer;
+                z-index: 5;
+            }
+
             .bottom-nav {
                 display: flex;
                 justify-content: space-around;
+                z-index: 80;
             }
 
             body {
@@ -296,6 +334,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="mobile-menu.css">
 </head>
 <body>
     <!-- GAMING HEADER -->
@@ -309,6 +348,7 @@
         </div>
         
         <nav class="header-center">
+            <button class="mobile-menu-close" type="button" aria-label="Đóng menu" onclick="toggleMobileMenu()">&times;</button>
             <a href="index.html">TRANG CHỦ</a>
             <a href="thu.html">THÚ</a>
             <a href="dung-cu.html">DỤNG CỤ</a>
